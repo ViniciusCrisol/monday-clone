@@ -8,11 +8,15 @@
     "start": "next start"
   },
   "dependencies": {
+    "@unform/core": "^2.1.6",
+    "@unform/web": "^2.1.6",
     "axios": "^0.21.1",
     "next": "10.0.9",
     "next-images": "^1.7.0",
+    "polished": "^4.1.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-icons": "^4.2.0",
     "react-toastify": "^7.0.3",
     "styled-components": "^5.2.1"
   },

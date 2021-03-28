@@ -5,14 +5,14 @@ import CreateUser from '../components/CreateUser';
 import DownloadReport from '../components/DownloadReport';
 import AuthenticateUser from '../components/AuthenticateUser';
 
-const Home: React.FC = () => {
+const Login: React.FC = () => {
   return (
     <Container>
       <Head>
-        <title>Home</title>
+        <title>Login</title>
       </Head>
     </Container>
   );
 };
 
-export default Home;
+export default Login;

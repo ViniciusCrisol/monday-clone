@@ -4,10 +4,12 @@ class Account extends Model {
   static init(sequelize) {
     super.init(
       {
-        name: Sequelize.STRING,
-        email: Sequelize.STRING,
+        user_name: Sequelize.STRING,
+        user_email: Sequelize.STRING,
         account_name: Sequelize.STRING,
         password_hash: Sequelize.STRING,
+        inserted_at: Sequelize.DATE,
+        updated_at: Sequelize.DATE,
       },
       { sequelize }
     );

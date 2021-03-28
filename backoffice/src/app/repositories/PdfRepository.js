@@ -2,7 +2,7 @@ import path from 'path';
 import Account from '../models/Account';
 
 class PdfRepository {
-  #joinTemplatePath(fileName) {
+  joinTemplatePath(fileName) {
     return path.join(__dirname, '..', 'views', 'documents', fileName);
   }
 
@@ -12,19 +12,19 @@ class PdfRepository {
 
   getPdfTemplate(template) {
     if (template === 'users-report') {
-      return this.#joinTemplatePath('users_report.ejs');
+      return this.joinTemplatePath('users_report.ejs');
     }
   }
 
   async getPdfData(id, template) {
     if (template === 'users-report') {
       const response = await Account.findByPk(id, {
-        attributes: ['name'],
+        attributes: ['user_name'],
       });
       if (!response) return undefined;
 
-      const { name } = response.dataValues;
-      return { name };
+      const { user_name } = response.dataValues;
+      return { name: user_name };
     }
   }
 }

@@ -1,9 +1,12 @@
 const theme = {
   colors: {
-    black: 'black',
-    text: 'darkgray',
-    background: 'white',
-    primary: 'lightseagreen'
+    text: '#333',
+    background: '#fff',
+    button: '#fff',
+    red: '#E2445C',
+    blue: '#4353FF',
+    green: '#00C875',
+    yellow: '#FDAB3D'
   }
 };
 

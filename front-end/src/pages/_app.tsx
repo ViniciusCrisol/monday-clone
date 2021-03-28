@@ -6,21 +6,22 @@ import 'react-toastify/dist/ReactToastify.css';
 import GlobalStyles from '../styles/global';
 import theme from '../styles/theme';
 
+import Header from '../components/Header';
+
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyles />
       <ToastContainer
         position="top-center"
-        rtl={false}
         autoClose={false}
         draggable={false}
-        newestOnTop={false}
         closeOnClick={false}
-        hideProgressBar={false}
         pauseOnFocusLoss={false}
       />
+
+      <Header isAutheticated={false} />
       <Component {...pageProps} />
-      <GlobalStyles />
     </ThemeProvider>
   );
 };
