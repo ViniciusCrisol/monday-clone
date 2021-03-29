@@ -1,12 +1,19 @@
 const theme = {
   colors: {
-    text: '#333',
-    background: '#fff',
-    button: '#fff',
-    red: '#E2445C',
-    blue: '#4353FF',
-    green: '#00C875',
-    yellow: '#FDAB3D'
+    others: {
+      'dark-gray': '#666360',
+      'light-gray': '#e3e3e3'
+    },
+    general: {
+      text: '#333',
+      background: '#fff'
+    },
+    base: {
+      red: '#e2445c',
+      blue: '#579bfc',
+      green: '#00c875',
+      yellow: '#fdab3d'
+    }
   }
 };
 

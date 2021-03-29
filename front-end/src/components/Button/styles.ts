@@ -6,9 +6,10 @@ export const Container = styled.button<ButtonProps>`
   height: 40px;
   min-width: 175px;
 
-  border-radius: 20px;
   padding: 0 16px;
-  background: ${({ theme, color }) => theme.colors[color] || theme.colors.blue};
+  border-radius: 20px;
+  background: ${({ theme, color }) =>
+    theme.colors[color] || theme.colors.base.blue};
 
   display: flex;
   align-items: center;
@@ -16,11 +17,11 @@ export const Container = styled.button<ButtonProps>`
 
   cursor: pointer;
   transition: background 200ms;
-  color: ${({ theme }) => theme.colors.button};
+  color: ${({ theme }) => theme.colors.general.background};
 
   &:hover {
     background: ${({ theme, color }) =>
-      darken(0.08, theme.colors[color] || theme.colors.blue)};
+      darken(0.08, theme.colors.base[color] || theme.colors.base.blue)};
   }
 
   svg {

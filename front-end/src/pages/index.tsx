@@ -1,15 +1,11 @@
 import Head from 'next/head';
 import { Container } from '../styles/pages/Home';
 
-import CreateUser from '../components/CreateUser';
-import DownloadReport from '../components/DownloadReport';
-import AuthenticateUser from '../components/AuthenticateUser';
-
 const Home: React.FC = () => {
   return (
     <Container>
       <Head>
-        <title>Home</title>
+        <title>monday.com: Work the way that works for you</title>
       </Head>
     </Container>
   );

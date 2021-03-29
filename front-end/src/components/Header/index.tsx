@@ -1,5 +1,6 @@
-import { mondayLogo } from '../../utils/files';
+import Link from 'next/link';
 import { Container } from './styles';
+import { mondayLogo } from '../../utils/files';
 
 import NonAuthenticatedContainer from './NonAuthenticatedContainer';
 
@@ -10,7 +11,11 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ isAutheticated }) => {
   return (
     <Container>
-      <img src={mondayLogo} alt="monday.com(logo)" />
+      <Link href={!isAutheticated && '/'}>
+        <a>
+          <img src={mondayLogo} alt="monday.com(logo)" />
+        </a>
+      </Link>
 
       {!isAutheticated && <NonAuthenticatedContainer />}
     </Container>

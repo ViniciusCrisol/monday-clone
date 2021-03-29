@@ -10,15 +10,15 @@ export default createGlobalStyle`
 
   body {
     overflow-x: hidden;
-    background-color: ${({ theme }) => theme.colors.background};
+    background-color: ${({ theme }) => theme.colors.general.background};
   }
 
 
   body, input, button, a {
     font-size: 14px;
     font-family: Roboto, sans-serif;
-    color: ${({ theme }) => theme.colors.text};
     -webkit-font-smoothing: antialiased !important;
+    color: ${({ theme }) => theme.colors.general.text};
   }
 
   a {
@@ -26,7 +26,7 @@ export default createGlobalStyle`
     text-decoration: none;
   }
 
-  button {
+  button, input {
     border: none
   }
 `;
