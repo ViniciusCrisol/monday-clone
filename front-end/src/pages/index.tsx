@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import { Container } from '../styles/pages/Home';
+import Header from '../components/Header';
+import { Container } from '../styles/pages/home';
 
 const Home: React.FC = () => {
   return (
@@ -7,6 +8,7 @@ const Home: React.FC = () => {
       <Head>
         <title>monday.com: Work the way that works for you</title>
       </Head>
+      <Header />
     </Container>
   );
 };

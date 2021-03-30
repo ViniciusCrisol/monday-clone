@@ -6,8 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import GlobalStyles from '../styles/global';
 import theme from '../styles/theme';
 
-import Header from '../components/Header';
-
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ThemeProvider theme={theme}>
@@ -20,7 +18,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         pauseOnFocusLoss={false}
       />
 
-      <Header isAutheticated={false} />
       <Component {...pageProps} />
     </ThemeProvider>
   );
