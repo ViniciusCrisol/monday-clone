@@ -1,23 +1,28 @@
 import Link from 'next/link';
-import { Container } from './styles';
+import { FiChevronRight } from 'react-icons/fi';
 import { mondayLogo } from '../../utils/files';
+import { Container, UserContainer } from './styles';
 
-import NonAuthenticatedContainer from './NonAuthenticatedContainer';
-
-interface HeaderProps {
-  isAutheticated: boolean;
-}
-
-const Header: React.FC<HeaderProps> = ({ isAutheticated }) => {
+const Header: React.FC = () => {
   return (
     <Container>
-      <Link href={!isAutheticated && '/'}>
+      <Link href="/">
         <a>
           <img src={mondayLogo} alt="monday.com(logo)" />
         </a>
       </Link>
+      <UserContainer>
+        <Link href="/login">
+          <a>Login</a>
+        </Link>
 
-      {!isAutheticated && <NonAuthenticatedContainer />}
+        <Link href="/create-account">
+          <a className="button">
+            Create Free Account
+            <FiChevronRight />
+          </a>
+        </Link>
+      </UserContainer>{' '}
     </Container>
   );
 };
