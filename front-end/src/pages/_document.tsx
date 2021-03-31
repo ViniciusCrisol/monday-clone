@@ -7,6 +7,7 @@ import Document, {
   Head,
   Main
 } from 'next/document';
+import { mondayIcon } from '../utils/files';
 import { ServerStyleSheet } from 'styled-components';
 
 export default class MyDocument extends Document {
@@ -42,8 +43,9 @@ export default class MyDocument extends Document {
       <Html lang="pt">
         <Head>
           <meta charSet="utf-8" />
+          <link id="favicon" rel="shortcut icon" href={mondayIcon} />
           <link
-            href="https://fonts.googleapis.com/css?family=Roboto:400;500;700"
+            href="https://fonts.googleapis.com/css?family=Roboto:400;500;600;700"
             rel="stylesheet"
           />
         </Head>

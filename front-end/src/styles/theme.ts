@@ -1,6 +1,7 @@
 const theme = {
   colors: {
     others: {
+      'dark-blue': '#292f4c',
       'dark-gray': '#666360',
       'light-gray': '#e3e3e3'
     },

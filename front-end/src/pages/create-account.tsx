@@ -5,8 +5,11 @@ import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import { FiPaperclip, FiMail, FiLock, FiUser } from 'react-icons/fi';
 
+import { createAccountBanner } from '../utils/files';
+
 import Input from '../components/Input';
 import Button from '../components/Button';
+import FakeDashboard from '../components/FakeDashboard';
 import { Container } from '../styles/pages/create-account';
 
 interface formData {
@@ -29,36 +32,45 @@ const CreateAccount: React.FC = () => {
       </Head>
 
       <Container>
-        <div>
+        <FakeDashboard />
+
+        <div className="form-container">
           <Form onSubmit={handleSubmit} ref={formRef}>
-            <h1>Create account </h1>
-            <Input icon={FiUser} name="user_name" placeholder="Full name" />
-            <Input
-              icon={FiPaperclip}
-              name="acccount_name"
-              placeholder="Account name"
-            />
-            <Input
-              icon={FiMail}
-              name="user_email"
-              placeholder="E-mail address"
-            />
-            <Input
-              icon={FiLock}
-              name="password"
-              type="password"
-              placeholder="Password"
-            />
-            <Input
-              icon={FiLock}
-              type="password"
-              name="confirm_password"
-              placeholder="Confirm password"
-            />
-            <Button type="submit">Register</Button>
-            <Link href="/account/login">
-              <a className="login">I already have an account.</a>
-            </Link>
+            <div className="main">
+              <h1>Create account </h1>
+              <Input icon={FiUser} name="user_name" placeholder="Full name" />
+              <Input
+                icon={FiPaperclip}
+                name="acccount_name"
+                placeholder="Account name"
+              />
+              <Input
+                icon={FiMail}
+                name="user_email"
+                placeholder="E-mail address"
+              />
+              <Input
+                icon={FiLock}
+                name="password"
+                type="password"
+                placeholder="Password"
+              />
+              <Input
+                icon={FiLock}
+                type="password"
+                name="confirm_password"
+                placeholder="Confirm password"
+              />
+              <Button isSquare type="submit">
+                Register
+              </Button>
+              <Link href="/account/login">
+                <a className="login">I already have an account.</a>
+              </Link>
+            </div>
+            <div className="image-container">
+              <img src={createAccountBanner} alt="Brands that use Monday" />
+            </div>
           </Form>
         </div>
       </Container>

@@ -7,7 +7,7 @@ export const Container = styled.button<ButtonProps>`
   min-width: 175px;
 
   padding: 0 16px;
-  border-radius: 20px;
+  border-radius: ${({ isSquare }) => (isSquare ? '4px' : '20px')};
   background: ${({ theme, color }) =>
     theme.colors[color] || theme.colors.base.blue};
 

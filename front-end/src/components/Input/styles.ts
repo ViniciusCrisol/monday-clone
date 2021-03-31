@@ -22,6 +22,26 @@ export const Container = styled.div<ContainerProps>`
     margin-top: 8px;
   }
 
+  input {
+    flex: 1;
+    padding: 16px 0;
+    background: transparent;
+
+    font-size: 16px;
+    color: ${({ theme }) => theme.colors.general.text};
+
+    &::placeholder {
+      color: ${({ theme }) => theme.colors.others['dark-gray']};
+    }
+  }
+
+  svg {
+    flex-shrink: 0;
+    margin-right: 16px;
+    transition: stroke 100ms;
+    stroke: ${({ theme }) => theme.colors.others['light-gray']};
+  }
+
   ${({ isFocused }) =>
     isFocused &&
     css`
@@ -41,24 +61,4 @@ export const Container = styled.div<ContainerProps>`
         stroke: ${({ theme }) => theme.colors.base.blue};
       }
     `}
-
-  input {
-    flex: 1;
-    padding: 16px 0;
-    background: transparent;
-
-    font-size: 16px;
-    color: ${({ theme }) => theme.colors.general.text};
-
-    &::placeholder {
-      color: ${({ theme }) => theme.colors.others['dark-gray']};
-    }
-  }
-
-  svg {
-    flex-shrink: 0;
-    margin-right: 16px;
-    transition: stroke 100ms;
-    stroke: ${({ theme }) => theme.colors.base.blue};
-  }
 `;
