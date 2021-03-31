@@ -3,7 +3,8 @@ const theme = {
     others: {
       'dark-blue': '#292f4c',
       'dark-gray': '#666360',
-      'light-gray': '#e3e3e3'
+      'light-gray': '#e3e3e3',
+      'light-blue': '#d5e6fe'
     },
     general: {
       text: '#333',

@@ -76,6 +76,22 @@ export const Container = styled.div`
             stroke-width: 1.5px;
           }
         }
+
+        &:last-child {
+          padding: 12px;
+          border-bottom: none;
+
+          li {
+            padding: 6px 12px;
+            justify-content: unset;
+
+            &:last-child {
+              border-radius: 4px;
+              color: ${({ theme }) => theme.colors.base.blue};
+              background: ${({ theme }) => theme.colors.base.blue}40;
+            }
+          }
+        }
       }
     }
   }

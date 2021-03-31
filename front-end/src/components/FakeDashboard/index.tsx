@@ -3,7 +3,8 @@ import {
   FiFilter,
   FiPlusCircle,
   FiChevronRight,
-  FiChevronLeft
+  FiChevronLeft,
+  FiLayout
 } from 'react-icons/fi';
 
 import { mondayIcon } from '../../utils/files';
@@ -47,6 +48,20 @@ const FakeDashboard: React.FC = () => {
                 Search..
               </div>
               <FiChevronRight size={18} />
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <FiLayout size={18} />
+              Team Workflow
+            </li>
+            <li>
+              <FiLayout size={18} />
+              Weekly Updates
+            </li>
+            <li>
+              <FiLayout size={18} />
+              Dashboard
             </li>
           </ul>
         </div>
