@@ -17,7 +17,7 @@ export const Container = styled.div`
     padding: 10px;
     background: rgba(22, 22, 49, 0.7);
 
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
 

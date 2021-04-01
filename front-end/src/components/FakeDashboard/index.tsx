@@ -4,12 +4,12 @@ import {
   FiPlusCircle,
   FiChevronRight,
   FiChevronLeft,
-  FiLayout
+  FiLayout,
+  FiStar
 } from 'react-icons/fi';
 
 import { mondayIcon } from '../../utils/files';
-
-import { Container } from './styles';
+import { Container, Dashboard } from './styles';
 
 const FakeDashboard: React.FC = () => {
   return (
@@ -65,6 +65,23 @@ const FakeDashboard: React.FC = () => {
             </li>
           </ul>
         </div>
+
+        <Dashboard>
+          <div className="header">
+            <h1>
+              Team Workflow <FiStar size={22} />
+            </h1>
+
+            <div>
+              <span>Integrate/0</span>
+              <span>Automate/10</span>
+              <button>Subscribers/4</button>
+              <button>
+                Activities/<span>99+</span>
+              </button>
+            </div>
+          </div>
+        </Dashboard>
       </div>
     </Container>
   );
