@@ -29,4 +29,13 @@ export default createGlobalStyle`
   button, input {
     border: none
   }
+
+  input:-webkit-autofill,
+  select:-webkit-autofill,
+  textarea:-webkit-autofill {
+    -webkit-text-fill-color: ${({ theme }) =>
+      theme.colors.general.text} !important;
+    -webkit-box-shadow: 0 0 0px 1000px ${({ theme }) =>
+      theme.colors.general.background} inset;
+  }
 `;

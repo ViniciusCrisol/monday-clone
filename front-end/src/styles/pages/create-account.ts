@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100vw;
-  height: 100vh;
-  overflow: hidden;
 
   > div.form-container {
     width: 100vw;
@@ -17,7 +15,7 @@ export const Container = styled.div`
     padding: 10px;
     background: rgba(22, 22, 49, 0.7);
 
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
 

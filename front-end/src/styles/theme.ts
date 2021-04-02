@@ -4,7 +4,9 @@ const theme = {
       'dark-blue': '#292f4c',
       'dark-gray': '#666360',
       'light-gray': '#e3e3e3',
-      'light-blue': '#d5e6fe'
+      'light-blue': '#d5e6fe',
+      'scrollbar-gray': '#b2b2b2',
+      'card-background': '#f5f6f8'
     },
     general: {
       text: '#333',

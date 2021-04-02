@@ -1,88 +1,34 @@
-import {
-  FiSearch,
-  FiFilter,
-  FiPlusCircle,
-  FiChevronRight,
-  FiChevronLeft,
-  FiLayout,
-  FiStar
-} from 'react-icons/fi';
-
-import { mondayIcon } from '../../utils/files';
-import { Container, Dashboard } from './styles';
+import Groups from './Groups';
+import SideMenu from './SideMenu';
+import MainContainer from './MainContainer';
+import groups from './mock';
+import { Container, Row } from './styles';
 
 const FakeDashboard: React.FC = () => {
   return (
     <Container>
-      <div className="side-menu">
-        <div>
-          <img src={mondayIcon} alt="Monday Icon" />
-        </div>
-      </div>
-      <div className="main-container">
-        <div className="boards-menu">
-          <div className="header">
-            <h2>Boards</h2>
-            <span>
-              <FiChevronLeft />
-            </span>
-          </div>
-          <ul>
-            <li>
-              <div>
-                <FiPlusCircle size={18} />
-                Add
-              </div>
-              <FiChevronRight size={18} />
-            </li>
-            <li>
-              <div>
-                <FiFilter size={18} />
-                Filter
-              </div>
-              <FiChevronRight size={18} />
-            </li>
-            <li>
-              <div>
-                <FiSearch size={18} />
-                Search..
-              </div>
-              <FiChevronRight size={18} />
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <FiLayout size={18} />
-              Team Workflow
-            </li>
-            <li>
-              <FiLayout size={18} />
-              Weekly Updates
-            </li>
-            <li>
-              <FiLayout size={18} />
-              Dashboard
-            </li>
-          </ul>
-        </div>
-
-        <Dashboard>
-          <div className="header">
-            <h1>
-              Team Workflow <FiStar size={22} />
-            </h1>
-
-            <div>
-              <span>Integrate/0</span>
-              <span>Automate/10</span>
-              <button>Subscribers/4</button>
-              <button>
-                Activities/<span>99+</span>
-              </button>
-            </div>
-          </div>
-        </Dashboard>
-      </div>
+      <SideMenu />
+      <MainContainer>
+        {groups.map(group => (
+          <Groups key={group.title} title={group.title}>
+            {group.cards.map(card => (
+              <Row key={card.name}>
+                <span>{card.name}</span>
+                <span>{card.email}</span>
+                <span>{card.phone}</span>
+                <span>{card.owner}</span>
+                <span>{card.status}</span>
+                <span>{card.company}</span>
+                <span>{card.dueDate}</span>
+                <span>{card.priority}</span>
+              </Row>
+            ))}
+            <Row>
+              <span>+ Add</span>
+            </Row>
+          </Groups>
+        ))}
+      </MainContainer>
     </Container>
   );
 };

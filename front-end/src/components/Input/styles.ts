@@ -5,28 +5,28 @@ interface ContainerProps {
   isFocused: boolean;
 }
 
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.label<ContainerProps>`
   width: 100%;
   height: 36px;
 
-  padding: 0 16px;
+  padding-left: 16px;
   border-radius: 4px;
   background: ${({ theme }) => theme.colors.general.background};
   border: 2px solid ${({ theme }) => theme.colors.others['light-gray']};
 
   display: flex;
   align-items: center;
+
+  cursor: text;
   transition: border 100ms;
 
-  & + div {
+  & + label {
     margin-top: 8px;
   }
 
   input {
     flex: 1;
-    padding: 16px 0;
     background: transparent;
-
     font-size: 16px;
     color: ${({ theme }) => theme.colors.general.text};
 

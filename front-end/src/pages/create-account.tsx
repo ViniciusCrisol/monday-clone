@@ -47,7 +47,7 @@ const CreateAccount: React.FC = () => {
               <Input
                 icon={FiMail}
                 name="user_email"
-                placeholder="E-mail address"
+                placeholder="Email address"
               />
               <Input
                 icon={FiLock}
