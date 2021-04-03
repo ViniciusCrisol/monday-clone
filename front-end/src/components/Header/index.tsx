@@ -18,7 +18,7 @@ const Header: React.FC = () => {
 
         <Link href="/create-account">
           <a className="button">
-            Create Free Account
+            Create Free a Account
             <FiChevronRight />
           </a>
         </Link>
