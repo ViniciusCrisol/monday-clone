@@ -5,12 +5,14 @@ import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import { FiPaperclip, FiMail, FiLock, FiUser } from 'react-icons/fi';
 
-import { createAccountBanner } from '../utils/files';
-
-import Input from '../components/Input';
-import Button from '../components/Button';
-import FakeDashboard from '../components/FakeDashboard';
-import { Container, FormContainer } from '../styles/pages/create-account';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+import FakeDashboard from '../../components/FakeDashboard';
+import { createAccountBanner } from '../../utils/files';
+import {
+  Container,
+  FormContainer
+} from '../../styles/pages/users/create-account';
 
 interface formData {
   user_name: string;
@@ -64,8 +66,8 @@ const CreateAccount: React.FC = () => {
             <Button isSquare type="submit">
               Register
             </Button>
-            <Link href="/login">
-              <a className="login">I already have an account.</a>
+            <Link href="/auth/login">
+              <a>I already have an account.</a>
             </Link>
           </div>
           <div className="image-container">

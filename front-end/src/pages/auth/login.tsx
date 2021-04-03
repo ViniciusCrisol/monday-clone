@@ -5,10 +5,14 @@ import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import { FiMail, FiLock, FiArrowRight } from 'react-icons/fi';
 
-import Input from '../components/Input';
-import Button from '../components/Button';
-import { mondayLogo } from '../utils/files';
-import { Container, Header, FormContainer } from '../styles/pages/login';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+import { mondayLogo } from '../../utils/files';
+import {
+  Header,
+  Container,
+  FormContainer
+} from '../../styles/pages/auth/login';
 
 interface formData {
   user_name: string;
@@ -48,8 +52,8 @@ const Login: React.FC = () => {
           <Button type="submit">
             Next <FiArrowRight size={22} />
           </Button>
-          <Link href="/create-account">
-            <a className="login">I don't have an account.</a>
+          <Link href="/users/create-account">
+            <a>I don't have an account.</a>
           </Link>
         </Form>
       </FormContainer>

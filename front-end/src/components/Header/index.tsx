@@ -11,18 +11,18 @@ const Header: React.FC = () => {
           <img src={mondayLogo} alt="monday.com(logo)" />
         </a>
       </Link>
+
       <UserContainer>
-        <Link href="/login">
+        <Link href="/auth/login">
           <a>Login</a>
         </Link>
-
-        <Link href="/create-account">
+        <Link href="/users/create-account">
           <a className="button">
             Create Free Account
             <FiChevronRight />
           </a>
         </Link>
-      </UserContainer>{' '}
+      </UserContainer>
     </Container>
   );
 };

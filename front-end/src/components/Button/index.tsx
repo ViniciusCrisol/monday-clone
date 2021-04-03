@@ -2,14 +2,14 @@ import { Container } from './styles';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: 'green' | 'red' | 'yellow';
   isSquare?: boolean;
+  color?: 'green' | 'red' | 'yellow';
 }
 
 const Button: React.FC<ButtonProps> = ({
-  children,
-  isSquare,
   color,
+  isSquare,
+  children,
   ...rest
 }) => {
   return (

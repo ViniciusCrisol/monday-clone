@@ -8,6 +8,7 @@ const Home: React.FC = () => {
       <Head>
         <title>monday.com: Work the way that works for you</title>
       </Head>
+
       <Header />
     </Container>
   );
