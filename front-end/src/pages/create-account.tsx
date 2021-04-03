@@ -10,7 +10,7 @@ import { createAccountBanner } from '../utils/files';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import FakeDashboard from '../components/FakeDashboard';
-import { Container } from '../styles/pages/create-account';
+import { Container, FormContainer } from '../styles/pages/create-account';
 
 interface formData {
   user_name: string;
@@ -23,58 +23,57 @@ interface formData {
 const CreateAccount: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback((data: formData) => {}, []);
+  const handleSubmit = useCallback((data: formData) => {
+    console.log(data);
+  }, []);
 
   return (
-    <>
+    <Container>
       <Head>
-        <title>monday.com: Create account</title>
+        <title>monday.com: Where Teams Get Work Done | Create account</title>
       </Head>
 
-      <Container>
-        <FakeDashboard />
-
-        <div className="form-container">
-          <Form onSubmit={handleSubmit} ref={formRef}>
-            <div className="main">
-              <h1>Create account </h1>
-              <Input icon={FiUser} name="user_name" placeholder="Full name" />
-              <Input
-                icon={FiPaperclip}
-                name="acccount_name"
-                placeholder="Account name"
-              />
-              <Input
-                icon={FiMail}
-                name="user_email"
-                placeholder="Email address"
-              />
-              <Input
-                icon={FiLock}
-                name="password"
-                type="password"
-                placeholder="Password"
-              />
-              <Input
-                icon={FiLock}
-                type="password"
-                name="confirm_password"
-                placeholder="Confirm password"
-              />
-              <Button isSquare type="submit">
-                Register
-              </Button>
-              <Link href="/account/login">
-                <a className="login">I already have an account.</a>
-              </Link>
-            </div>
-            <div className="image-container">
-              <img src={createAccountBanner} alt="Brands that use Monday" />
-            </div>
-          </Form>
-        </div>
-      </Container>
-    </>
+      <FakeDashboard />
+      <FormContainer>
+        <Form onSubmit={handleSubmit} ref={formRef}>
+          <div className="inputs-container">
+            <h1>Create account</h1>
+            <Input icon={FiUser} name="user_name" placeholder="Full name" />
+            <Input
+              icon={FiPaperclip}
+              name="acccount_name"
+              placeholder="Account name"
+            />
+            <Input
+              icon={FiMail}
+              name="user_email"
+              placeholder="Email address"
+            />
+            <Input
+              icon={FiLock}
+              name="password"
+              type="password"
+              placeholder="Password"
+            />
+            <Input
+              icon={FiLock}
+              type="password"
+              name="confirm_password"
+              placeholder="Confirm password"
+            />
+            <Button isSquare type="submit">
+              Register
+            </Button>
+            <Link href="/login">
+              <a className="login">I already have an account.</a>
+            </Link>
+          </div>
+          <div className="image-container">
+            <img src={createAccountBanner} alt="Brands that use Monday" />
+          </div>
+        </Form>
+      </FormContainer>
+    </Container>
   );
 };
 
