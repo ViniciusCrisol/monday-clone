@@ -9,9 +9,10 @@ export const MainContainer = styled.div`
   width: 100%;
   height: 100vh;
 
-  padding: 30px;
   border-radius: 12px 0px 0px 0px;
   background: ${({ theme }) => theme.colors.general.background};
+
+  display: flex;
 
   overflow-y: scroll;
   overflow-x: hidden;

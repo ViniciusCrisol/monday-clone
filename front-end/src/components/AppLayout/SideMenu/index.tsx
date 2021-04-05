@@ -27,8 +27,10 @@ const SideMenu: React.FC = () => {
             <span>Home</span>
           </a>
         </Link>
-        <Link href="/app/home/">
-          <a>
+        <Link href="/app/notifications/">
+          <a
+            className={router.pathname == '/app/notifications' ? 'active' : ''}
+          >
             <FiBell size={23} />
             <span>Notifications</span>
           </a>

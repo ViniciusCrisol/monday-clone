@@ -1,8 +1,16 @@
 import Head from 'next/head';
 import SideMenu from './SideMenu';
+import BoardsMenu from './BoardsMenu';
 import { Container, MainContainer } from './styles';
 
-const AppLayout: React.FC = ({ children }) => {
+interface AppLayoutInterface {
+  boradsMenuIsActive?: boolean;
+}
+
+const AppLayout: React.FC<AppLayoutInterface> = ({
+  children,
+  boradsMenuIsActive = true
+}) => {
   return (
     <Container>
       <Head>
@@ -10,7 +18,10 @@ const AppLayout: React.FC = ({ children }) => {
       </Head>
 
       <SideMenu />
-      <MainContainer>{children}</MainContainer>
+      <MainContainer>
+        {boradsMenuIsActive && <BoardsMenu />}
+        <main>{children}</main>
+      </MainContainer>
     </Container>
   );
 };

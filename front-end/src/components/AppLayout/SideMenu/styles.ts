@@ -30,16 +30,15 @@ export const Container = styled.nav`
 
     a {
       position: relative;
-
       width: 44px;
       height: 44px;
+
+      border-radius: 4px;
+      transition: background 200ms;
 
       display: flex;
       align-items: center;
       justify-content: center;
-
-      border-radius: 4px;
-      transition: background 200ms;
 
       svg {
         stroke-width: 1.3px;
@@ -47,7 +46,9 @@ export const Container = styled.nav`
       }
 
       span {
+        opacity: 0;
         font-size: 0;
+        transition: opacity 150ms, transform 200ms;
       }
 
       &:hover {
@@ -55,18 +56,19 @@ export const Container = styled.nav`
           darken(0.125, theme.colors.others['side-menu-active'])};
 
         span {
-          z-index: 50;
-          position: absolute;
-          left: 62px;
-
           width: max-content;
+          position: absolute;
+          z-index: 50;
+          left: 28px;
+
+          opacity: 100;
+          padding: 6px 12px;
+          border-radius: 4px;
+          transform: translateX(36px);
+          background: ${({ theme }) => theme.colors.others['dark-blue']};
 
           font-size: 16px;
           color: ${({ theme }) => theme.colors.general.background};
-
-          padding: 6px 12px;
-          border-radius: 4px;
-          background: ${({ theme }) => theme.colors.others['dark-blue']};
 
           &::after {
             content: '';

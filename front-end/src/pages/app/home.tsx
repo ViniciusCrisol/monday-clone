@@ -1,8 +1,43 @@
 import Layout from '../../components/AppLayout';
-// import { Container } from './styles';
 
 const Home: React.FC = () => {
-  return <Layout></Layout>;
+  return (
+    <Layout>
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+      <br />
+      <div style={{ height: 100, width: 100, background: 'pink' }} />
+    </Layout>
+  );
 };
 
 export default Home;
