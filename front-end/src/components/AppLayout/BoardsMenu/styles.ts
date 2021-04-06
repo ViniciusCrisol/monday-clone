@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  width: 255px;
+interface BoardsMenuInterface {
+  isOpen?: boolean;
+}
+
+export const Container = styled.div<BoardsMenuInterface>`
+  width: ${({ isOpen }) => isOpen ? "255px" : "50px"};
   height: 100vh;
 
   position: sticky;
@@ -9,6 +13,8 @@ export const Container = styled.div`
 
   flex-shrink: 0;
   border-right: 1px solid ${({ theme }) => theme.colors.others['light-gray']};
+
+  transition: width 150ms;
 
   div.header {
     width: 100%;
@@ -21,16 +27,19 @@ export const Container = styled.div`
 
     h2 {
       font-size: 20px;
+      transition: width 150ms;
+      display: ${({ isOpen }) => isOpen ? "unset" : "none"};
     }
 
-    span {
+    button {
       position: absolute;
       right: -13.5px;
 
       width: 26px;
       height: 26px;
 
-      border-radius: 50%;
+      cursor: pointer;
+      border-radius: 13px;
       background: ${({ theme }) => theme.colors.general.background};
       border: 1px solid ${({ theme }) => theme.colors.others['light-gray']};
 
@@ -46,7 +55,9 @@ export const Container = styled.div`
 
     margin-top: -5px;
     padding: 0 0 6px 24px;
+    display: ${({ isOpen }) => isOpen ? "block" : "none"};
     border-bottom: 1px solid ${({ theme }) => theme.colors.others['light-gray']};
+
 
     li {
       padding: 6px 0;

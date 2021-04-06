@@ -11,6 +11,7 @@ import { Container } from './styles';
 
 const BoardsMenu: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
@@ -19,12 +20,12 @@ const BoardsMenu: React.FC = () => {
   }, []);
 
   return (
-    <Container>
+    <Container isOpen={isOpen}>
       <div className="header">
         <h2>Boards</h2>
-        <span>
+        <button onClick={() => setIsOpen(!isOpen)}>
           <FiChevronLeft />
-        </span>
+        </button>
       </div>
 
       {isLoading ? (
