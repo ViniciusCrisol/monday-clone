@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface BoardsMenuInterface {
   isOpen?: boolean;
 }
 
 export const Container = styled.div<BoardsMenuInterface>`
-  width: ${({ isOpen }) => isOpen ? "255px" : "50px"};
+  width: ${({ isOpen }) => (isOpen ? '255px' : '30px')};
   height: 100vh;
 
   position: sticky;
@@ -21,14 +21,14 @@ export const Container = styled.div<BoardsMenuInterface>`
     height: 64px;
     position: relative;
 
-    padding: 0 24px;
     display: flex;
     align-items: center;
+    padding: ${({ isOpen }) => (isOpen ? '0 24px' : '0')};
 
     h2 {
       font-size: 20px;
       transition: width 150ms;
-      display: ${({ isOpen }) => isOpen ? "unset" : "none"};
+      display: ${({ isOpen }) => (isOpen ? 'unset' : 'none')};
     }
 
     button {
@@ -38,7 +38,6 @@ export const Container = styled.div<BoardsMenuInterface>`
       width: 26px;
       height: 26px;
 
-      cursor: pointer;
       border-radius: 13px;
       background: ${({ theme }) => theme.colors.general.background};
       border: 1px solid ${({ theme }) => theme.colors.others['light-gray']};
@@ -47,20 +46,29 @@ export const Container = styled.div<BoardsMenuInterface>`
       flex-shrink: 0;
       align-items: center;
       justify-content: center;
+
+      cursor: pointer;
+      transition: 150ms;
+      transform: ${({ isOpen }) => (isOpen ? 'rotate(-180deg)' : 'rotate(0)')};
+
+      &:hover {
+        background: ${({ theme }) => theme.colors.base.blue};
+        border-color: ${({ theme }) => theme.colors.base.blue};
+        color: ${({ theme }) => theme.colors.general.background};
+      }
     }
   }
 
   ul {
     font-size: 14px;
-
     margin-top: -5px;
     padding: 0 0 6px 24px;
-    display: ${({ isOpen }) => isOpen ? "block" : "none"};
+    display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
     border-bottom: 1px solid ${({ theme }) => theme.colors.others['light-gray']};
-
 
     li {
       padding: 6px 0;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -71,7 +79,14 @@ export const Container = styled.div<BoardsMenuInterface>`
         align-items: center;
       }
 
+      span.text {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
       svg {
+        flex-shrink: 0;
         margin-right: 6px;
         stroke-width: 1.5px;
       }
