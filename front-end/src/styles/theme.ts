@@ -6,7 +6,8 @@ const theme = {
       'light-gray': '#e3e3e3',
       'light-blue': '#d5e6fe',
       'scrollbar-gray': '#b2b2b2',
-      'card-background': '#f5f6f8'
+      'card-background': '#f5f6f8',
+      'side-menu-active': '#3f445e'
     },
     general: {
       text: '#333',

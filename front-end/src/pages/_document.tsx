@@ -48,6 +48,10 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:400;500;600;700"
             rel="stylesheet"
           />
+          <meta
+            name="description"
+            content="monday.com is a work OS that powers teams to run processes, projects and workflows in one digital workspace"
+          />
         </Head>
         <body>
           <Main />

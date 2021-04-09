@@ -13,7 +13,6 @@ export default createGlobalStyle`
     background-color: ${({ theme }) => theme.colors.general.background};
   }
 
-
   body, input, button, a {
     font-size: 14px;
     font-family: Roboto, sans-serif;
@@ -28,6 +27,10 @@ export default createGlobalStyle`
 
   button, input {
     border: none
+  }
+
+  ul {
+    list-style: none;
   }
 
   input:-webkit-autofill,

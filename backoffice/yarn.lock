@@ -586,10 +586,10 @@ eslint-visitor-keys@^2.0.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-2.0.0.tgz#21fdc8fbcd9c795cc0321f0563702095751511a8"
   integrity sha512-QudtT6av5WXels9WjIM7qz1XD1cWGvX4gGXvp/zBn9nXG02D0utdU3Em2m/QjTnrsk6bBjmCygl3rmj118msQQ==
 
-eslint@^7.22.0:
-  version "7.22.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.22.0.tgz#07ecc61052fec63661a2cab6bd507127c07adc6f"
-  integrity sha512-3VawOtjSJUQiiqac8MQc+w457iGLfuNGLFn8JmF051tTKbh5/x/0vlcEj8OgDCaw7Ysa2Jn8paGshV7x2abKXg==
+eslint@^7.23.0:
+  version "7.23.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.23.0.tgz#8d029d252f6e8cf45894b4bee08f5493f8e94325"
+  integrity sha512-kqvNVbdkjzpFy0XOszNwjkKzZ+6TcwCQ/h+ozlcIWwaimBBuhlQ4nN6kbiM2L+OjDcznkTJxzYfRFH92sx4a0Q==
   dependencies:
     "@babel/code-frame" "7.12.11"
     "@eslint/eslintrc" "^0.4.0"
@@ -1795,10 +1795,10 @@ sequelize-pool@^6.0.0:
   resolved "https://registry.yarnpkg.com/sequelize-pool/-/sequelize-pool-6.1.0.tgz#caaa0c1e324d3c2c3a399fed2c7998970925d668"
   integrity sha512-4YwEw3ZgK/tY/so+GfnSgXkdwIJJ1I32uZJztIEgZeAO6HMgj64OzySbWLgxj+tXhZCJnzRfkY9gINw8Ft8ZMg==
 
-sequelize@^6.5.1:
-  version "6.5.1"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.5.1.tgz#bb08c001515afe159f9efe8c1d59b7a07c43a608"
-  integrity sha512-DWgaF+Vw+gWpxomyyYppUOCWzP0ReoMol8EEaDMA+cbSUevyMb74BEwSAd0c8GKgDYiOjpq4DmKBQLHtLAgS1g==
+sequelize@^6.6.2:
+  version "6.6.2"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.6.2.tgz#3681b0a4aeb106e31079d3a537d88542051dab2e"
+  integrity sha512-H/zrzmTK+tis9PJaSigkuXI57nKBvNCtPQol0yxCvau1iWLzSOuq8t3tMOVeQ+Ep8QH2HoD9/+FCCIAqzUr/BQ==
   dependencies:
     debug "^4.1.1"
     dottie "^2.0.0"

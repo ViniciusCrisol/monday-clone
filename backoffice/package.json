@@ -7,7 +7,7 @@
     "dev": "node -r sucrase/register src/app.js"
   },
   "devDependencies": {
-    "eslint": "^7.22.0",
+    "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "^2.22.1",
@@ -24,6 +24,6 @@
     "nodemailer": "^6.5.0",
     "pg": "^8.5.1",
     "puppeteer": "^8.0.0",
-    "sequelize": "^6.5.1"
+    "sequelize": "^6.6.2"
   }
 }
