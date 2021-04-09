@@ -1,14 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import {
-  FiUser,
-  FiBell,
-  FiSearch,
-  FiDownload,
-  FiCalendar,
-  FiUserPlus,
-  FiGrid
-} from 'react-icons/fi';
+import { FiUser, FiBell, FiGrid } from 'react-icons/fi';
 import { mondayIcon } from '../../../utils/files';
 import { Container } from './styles';
 
@@ -22,14 +14,14 @@ const SideMenu: React.FC = () => {
           <img src={mondayIcon} alt="Monday Icon" />
         </div>
         <Link href="/app/home/">
-          <a className={router.pathname == '/app/home' ? 'active' : ''}>
+          <a className={router.pathname === '/app/home' ? 'active' : ''}>
             <FiGrid size={23} />
             <span>Home</span>
           </a>
         </Link>
         <Link href="/app/notifications/">
           <a
-            className={router.pathname == '/app/notifications' ? 'active' : ''}
+            className={router.pathname === '/app/notifications' ? 'active' : ''}
           >
             <FiBell size={23} />
             <span>Notifications</span>

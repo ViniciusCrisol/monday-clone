@@ -1,6 +1,6 @@
 import Head from 'next/head';
+import Boards from './Boards';
 import SideMenu from './SideMenu';
-import BoardsMenu from './BoardsMenu';
 import { Container, MainContainer } from './styles';
 
 interface AppLayoutInterface {
@@ -19,7 +19,7 @@ const AppLayout: React.FC<AppLayoutInterface> = ({
 
       <SideMenu />
       <MainContainer>
-        {boradsMenuIsActive && <BoardsMenu />}
+        {boradsMenuIsActive && <Boards />}
         <main>{children}</main>
       </MainContainer>
     </Container>

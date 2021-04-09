@@ -1,0 +1,50 @@
+import { useEffect, useState, useCallback } from 'react';
+import { FiPlusCircle, FiChevronRight } from 'react-icons/fi';
+
+import Board from './Board';
+import Loading from '../../Loading';
+import { Container, BoardList, Header } from './styles';
+
+const Boards: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(true);
+
+  const createPeoject = useCallback(() => {}, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  return (
+    <Container isOpen={isOpen}>
+      <Header isOpen={isOpen}>
+        <h2>Boards</h2>
+        <button onClick={() => setIsOpen(!isOpen)}>
+          <FiChevronRight />
+        </button>
+      </Header>
+      <div className="create-project">
+        <button>
+          <div>
+            <FiPlusCircle size={18} />
+            Add
+          </div>
+          <FiChevronRight size={18} />
+        </button>
+      </div>
+      {isLoading ? (
+        <div className="loading-container">
+          <Loading />
+        </div>
+      ) : (
+        <BoardList isOpen={isOpen}>
+          <Board label="Team Workflow" link="1231" />
+        </BoardList>
+      )}
+    </Container>
+  );
+};
+
+export default Boards;
