@@ -1,10 +1,7 @@
 import { injectable, inject } from 'tsyringe';
+
 import AppError from '@shared/errors/AppError';
-import {
-  emailAlreadyInUse,
-  mainThingNotExists,
-  businessRoleNotExists,
-} from '@shared/errors/messages';
+import { emailAlreadyInUse } from '@shared/errors/messages';
 
 import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
 import IBackofficeProvider from '@shared/container/providers/BackofficeProvider/models/IBackofficeProvider';

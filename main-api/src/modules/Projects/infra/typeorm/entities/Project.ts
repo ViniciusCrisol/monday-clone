@@ -10,7 +10,7 @@ import {
 
 import Account from '@modules/Accounts/infra/typeorm/entities/Account';
 
-@Entity('accounts')
+@Entity('projects')
 class Project {
   @PrimaryGeneratedColumn('uuid')
   id: string;
