@@ -1,9 +1,11 @@
+import Project from '@modules/Projects/infra/typeorm/entities/Project';
 import {
   Entity,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('accounts')
@@ -19,6 +21,9 @@ class Account {
 
   @Column({ length: 60 })
   account_name: string;
+
+  @OneToMany(type => Project, project => project.account)
+  projects: Project[];
 
   @Column({ length: 60 })
   password_hash: string;
