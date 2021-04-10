@@ -13,7 +13,6 @@ class AccountsRepository implements IAccountsRepository {
   public async create(data: ICreateAccountDTO): Promise<Account> {
     const account = this.ormRepository.create(data);
     await this.ormRepository.save(account);
-
     return account;
   }
 
