@@ -20,6 +20,13 @@ class ProjectsRepository implements IProjectsRepository {
     const response = await this.ormRepository.findOne(id);
     return response;
   }
+
+  public async findByName(projectName: string): Promise<Project | undefined> {
+    const response = await this.ormRepository.findOne({
+      where: { project_name: projectName },
+    });
+    return response;
+  }
 }
 
 export default ProjectsRepository;

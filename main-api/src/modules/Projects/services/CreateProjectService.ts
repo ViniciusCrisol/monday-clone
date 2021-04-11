@@ -1,9 +1,10 @@
 import { injectable, inject } from 'tsyringe';
-import AppError from '@shared/errors/AppError';
+
 import { nameAlreadyInUse } from '@shared/errors/messages';
 
-import IProjectsRepository from '../repositories/IProjectsRepository';
+import AppError from '@shared/errors/AppError';
 import Project from '../infra/typeorm/entities/Project';
+import IProjectsRepository from '../repositories/IProjectsRepository';
 
 interface IRequest {
   project_name: string;

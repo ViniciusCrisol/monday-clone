@@ -2,12 +2,12 @@ import { injectable, inject } from 'tsyringe';
 import { sign } from 'jsonwebtoken';
 
 import authConfig from '@config/auth';
-import AppError from '@shared/errors/AppError';
 import { authenticationFail } from '@shared/errors/messages';
 
-import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
-import IAccountsRepository from '../repositories/IAccountsRepository';
+import AppError from '@shared/errors/AppError';
 import Account from '../infra/typeorm/entities/Account';
+import IAccountsRepository from '../repositories/IAccountsRepository';
+import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
 
 interface IRequest {
   user_email: string;

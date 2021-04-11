@@ -1,13 +1,17 @@
 import * as repositories from '@utils/tests/repositories';
 
+let account: repositories.Account;
 let fakeHashProvider: repositories.FakeHashProvider;
 let createAccountService: repositories.CreateAccountService;
+let createProjectService: repositories.CreateProjectService;
 let fakeBackofficeProvider: repositories.FakeBackofficeProvider;
 let fakeAccountsRepository: repositories.FakeAccountsRepository;
+let fakeProjectsRepository: repositories.FakeProjectsRepository;
 
-describe('Create Account', () => {
+describe('Create Project', () => {
   beforeEach(async () => {
     fakeHashProvider = new repositories.FakeHashProvider();
+    fakeProjectsRepository = new repositories.FakeProjectsRepository();
     fakeBackofficeProvider = new repositories.FakeBackofficeProvider();
     fakeAccountsRepository = new repositories.FakeAccountsRepository();
 
@@ -16,34 +20,25 @@ describe('Create Account', () => {
       fakeBackofficeProvider,
       fakeAccountsRepository,
     );
-  });
 
-  it('Should be able to create a new account.', async () => {
-    const account = await createAccountService.execute({
+    createProjectService = new repositories.CreateProjectService(
+      fakeProjectsRepository,
+    );
+
+    account = await createAccountService.execute({
       password: 'password',
       user_name: 'John Doe',
       user_email: 'john@example.com',
       account_name: 'JohnDoeAccount',
     });
-
-    expect(account).toHaveProperty('id');
   });
 
-  it('Should not be able to create a new account with same e-mail from another.', async () => {
-    await createAccountService.execute({
-      password: 'password',
-      user_name: 'John Doe',
-      user_email: 'john@example.com',
-      account_name: 'JohnDoeAccount',
+  it('Should be able to create a new project.', async () => {
+    const project = await createProjectService.execute({
+      project_name: 'Project Name',
+      account_id: account.id,
     });
 
-    await expect(
-      createAccountService.execute({
-        password: 'password',
-        user_name: 'John Doe',
-        user_email: 'john@example.com',
-        account_name: 'JohnDoeAccount',
-      }),
-    ).rejects.toBeInstanceOf(repositories.AppError);
+    expect(project).toHaveProperty('id');
   });
 });

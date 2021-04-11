@@ -9,14 +9,14 @@
     "strict": true,
     "allowJs": true,
     "paths": {
-      "@modules/*": ["modules/*"],
+      "@utils/*": ["utils/*"],
       "@config/*": ["config/*"],
       "@shared/*": ["shared/*"],
-      "@lib/*": ["lib/*"]
+      "@modules/*": ["modules/*"]
     },
     "esModuleInterop": true,
-    "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true
   },
   "include": ["./src/**/*"]

@@ -4,18 +4,25 @@ import ICreateProjectDTO from '@modules/Projects/dtos/ICreateProjectDTO';
 import Project from '../../infra/typeorm/entities/Project';
 
 class FakeProjectsRepository implements IProjectsRepository {
-  private project: Project[] = [];
+  private projects: Project[] = [];
 
   public async create(data: ICreateProjectDTO): Promise<Project> {
     const project = new Project();
-    Object.assign(Project, { id: uuid(), ...data });
+    Object.assign(project, { id: uuid(), ...data });
 
-    this.project.push(project);
+    this.projects.push(project);
     return project;
   }
 
   public async findById(id: string): Promise<Project | undefined> {
-    const response = this.project.find(project => project.id === id);
+    const response = this.projects.find(project => project.id === id);
+    return response;
+  }
+
+  public async findByName(projectName: string): Promise<Project | undefined> {
+    const response = this.projects.find(
+      project => project.project_name === projectName,
+    );
     return response;
   }
 }
