@@ -1,27 +1,19 @@
-import * as repositories from '@utils/tests/repositories';
+import AppError from '@shared/errors/AppError';
+import Providers, { Account } from '@utils/tests/Providers';
 
-let account: repositories.Account;
-let fakeHashProvider: repositories.FakeHashProvider;
-let createAccountService: repositories.CreateAccountService;
-let fakeBackofficeProvider: repositories.FakeBackofficeProvider;
-let fakeAccountsRepository: repositories.FakeAccountsRepository;
-let authenticateAccountService: repositories.AuthenticateAccountService;
+const providers = new Providers();
+const { createAccount, autheticateAccount } = providers.userProvider();
+
+let account: Account;
+let createAccountService: typeof createAccount;
+let authenticateAccountService: typeof autheticateAccount;
 
 describe('Authenticate Account', () => {
   beforeEach(async () => {
-    fakeHashProvider = new repositories.FakeHashProvider();
-    fakeBackofficeProvider = new repositories.FakeBackofficeProvider();
-    fakeAccountsRepository = new repositories.FakeAccountsRepository();
+    const { createAccount, autheticateAccount } = providers.userProvider();
 
-    createAccountService = new repositories.CreateAccountService(
-      fakeHashProvider,
-      fakeBackofficeProvider,
-      fakeAccountsRepository,
-    );
-    authenticateAccountService = new repositories.AuthenticateAccountService(
-      fakeAccountsRepository,
-      fakeHashProvider,
-    );
+    createAccountService = createAccount;
+    authenticateAccountService = autheticateAccount;
 
     account = await createAccountService.execute({
       password: 'password',
@@ -47,7 +39,7 @@ describe('Authenticate Account', () => {
         user_email: 'wrongJohn@example.com',
         password: 'password',
       }),
-    ).rejects.toBeInstanceOf(repositories.AppError);
+    ).rejects.toBeInstanceOf(AppError);
   });
 
   it('Should not be able to authenticate with a wrong password.', async () => {
@@ -56,6 +48,6 @@ describe('Authenticate Account', () => {
         user_email: 'john@example.com',
         password: 'wrongPassword',
       }),
-    ).rejects.toBeInstanceOf(repositories.AppError);
+    ).rejects.toBeInstanceOf(AppError);
   });
 });

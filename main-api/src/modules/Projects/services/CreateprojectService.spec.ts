@@ -1,29 +1,20 @@
-import * as repositories from '@utils/tests/repositories';
+import Providers, { Account } from '@utils/tests/Providers';
 
-let account: repositories.Account;
-let fakeHashProvider: repositories.FakeHashProvider;
-let createAccountService: repositories.CreateAccountService;
-let createProjectService: repositories.CreateProjectService;
-let fakeBackofficeProvider: repositories.FakeBackofficeProvider;
-let fakeAccountsRepository: repositories.FakeAccountsRepository;
-let fakeProjectsRepository: repositories.FakeProjectsRepository;
+const providers = new Providers();
+const { createAccount } = providers.userProvider();
+const { createProject } = providers.projectsProvider();
+
+let account: Account;
+let createAccountService: typeof createAccount;
+let createProjectService: typeof createProject;
 
 describe('Create Project', () => {
   beforeEach(async () => {
-    fakeHashProvider = new repositories.FakeHashProvider();
-    fakeProjectsRepository = new repositories.FakeProjectsRepository();
-    fakeBackofficeProvider = new repositories.FakeBackofficeProvider();
-    fakeAccountsRepository = new repositories.FakeAccountsRepository();
+    const { createAccount } = providers.userProvider();
+    const { createProject } = providers.projectsProvider();
 
-    createAccountService = new repositories.CreateAccountService(
-      fakeHashProvider,
-      fakeBackofficeProvider,
-      fakeAccountsRepository,
-    );
-
-    createProjectService = new repositories.CreateProjectService(
-      fakeProjectsRepository,
-    );
+    createAccountService = createAccount;
+    createProjectService = createProject;
 
     account = await createAccountService.execute({
       password: 'password',

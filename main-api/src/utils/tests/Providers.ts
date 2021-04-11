@@ -7,17 +7,34 @@ import CreateAccountService from '@modules/Accounts/services/CreateAccountServic
 import AuthenticateAccountService from '@modules/Accounts/services/AuthenticateAccountService';
 import Account from '@modules/Accounts/infra/typeorm/entities/Account';
 import Project from '@modules/Projects/infra/typeorm/entities/Project';
-import AppError from '@shared/errors/AppError';
 
-export {
-  FakeBackofficeProvider,
-  FakeHashProvider,
-  FakeAccountsRepository,
-  FakeProjectsRepository,
-  CreateAccountService,
-  AuthenticateAccountService,
-  CreateProjectService,
-  Account,
-  Project,
-  AppError,
-};
+class Providers {
+  userProvider() {
+    const fakeHashProvider = new FakeHashProvider();
+    const fakeBackofficeProvider = new FakeBackofficeProvider();
+    const fakeAccountsRepository = new FakeAccountsRepository();
+
+    const createAccount = new CreateAccountService(
+      fakeHashProvider,
+      fakeBackofficeProvider,
+      fakeAccountsRepository,
+    );
+
+    const autheticateAccount = new AuthenticateAccountService(
+      fakeAccountsRepository,
+      fakeHashProvider,
+    );
+
+    return { createAccount, autheticateAccount };
+  }
+
+  projectsProvider() {
+    const fakeProjectsRepository = new FakeProjectsRepository();
+    const createProject = new CreateProjectService(fakeProjectsRepository);
+
+    return { createProject };
+  }
+}
+
+export default Providers;
+export { Account, Project };

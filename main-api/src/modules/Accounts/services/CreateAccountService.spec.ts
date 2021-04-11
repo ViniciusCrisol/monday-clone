@@ -1,21 +1,15 @@
-import * as repositories from '@utils/tests/repositories';
+import AppError from '@shared/errors/AppError';
+import Providers from '@utils/tests/Providers';
 
-let fakeHashProvider: repositories.FakeHashProvider;
-let createAccountService: repositories.CreateAccountService;
-let fakeBackofficeProvider: repositories.FakeBackofficeProvider;
-let fakeAccountsRepository: repositories.FakeAccountsRepository;
+const providers = new Providers();
+const { createAccount } = providers.userProvider();
+
+let createAccountService: typeof createAccount;
 
 describe('Create Account', () => {
   beforeEach(async () => {
-    fakeHashProvider = new repositories.FakeHashProvider();
-    fakeBackofficeProvider = new repositories.FakeBackofficeProvider();
-    fakeAccountsRepository = new repositories.FakeAccountsRepository();
-
-    createAccountService = new repositories.CreateAccountService(
-      fakeHashProvider,
-      fakeBackofficeProvider,
-      fakeAccountsRepository,
-    );
+    const { createAccount } = providers.userProvider();
+    createAccountService = createAccount;
   });
 
   it('Should be able to create a new account.', async () => {
@@ -44,6 +38,6 @@ describe('Create Account', () => {
         user_email: 'john@example.com',
         account_name: 'JohnDoeAccount',
       }),
-    ).rejects.toBeInstanceOf(repositories.AppError);
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
