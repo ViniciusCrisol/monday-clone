@@ -37,3 +37,8 @@ export const mainThingNotExists = {
   status: 400,
   message: 'Error, main thing does not exists!',
 };
+
+export const nameAlreadyInUse = {
+  status: 400,
+  message: 'Error, name already in use!',
+};

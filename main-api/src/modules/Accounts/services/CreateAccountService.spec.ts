@@ -1,30 +1,19 @@
 import AppError from '@shared/errors/AppError';
+import Providers from '@utils/tests/Providers';
 
-import FakeHashProvider from '@shared/container/providers/HashProvider/fakes/FakeHashProvider';
-import FakeBackofficeProvider from '@shared/container/providers/BackofficeProvider/fakes/FakeBackofficeProvider';
-import FakeAccountsRepository from '../repositories/fakes/FakeAccountsRepository';
-import CreateAccountService from './CreateAccountService';
+const providers = new Providers();
+const { createAccount } = providers.userProvider();
 
-let fakeHashProvider: FakeHashProvider;
-let fakeBackofficeProvider: FakeBackofficeProvider;
-let fakeAccountsRepository: FakeAccountsRepository;
-let createAccount: CreateAccountService;
+let createAccountService: typeof createAccount;
 
 describe('Create Account', () => {
   beforeEach(async () => {
-    fakeHashProvider = new FakeHashProvider();
-    fakeBackofficeProvider = new FakeBackofficeProvider();
-    fakeAccountsRepository = new FakeAccountsRepository();
-
-    createAccount = new CreateAccountService(
-      fakeHashProvider,
-      fakeBackofficeProvider,
-      fakeAccountsRepository,
-    );
+    const { createAccount } = providers.userProvider();
+    createAccountService = createAccount;
   });
 
   it('Should be able to create a new account.', async () => {
-    const account = await createAccount.execute({
+    const account = await createAccountService.execute({
       password: 'password',
       user_name: 'John Doe',
       user_email: 'john@example.com',
@@ -35,7 +24,7 @@ describe('Create Account', () => {
   });
 
   it('Should not be able to create a new account with same e-mail from another.', async () => {
-    await createAccount.execute({
+    await createAccountService.execute({
       password: 'password',
       user_name: 'John Doe',
       user_email: 'john@example.com',
@@ -43,7 +32,7 @@ describe('Create Account', () => {
     });
 
     await expect(
-      createAccount.execute({
+      createAccountService.execute({
         password: 'password',
         user_name: 'John Doe',
         user_email: 'john@example.com',

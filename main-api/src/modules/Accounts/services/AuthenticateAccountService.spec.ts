@@ -1,37 +1,21 @@
 import AppError from '@shared/errors/AppError';
+import Providers, { Account } from '@utils/tests/Providers';
 
-import FakeHashProvider from '@shared/container/providers/HashProvider/fakes/FakeHashProvider';
-import FakeBackofficeProvider from '@shared/container/providers/BackofficeProvider/fakes/FakeBackofficeProvider';
-import FakeAccountsRepository from '../repositories/fakes/FakeAccountsRepository';
-import Account from '../infra/typeorm/entities/Account';
-import CreateAccountService from './CreateAccountService';
-import AuthenticateAccountService from './AuthenticateAccountService';
+const providers = new Providers();
+const { createAccount, autheticateAccount } = providers.userProvider();
 
-let fakeHashProvider: FakeHashProvider;
-let fakeBackofficeProvider: FakeBackofficeProvider;
-let fakeAccountsRepository: FakeAccountsRepository;
 let account: Account;
-let createAccount: CreateAccountService;
-let authenticateAccount: AuthenticateAccountService;
+let createAccountService: typeof createAccount;
+let authenticateAccountService: typeof autheticateAccount;
 
 describe('Authenticate Account', () => {
   beforeEach(async () => {
-    fakeHashProvider = new FakeHashProvider();
-    fakeBackofficeProvider = new FakeBackofficeProvider();
-    fakeAccountsRepository = new FakeAccountsRepository();
+    const { createAccount, autheticateAccount } = providers.userProvider();
 
-    createAccount = new CreateAccountService(
-      fakeHashProvider,
-      fakeBackofficeProvider,
-      fakeAccountsRepository,
-    );
+    createAccountService = createAccount;
+    authenticateAccountService = autheticateAccount;
 
-    authenticateAccount = new AuthenticateAccountService(
-      fakeAccountsRepository,
-      fakeHashProvider,
-    );
-
-    account = await createAccount.execute({
+    account = await createAccountService.execute({
       password: 'password',
       user_name: 'John Doe',
       user_email: 'john@example.com',
@@ -40,7 +24,7 @@ describe('Authenticate Account', () => {
   });
 
   it('Should be able to authenticate.', async () => {
-    const response = await authenticateAccount.execute({
+    const response = await authenticateAccountService.execute({
       user_email: 'john@example.com',
       password: 'password',
     });
@@ -51,7 +35,7 @@ describe('Authenticate Account', () => {
 
   it('Should not be able to authenticate with a wrong email.', async () => {
     await expect(
-      authenticateAccount.execute({
+      authenticateAccountService.execute({
         user_email: 'wrongJohn@example.com',
         password: 'password',
       }),
@@ -60,7 +44,7 @@ describe('Authenticate Account', () => {
 
   it('Should not be able to authenticate with a wrong password.', async () => {
     await expect(
-      authenticateAccount.execute({
+      authenticateAccountService.execute({
         user_email: 'john@example.com',
         password: 'wrongPassword',
       }),
