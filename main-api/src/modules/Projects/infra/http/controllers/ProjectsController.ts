@@ -4,14 +4,14 @@ import CreateProjectService from '@modules/Projects/services/CreateProjectServic
 
 export default class AccountsController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { id } = request.user;
+    const { id: account_id } = request.user;
     const { project_name } = request.body;
 
     const createProject = container.resolve(CreateProjectService);
-    const project = await createProject.execute({
-      account_id: id,
+    const { id } = await createProject.execute({
+      account_id,
       project_name,
     });
-    return response.json(project);
+    return response.json({ id, project_name });
   }
 }

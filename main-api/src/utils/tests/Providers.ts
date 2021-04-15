@@ -1,10 +1,13 @@
+// Fake repositories
 import FakeHashProvider from '@shared/container/providers/HashProvider/fakes/FakeHashProvider';
 import FakeBackofficeProvider from '@shared/container/providers/BackofficeProvider/fakes/FakeBackofficeProvider';
 import FakeAccountsRepository from '@modules/Accounts/repositories/fakes/FakeAccountsRepository';
 import FakeProjectsRepository from '@modules/Projects/repositories/fakes/FakeProjectsRepository';
+// Services
 import CreateProjectService from '@modules/Projects/services/CreateProjectService';
 import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 import AuthenticateAccountService from '@modules/Accounts/services/AuthenticateAccountService';
+// Entities
 import Account from '@modules/Accounts/infra/typeorm/entities/Account';
 import Project from '@modules/Projects/infra/typeorm/entities/Project';
 

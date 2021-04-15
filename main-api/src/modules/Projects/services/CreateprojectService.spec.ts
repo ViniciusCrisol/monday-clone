@@ -1,4 +1,5 @@
 import Providers, { Account } from '@utils/tests/Providers';
+import AppError from '@shared/errors/AppError';
 
 const providers = new Providers();
 const { createAccount } = providers.userProvider();
@@ -31,5 +32,19 @@ describe('Create Project', () => {
     });
 
     expect(project).toHaveProperty('id');
+  });
+
+  it('Should not be able to create a new project with same name from another in a account.', async () => {
+    const project = await createProjectService.execute({
+      project_name: 'Project Name',
+      account_id: account.id,
+    });
+
+    await expect(
+      createProjectService.execute({
+        project_name: 'Project Name',
+        account_id: account.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });

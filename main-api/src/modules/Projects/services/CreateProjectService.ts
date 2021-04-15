@@ -1,5 +1,4 @@
 import { injectable, inject } from 'tsyringe';
-
 import { nameAlreadyInUse } from '@shared/errors/messages';
 
 import AppError from '@shared/errors/AppError';
@@ -22,6 +21,13 @@ class CreateProjectService {
     project_name,
     account_id,
   }: IRequest): Promise<Project> {
+    const checkProjectExits = await this.projectsRepository.findByNameAndAccountId(
+      { account_id, project_name },
+    );
+    if (checkProjectExits) {
+      throw new AppError(nameAlreadyInUse.message);
+    }
+
     const project = await this.projectsRepository.create({
       project_name,
       account_id,
