@@ -35,4 +35,6 @@ app.use(
   },
 );
 
-app.listen(8080);
+app.listen(8080, () => {
+  console.log('🚀 server started!');
+});

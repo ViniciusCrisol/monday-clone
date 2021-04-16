@@ -7,6 +7,7 @@ node_modules/
 
 /coverage.data
 /coverage/
+/dist/
 
 *.log
 npm-debug.log*
