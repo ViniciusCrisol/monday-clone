@@ -16,7 +16,9 @@ export const Container = styled.div<BoardsMenuInterface>`
   border-right: 1px solid ${({ theme }) => theme.colors.others['light-gray']};
 
   > div.loading-container {
+    margin-top: 64px;
     display: flex;
+    align-items: center;
     justify-content: center;
   }
 

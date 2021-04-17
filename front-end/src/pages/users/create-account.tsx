@@ -1,11 +1,11 @@
 import { useCallback, useRef } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import { FiPaperclip, FiMail, FiLock, FiUser } from 'react-icons/fi';
 
 import Input from '../../components/Input';
+import Modal from '../../components/Modal';
 import Button from '../../components/Button';
 import FakeDashboard from '../../components/FakeDashboard';
 import { createAccountBanner } from '../../utils/files';
@@ -36,8 +36,8 @@ const CreateAccount: React.FC = () => {
       </Head>
 
       <FakeDashboard />
-      <FormContainer>
-        <Form onSubmit={handleSubmit} ref={formRef}>
+      <Modal>
+        <FormContainer onSubmit={handleSubmit} ref={formRef}>
           <div className="inputs-container">
             <h1>Create account</h1>
             <Input icon={FiUser} name="user_name" placeholder="Full name" />
@@ -73,8 +73,8 @@ const CreateAccount: React.FC = () => {
           <div className="image-container">
             <img src={createAccountBanner} alt="Brands that use Monday" />
           </div>
-        </Form>
-      </FormContainer>
+        </FormContainer>
+      </Modal>
     </Container>
   );
 };

@@ -1,90 +1,74 @@
 import styled from 'styled-components';
+import { Form } from '@unform/web';
 
 export const Container = styled.div`
   width: 100vw;
 `;
 
-export const FormContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
+export const FormContainer = styled(Form)`
+  height: 100%;
+  max-height: 535px;
+  width: 100%;
+  max-width: 780px;
 
-  position: absolute;
-  z-index: 50;
-  left: 0;
-  top: 0;
-
-  padding: 10px;
-  background: rgba(22, 22, 49, 0.7);
+  padding: 6px;
+  border-radius: 12px;
+  background: ${({ theme }) => theme.colors.general.background};
 
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
-  form {
-    height: 100%;
-    max-height: 535px;
+  > div.inputs-container {
     width: 100%;
-    max-width: 780px;
+    max-width: 520px;
 
-    padding: 6px;
-    border-radius: 12px;
-    background: ${({ theme }) => theme.colors.general.background};
+    flex: 1;
+    padding: 48px 56px;
 
-    display: flex;
-    justify-content: space-between;
+    h1 {
+      font-size: 24px;
+      margin-bottom: 48px;
+    }
 
+    button {
+      width: 100%;
+      margin: 16px 0;
+    }
+
+    a {
+      text-align: center;
+      text-decoration: underline;
+
+      display: block;
+      margin-top: 32px;
+      transition: color 200ms;
+
+      &:hover {
+        color: ${({ theme }) => theme.colors.base.blue};
+      }
+    }
+  }
+
+  > div.image-container {
+    height: 100%;
+    background: #f5f6f8;
+    border-radius: 0 6px 6px 0;
+  }
+
+  @media (max-width: 801px) {
     > div.inputs-container {
       width: 100%;
-      max-width: 520px;
-
-      flex: 1;
-      padding: 48px 56px;
-
-      h1 {
-        font-size: 24px;
-        margin-bottom: 48px;
-      }
-
-      button {
-        width: 100%;
-        margin: 16px 0;
-      }
-
-      a {
-        text-align: center;
-        text-decoration: underline;
-
-        display: block;
-        margin-top: 32px;
-        transition: color 200ms;
-
-        &:hover {
-          color: ${({ theme }) => theme.colors.base.blue};
-        }
-      }
+      max-width: unset;
     }
 
     > div.image-container {
-      height: 100%;
-      background: #f5f6f8;
-      border-radius: 0 6px 6px 0;
+      display: none;
     }
+  }
 
-    @media (max-width: 801px) {
-      > div.inputs-container {
-        width: 100%;
-        max-width: unset;
-      }
-
-      > div.image-container {
-        display: none;
-      }
-    }
-
-    @media (max-width: 480px) {
-      > div.inputs-container {
-        padding: 16px;
-      }
+  @media (max-width: 480px) {
+    > div.inputs-container {
+      padding: 16px;
     }
   }
 `;
