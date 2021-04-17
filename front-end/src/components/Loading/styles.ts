@@ -1,49 +1,47 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 54px;
-  height: 54px;
-
   position: relative;
-  display: inline-block;
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   div {
+    width: 32px;
+    height: 32px;
+
+    margin: 8px;
+    border-radius: 50%;
+    border: 4px solid ${({ theme }) => theme.colors.base.blue};
+    border-color: ${({ theme }) => theme.colors.base.blue} transparent
+      transparent transparent;
+
+    display: block;
     position: absolute;
-    left: 8px;
-
-    width: 14px;
-    display: inline-block;
-    animation: loading-animation 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
-
-    &:nth-child(1) {
-      left: 2px;
-      animation-delay: -0.24s;
-      background: ${({ theme }) => theme.colors.base.red};
-    }
-
-    &:nth-child(2) {
-      left: 20px;
-      animation-delay: -0.12s;
-      background: ${({ theme }) => theme.colors.base.yellow};
-    }
-
-    &:nth-child(3) {
-      left: 38px;
-      animation-delay: 0;
-      background: ${({ theme }) => theme.colors.base.green};
-    }
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   }
 
-  @keyframes loading-animation {
-    0% {
-      top: 8px;
-      height: 64px;
-    }
+  div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
 
-    50%,
+  div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+
+  div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
     100% {
-      top: 24px;
-      height: 32px;
+      transform: rotate(360deg);
     }
   }
 `;

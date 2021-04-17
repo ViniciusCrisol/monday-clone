@@ -7,7 +7,8 @@ const theme = {
       'light-blue': '#d5e6fe',
       'scrollbar-gray': '#b2b2b2',
       'card-background': '#f5f6f8',
-      'side-menu-active': '#3f445e'
+      'side-menu-active': '#3f445e',
+      'modal-background': 'rgba(22, 22, 49, 0.7)'
     },
     general: {
       text: '#333',
