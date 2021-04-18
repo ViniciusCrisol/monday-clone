@@ -1,12 +1,12 @@
 import { Router } from 'express';
 
-import pdfController from './app/controllers/PdfController';
+import documents from './app/controllers/DocumentsController';
 import emailController from './app/controllers/EmailController';
 
 const routes = Router();
 
-routes.get('/pdf/:data', pdfController.get);
-routes.post('/pdf/create/:id', pdfController.create);
+routes.get('/documents/:data', documents.get);
+routes.post('/documents/create/:id', documents.create);
 routes.post('/send/email/:id', emailController.create);
 
 export default routes;

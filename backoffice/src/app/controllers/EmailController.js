@@ -3,13 +3,15 @@ import nodemailer from 'nodemailer';
 
 import AppError from '../../errors/AppError';
 import transporterConfig from '../../config/email';
-import emailRepository from '../repositories/EmailRepository';
+import EmailRepository from '../repositories/emails/EmailRepository';
 import { templateError, defaultError } from '../../errors/messages';
 
 class EmailController {
   async create(request, response) {
     const { id } = request.params;
     const { template } = request.body;
+
+    const emailRepository = new EmailRepository();
 
     const emailConfig = emailRepository.getEmailConfig(template);
     if (!emailConfig) {

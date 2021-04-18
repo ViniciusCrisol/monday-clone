@@ -28,4 +28,6 @@ app.use((err, _request, response, _next) => {
     .json({ status: 'error', message: 'Internal server error' });
 });
 
-app.listen(8081);
+app.listen(8081, () => {
+  console.log('🚀 server started!');
+});
