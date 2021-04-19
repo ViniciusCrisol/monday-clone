@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { FiPlusCircle, FiChevronRight } from 'react-icons/fi';
 
 import Board from './Board';
-import Loading from '../../Loading';
+import Loading from '../../../Loading';
 import CreateBoard from './CreateBoard';
 import { Container, BoardList, Header } from './styles';
 
@@ -12,6 +12,10 @@ const Boards: React.FC = () => {
   const [createBoardIsActive, setCreateBoardIsActive] = useState(false);
 
   const createPeoject = useCallback(() => {}, []);
+
+  const handleCloseModal = useCallback(() => {
+    setCreateBoardIsActive(false);
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -25,7 +29,7 @@ const Boards: React.FC = () => {
 
   return (
     <>
-      {createBoardIsActive && <CreateBoard />}
+      {createBoardIsActive && <CreateBoard closeModal={handleCloseModal} />}
 
       <Container isOpen={isOpen}>
         <Header isOpen={isOpen}>

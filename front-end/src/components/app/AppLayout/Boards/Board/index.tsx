@@ -1,6 +1,6 @@
-import { FiLayout } from 'react-icons/fi';
-import router from 'next/router';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FiLayout } from 'react-icons/fi';
 
 import { Container } from './styles';
 
@@ -10,6 +10,8 @@ interface BoardInterface {
 }
 
 const Board: React.FC<BoardInterface> = ({ label, link }) => {
+  const router = useRouter();
+
   return (
     <Container>
       <Link href={`/app/boards/${link}`}>

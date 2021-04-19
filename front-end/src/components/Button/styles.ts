@@ -9,7 +9,7 @@ export const Container = styled.button<ButtonProps>`
   padding: 0 16px;
   border-radius: ${({ isSquare }) => (isSquare ? '4px' : '20px')};
   background: ${({ theme, color }) =>
-    theme.colors[color] || theme.colors.base.blue};
+    theme.colors.base[color] || theme.colors.base.blue};
 
   display: flex;
   align-items: center;

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FiUser, FiBell, FiGrid } from 'react-icons/fi';
-import { mondayIcon } from '../../../utils/files';
+import { mondayIcon } from '../../../../utils/files';
 import { Container } from './styles';
 
 const SideMenu: React.FC = () => {
