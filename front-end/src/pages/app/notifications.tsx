@@ -1,4 +1,4 @@
-import Layout from '../../components/AppLayout';
+import Layout from '../../components/app/AppLayout';
 
 const Home: React.FC = () => {
   return (

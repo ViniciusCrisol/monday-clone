@@ -5,16 +5,9 @@ class EmailConfig {
   constructor() {
     this.templates = {
       welcome: {
-        path: this.joinTemplatePath('welcome.ejs'),
+        getData: this.getWelcomeData,
         config: this.getTemplateConfig("Monday's Team - Welcome message!"),
-        getData: async (user_id) => {
-          const queryParams = { attributes: ['user_name', 'user_email'] };
-          const response = await Account.findByPk(user_id, queryParams);
-          if (!response) return undefined;
-
-          const { user_name, user_email } = response.dataValues;
-          return { name: user_name, to: user_email };
-        },
+        path: this.joinTemplatePath('welcome.ejs'),
       },
     };
   }
@@ -25,6 +18,16 @@ class EmailConfig {
 
   getTemplateConfig(subject) {
     return { subject, from: 'services-boilerplate@github.com' };
+  }
+
+  async getWelcomeData(user_id) {
+    const queryParams = { attributes: ['user_name', 'user_email'] };
+
+    const response = await Account.findByPk(user_id, queryParams);
+    if (!response) return undefined;
+
+    const { user_name, user_email } = response.dataValues;
+    return { name: user_name, to: user_email };
   }
 }
 

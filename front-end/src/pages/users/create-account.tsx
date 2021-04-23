@@ -1,6 +1,7 @@
 import { useCallback, useRef } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { FormHandles } from '@unform/core';
 import { FiPaperclip, FiMail, FiLock, FiUser } from 'react-icons/fi';
 
@@ -24,9 +25,12 @@ interface formData {
 
 const CreateAccount: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const router = useRouter();
 
   const handleSubmit = useCallback((data: formData) => {
     console.log(data);
+
+    router.push('/auth/login');
   }, []);
 
   return (

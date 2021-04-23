@@ -29,4 +29,8 @@ export const MainContainer = styled.div`
   ::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.colors.others['scrollbar-gray']};
   }
+
+  main {
+    width: 100%;
+  }
 `;
