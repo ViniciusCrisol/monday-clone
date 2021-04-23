@@ -36,7 +36,7 @@ export const CardList = styled.ul`
 `;
 
 export const Card = styled.li`
-  height: 120px;
+  min-height: 120px;
 
   padding: 15px;
   border-radius: 8px;
@@ -46,13 +46,35 @@ export const Card = styled.li`
     margin-top: 15px;
   }
 
+  pre {
+    margin-top: 4px;
+  }
+
   > div.header {
-    height: 76px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
 
     > div.image-container {
+      margin-right: 8px;
+
       img {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
+        flex-shrink: 0;
+      }
+    }
+
+    > .card-info {
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      h3 {
+        font-size: 14px;
       }
     }
   }

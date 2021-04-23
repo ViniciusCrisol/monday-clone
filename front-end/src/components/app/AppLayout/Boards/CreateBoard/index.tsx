@@ -36,7 +36,7 @@ const CreateBoard: React.FC<CreateBoardProps> = ({ closeModal }) => {
             Cancel
           </Button>
           <Button isSquare type="submit">
-            Register
+            Create
           </Button>
         </div>
       </Container>

@@ -13,7 +13,7 @@ export default createGlobalStyle`
     background-color: ${({ theme }) => theme.colors.general.background};
   }
 
-  body, input, button, a {
+  body, input, button, a, pre {
     font-size: 14px;
     font-family: Roboto, sans-serif;
     -webkit-font-smoothing: antialiased !important;

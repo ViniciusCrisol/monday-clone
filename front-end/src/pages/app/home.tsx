@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { defaultPattern } from '../../utils/formatDate';
 import Layout from '../../components/app/AppLayout';
 
 import {
@@ -16,6 +17,7 @@ const mock = [
     title: 'Create Menu',
     status: 'Paused',
     project_name: 'Clone Monday',
+    created_at: new Date('2021-04-23 22:27:20.548523'),
     description: 'Information from Github | master |  tag |  monday-system'
   },
   {
@@ -23,6 +25,7 @@ const mock = [
     title: 'Create Menu',
     status: 'Paused',
     project_name: 'Clone Monday',
+    created_at: new Date('2021-04-23 22:27:20.548523'),
     description: 'Information from Github | master |  tag |  monday-system'
   },
   {
@@ -30,6 +33,7 @@ const mock = [
     title: 'Create Menu',
     status: 'Paused',
     project_name: 'Clone Monday',
+    created_at: new Date('2021-04-23 22:27:20.548523'),
     description: 'Information from Github | master |  tag |  monday-system'
   },
   {
@@ -37,6 +41,7 @@ const mock = [
     title: 'Create Menu',
     status: 'Paused',
     project_name: 'Clone Monday',
+    created_at: new Date('2021-04-23 22:27:20.548523'),
     description: 'Information from Github | master |  tag |  monday-system'
   },
   {
@@ -44,6 +49,7 @@ const mock = [
     title: 'Create Menu',
     status: 'Paused',
     project_name: 'Clone Monday',
+    created_at: new Date('2021-04-23 22:27:20.548523'),
     description: 'Information from Github | master |  tag |  monday-system'
   },
   {
@@ -51,6 +57,7 @@ const mock = [
     title: 'Create Menu',
     status: 'Paused',
     project_name: 'Clone Monday',
+    created_at: new Date('2021-04-23 22:27:20.548523'),
     description: 'Information from Github | master |  tag |  monday-system'
   },
   {
@@ -58,6 +65,7 @@ const mock = [
     title: 'Create Menu',
     status: 'Paused',
     project_name: 'Clone Monday',
+    created_at: new Date('2021-04-23 22:27:20.548523'),
     description: 'Information from Github | master |  tag |  monday-system'
   },
   {
@@ -65,6 +73,7 @@ const mock = [
     title: 'Create Menu',
     status: 'Paused',
     project_name: 'Clone Monday',
+    created_at: new Date('2021-04-23 22:27:20.548523'),
     description: 'Information from Github | master |  tag |  monday-system'
   },
   {
@@ -72,6 +81,7 @@ const mock = [
     title: 'Create Menu',
     status: 'Paused',
     project_name: 'Clone Monday',
+    created_at: new Date('2021-04-23 22:27:20.548523'),
     description: 'Information from Github | master |  tag |  monday-system'
   },
   {
@@ -79,6 +89,7 @@ const mock = [
     title: 'Create Menu',
     status: 'Paused',
     project_name: 'Clone Monday',
+    created_at: new Date('2021-04-23 22:27:20.548523'),
     description: 'Information from Github | master |  tag |  monday-system'
   },
   {
@@ -86,6 +97,7 @@ const mock = [
     title: 'Create Menu',
     status: 'Paused',
     project_name: 'Clone Monday',
+    created_at: new Date('2021-04-23 22:27:20.548523'),
     description: 'Information from Github | master |  tag |  monday-system'
   }
 ];
@@ -103,7 +115,7 @@ const Home: React.FC = () => {
         <Feed>
           <HeaderFeed>
             <h1>Inbox</h1>
-            <div>Open({inbox.length})/ All Updates</div>
+            <div>Open({inbox.length})/All Updates</div>
           </HeaderFeed>
 
           <CardList>
@@ -113,7 +125,12 @@ const Home: React.FC = () => {
                   <div className="image-container">
                     <img src={mondayIcon} alt="Monday Icon" />
                   </div>
+                  <div className="card-info">
+                    <h3>{item.project_name}</h3>
+                    <span>{defaultPattern(item.created_at)}</span>
+                  </div>
                 </div>
+                <pre>{item.description}</pre>
               </Card>
             ))}
           </CardList>
