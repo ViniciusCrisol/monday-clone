@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { FiChevronRight } from 'react-icons/fi';
-import { mondayLogo } from '../../utils/files';
+import { mondayLogo } from '../../services/files';
 import { Container, UserContainer } from './styles';
 
 const Header: React.FC = () => {

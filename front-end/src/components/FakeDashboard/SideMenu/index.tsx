@@ -6,7 +6,7 @@ import {
   FiCalendar,
   FiUserPlus
 } from 'react-icons/fi';
-import { mondayIcon } from '../../../utils/files';
+import { mondayIcon } from '../../../services/files';
 import { Container } from './styles';
 
 const SideMenu: React.FC = () => {

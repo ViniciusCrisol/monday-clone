@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { defaultPattern } from '../../utils/formatDate';
+import { defaultPattern } from '../../libs/formatDate';
 import Layout from '../../components/app/AppLayout';
 
 import {
@@ -9,7 +9,7 @@ import {
   Container,
   HeaderFeed
 } from '../../styles/pages/app/home';
-import { mondayIcon } from '../../utils/files';
+import { mondayIcon } from '../../services/files';
 
 const mock = [
   {

@@ -9,7 +9,7 @@ import Input from '../../components/Input';
 import Modal from '../../components/Modal';
 import Button from '../../components/Button';
 import FakeDashboard from '../../components/FakeDashboard';
-import { createAccountBanner } from '../../utils/files';
+import { createAccountBanner } from '../../services/files';
 import {
   Container,
   FormContainer

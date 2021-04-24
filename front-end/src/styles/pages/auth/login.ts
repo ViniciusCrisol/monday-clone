@@ -31,7 +31,7 @@ export const FormContainer = styled.div`
   max-width: 360px;
 
   padding: 10px;
-  margin-top: 54px;
+  margin-top: 30px;
 
   h1 {
     font-size: 24px;

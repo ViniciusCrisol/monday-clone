@@ -7,7 +7,7 @@ import Document, {
   Head,
   Main
 } from 'next/document';
-import { mondayIcon } from '../utils/files';
+import { mondayIcon } from '../services/files';
 import { ServerStyleSheet } from 'styled-components';
 
 export default class MyDocument extends Document {
