@@ -18,6 +18,11 @@ export const authenticationFail = {
   message: 'Error, incorrect email/password combination!',
 };
 
+export const passwordDoesNotMatch = {
+  status: 401,
+  message: 'Error, password does not match!',
+};
+
 export const jwtIsMissing = {
   status: 401,
   message: 'Error, JWT token is missing!',

@@ -1,7 +1,10 @@
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import { emailAlreadyInUse } from '@shared/errors/messages';
+import {
+  emailAlreadyInUse,
+  passwordDoesNotMatch,
+} from '@shared/errors/messages';
 
 import Account from '../infra/typeorm/entities/Account';
 import IAccountsRepository from '../repositories/IAccountsRepository';
@@ -9,10 +12,11 @@ import IHashProvider from '@shared/container/providers/HashProvider/models/IHash
 import IBackofficeProvider from '@shared/container/providers/BackofficeProvider/models/IBackofficeProvider';
 
 interface IRequest {
-  password: string;
   user_name: string;
   user_email: string;
+  password: string;
   account_name: string;
+  confirm_password: string;
 }
 
 @injectable()
@@ -33,12 +37,17 @@ class CreateAccountService {
     user_email,
     password,
     account_name,
+    confirm_password,
   }: IRequest): Promise<Account> {
     const checkAccountExists = await this.accountsRepository.findByEmail(
       user_email,
     );
     if (checkAccountExists) {
       throw new AppError(emailAlreadyInUse.message);
+    }
+
+    if (password !== confirm_password) {
+      throw new AppError(passwordDoesNotMatch.message);
     }
 
     const hashedPassword = await this.hashProvider.generateHash(password);

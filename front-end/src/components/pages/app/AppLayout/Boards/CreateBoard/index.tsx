@@ -24,12 +24,7 @@ const CreateBoard: React.FC<ICreateBoard> = ({ closeModal }) => {
   return (
     <Modal>
       <Container onSubmit={handleSubmit} ref={formRef}>
-        <Input
-          icon={FiEdit}
-          type="text"
-          name="project_name"
-          placeholder="Project name"
-        />
+        <Input icon={FiEdit} name="project_name" placeholder="Project name" />
         <div className="button-container">
           <Button isSquare color="red" onClick={closeModal}>
             Cancel

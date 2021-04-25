@@ -1,11 +1,11 @@
 import Layout from '@components/pages/app/AppLayout';
 
-const Notifications: React.FC = () => {
+const Accounts: React.FC = () => {
   return (
     <Layout>
-      <h1>Notifications</h1>
+      <h1>Account</h1>
     </Layout>
   );
 };
 
-export default Notifications;
+export default Accounts;

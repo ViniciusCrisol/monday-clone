@@ -31,7 +31,7 @@ const SideMenu: React.FC = () => {
       </div>
 
       <div>
-        <Link href="account">
+        <Link href="/app/account">
           <a>
             <FiUser size={23} />
             <span>Account info</span>

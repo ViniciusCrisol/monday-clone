@@ -13,6 +13,7 @@ accountsRoutes.post(
       user_email: Joi.string().email().required(),
       account_name: Joi.string().required(),
       password: Joi.string().required(),
+      confirm_password: Joi.string().required(),
     },
   }),
   accountsController.create,

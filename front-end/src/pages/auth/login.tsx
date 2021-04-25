@@ -27,7 +27,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const tokenName: CookieNames = 'monday_user_token';
 
   const { [tokenName]: token } = req.cookies;
-  console.log(req.cookies);
   const response = await nonAuthenticatedRoutes(token);
 
   return response;

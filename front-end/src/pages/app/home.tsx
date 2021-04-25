@@ -4,7 +4,6 @@ import { mondayIcon } from '@services/files';
 import { defaultPattern } from '@libs/formatDate';
 
 import Layout from '@components/pages/app/AppLayout';
-
 import { Feed, Card, CardList, Container, HeaderFeed } from '@styles/app/home';
 
 const mock = [
@@ -73,7 +72,7 @@ const mock = [
     description: 'Information from Github | master |  tag |  monday-system'
   },
   {
-    id: '121',
+    id: '141',
     title: 'Create Menu',
     status: 'Paused',
     project_name: 'Clone Monday',
