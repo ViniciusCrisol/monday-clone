@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import Header from '../components/Header';
-import { Container } from '../styles/pages/home';
+import Header from '@components/Header';
+import { Container } from '@styles/home';
 
 const Home: React.FC = () => {
   return (

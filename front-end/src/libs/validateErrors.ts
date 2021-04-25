@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
-import { baseErrorMessages } from '../utils/errorMessages';
+import errorMessages from '@utils/errorMessages';
 
-interface YupErrors {
+interface IYupErrors {
   message: string;
 }
 
-function getYupErrors(error: Yup.ValidationError): YupErrors[] {
+function validateYupErrors(error: Yup.ValidationError): IYupErrors[] {
   const validationErrors = [];
 
   error.inner.forEach(error => {
@@ -15,15 +15,15 @@ function getYupErrors(error: Yup.ValidationError): YupErrors[] {
   return validationErrors;
 }
 
-function getFormErrorMessage(error): string {
-  const { defaulMessage, fillAllFields } = baseErrorMessages;
+function validateErrors(error): string {
+  const { defaulMessage, fillAllFields } = errorMessages;
 
   if (error instanceof Yup.ValidationError) {
-    const yupErrors = getYupErrors(error);
+    const yupErrors = validateYupErrors(error);
     return yupErrors.length > 1 ? fillAllFields : yupErrors[0].message;
   }
 
   return error.response.data.message || defaulMessage;
 }
 
-export default getFormErrorMessage;
+export default validateErrors;

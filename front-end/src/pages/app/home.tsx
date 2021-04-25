@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react';
-import { defaultPattern } from '../../libs/formatDate';
-import Layout from '../../components/app/AppLayout';
 
-import {
-  Feed,
-  Card,
-  CardList,
-  Container,
-  HeaderFeed
-} from '../../styles/pages/app/home';
-import { mondayIcon } from '../../services/files';
+import { mondayIcon } from '@services/files';
+import { defaultPattern } from '@libs/formatDate';
+
+import Layout from '@components/pages/app/AppLayout';
+
+import { Feed, Card, CardList, Container, HeaderFeed } from '@styles/app/home';
 
 const mock = [
   {

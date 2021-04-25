@@ -1,13 +1,14 @@
 import Head from 'next/head';
+
 import Boards from './Boards';
 import SideMenu from './SideMenu';
 import { Container, MainContainer } from './styles';
 
-interface LayoutProps {
+interface ILayout {
   boardsMenuIsActive?: boolean;
 }
 
-const AppLayout: React.FC<LayoutProps> = ({
+const AppLayout: React.FC<ILayout> = ({
   children,
   boardsMenuIsActive = true
 }) => {

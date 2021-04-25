@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { Container } from './styles';
 
-interface FormErrorProps {
+interface IFormError {
   message: string;
 }
 
-const FormError: React.FC<FormErrorProps> = ({ message }) => {
+const FormError: React.FC<IFormError> = ({ message }) => {
   const [messageIsEmpty, setMessageIsEmpty] = useState(false);
 
   useEffect(() => {

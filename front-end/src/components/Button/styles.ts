@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
-import { ButtonProps } from './index';
+import { IButton } from './index';
 
-export const Container = styled.button<ButtonProps>`
+export const Container = styled.button<IButton>`
   height: 40px;
   min-width: 175px;
 

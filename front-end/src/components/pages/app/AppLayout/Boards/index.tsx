@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
 import { FiPlusCircle, FiChevronRight } from 'react-icons/fi';
 
+import Loading from '@components/Loading';
 import Board from './Board';
-import Loading from '../../../Loading';
 import CreateBoard from './CreateBoard';
 import { Container, BoardList, Header } from './styles';
 
@@ -10,8 +10,6 @@ const Boards: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [createBoardIsActive, setCreateBoardIsActive] = useState(false);
-
-  const createPeoject = useCallback(() => {}, []);
 
   const handleCloseModal = useCallback(() => {
     setCreateBoardIsActive(false);

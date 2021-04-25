@@ -1,4 +1,3 @@
-import React from 'react';
 import Document, {
   DocumentInitialProps,
   DocumentContext,
@@ -7,7 +6,7 @@ import Document, {
   Head,
   Main
 } from 'next/document';
-import { mondayIcon } from '../services/files';
+import { mondayIcon } from '@services/files';
 import { ServerStyleSheet } from 'styled-components';
 
 export default class MyDocument extends Document {

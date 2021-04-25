@@ -1,24 +1,23 @@
 import { useCallback, useRef } from 'react';
-import { FormHandles } from '@unform/core';
 import { FiEdit } from 'react-icons/fi';
 
-import Button from '../../../../Button';
-import Modal from '../../../../Modal';
-import Input from '../../../../Input';
+import Button from '@components/Button';
+import Modal from '@components/Modal';
+import Input from '@components/Input';
 import { Container } from './styles';
 
-interface formData {
-  project_name: string;
-}
-
-interface CreateBoardProps {
+interface ICreateBoard {
   closeModal(): void;
 }
 
-const CreateBoard: React.FC<CreateBoardProps> = ({ closeModal }) => {
-  const formRef = useRef<FormHandles>(null);
+interface IFormData {
+  project_name: string;
+}
 
-  const handleSubmit = useCallback((data: formData) => {
+const CreateBoard: React.FC<ICreateBoard> = ({ closeModal }) => {
+  const formRef = useRef(null);
+
+  const handleSubmit = useCallback((data: IFormData) => {
     console.log(data);
   }, []);
 

@@ -15,4 +15,8 @@ export default class AccountSessionsController {
     const { id } = account;
     return response.json({ account: { id, user_email }, token });
   }
+
+  public async get(_request: Request, response: Response): Promise<Response> {
+    return response.status(204).send();
+  }
 }

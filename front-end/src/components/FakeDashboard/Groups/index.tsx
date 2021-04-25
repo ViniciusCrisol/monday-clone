@@ -1,11 +1,11 @@
 import { FiChevronDown } from 'react-icons/fi';
 import { Container } from './styles';
 
-interface GroupsProps {
+interface IGroups {
   title: string;
 }
 
-const Groups: React.FC<GroupsProps> = ({ title, children }) => {
+const Groups: React.FC<IGroups> = ({ title, children }) => {
   return (
     <Container>
       <div className="header">

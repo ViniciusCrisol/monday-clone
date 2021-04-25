@@ -1,15 +1,14 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FiLayout } from 'react-icons/fi';
-
 import { Container } from './styles';
 
-interface BoardInterface {
+interface IBoardInterface {
   link: string;
   label: string;
 }
 
-const Board: React.FC<BoardInterface> = ({ label, link }) => {
+const Board: React.FC<IBoardInterface> = ({ label, link }) => {
   const router = useRouter();
 
   return (

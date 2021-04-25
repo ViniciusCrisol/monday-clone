@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 
-interface ContainerProps {
+interface IContainer {
   isField: boolean;
   isFocused: boolean;
 }
 
-export const Container = styled.label<ContainerProps>`
+export const Container = styled.label<IContainer>`
   width: 100%;
   height: 36px;
 

@@ -25,35 +25,3 @@ export const Header = styled.header`
     max-height: 44px;
   }
 `;
-
-export const FormContainer = styled.div`
-  width: 100%;
-  max-width: 360px;
-
-  padding: 10px;
-  margin-top: 30px;
-
-  h1 {
-    font-size: 24px;
-    font-weight: normal;
-    margin-bottom: 48px;
-  }
-
-  button {
-    width: 100%;
-    margin: 16px 0;
-  }
-
-  a {
-    text-align: center;
-    text-decoration: underline;
-
-    display: block;
-    margin-top: 32px;
-    transition: color 200ms;
-
-    &:hover {
-      color: ${({ theme }) => theme.colors.base.blue};
-    }
-  }
-`;
