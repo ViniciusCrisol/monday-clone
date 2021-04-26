@@ -14,10 +14,11 @@ describe('Create Account', () => {
 
   it('Should be able to create a new account.', async () => {
     const account = await createAccountService.execute({
-      password: 'password',
       user_name: 'John Doe',
       user_email: 'john@example.com',
       account_name: 'JohnDoeAccount',
+      password: 'password',
+      confirm_password: 'password',
     });
 
     expect(account).toHaveProperty('id');
@@ -29,6 +30,7 @@ describe('Create Account', () => {
       user_name: 'John Doe',
       user_email: 'john@example.com',
       account_name: 'JohnDoeAccount',
+      confirm_password: 'password',
     });
 
     await expect(
@@ -37,6 +39,19 @@ describe('Create Account', () => {
         user_name: 'John Doe',
         user_email: 'john@example.com',
         account_name: 'JohnDoeAccount',
+        confirm_password: 'password',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('Should not be able to create a new account with a wrong password confitmation.', async () => {
+    await expect(
+      createAccountService.execute({
+        password: 'password',
+        user_name: 'John Doe',
+        user_email: 'john@example.com',
+        account_name: 'JohnDoeAccount',
+        confirm_password: 'wrong-password',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

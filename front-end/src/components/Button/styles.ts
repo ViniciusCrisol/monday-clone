@@ -24,6 +24,15 @@ export const Container = styled.button<IButton>`
       darken(0.08, theme.colors.base[color] || theme.colors.base.blue)};
   }
 
+  &:disabled {
+    opacity: 0.7;
+
+    &:hover {
+      background: ${({ theme, color }) =>
+        theme.colors.base[color] || theme.colors.base.blue};
+    }
+  }
+
   svg {
     margin-left: 8px;
   }

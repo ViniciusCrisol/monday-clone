@@ -25,9 +25,11 @@ const AuthForm: React.FC = () => {
   const router = useRouter();
   const formRef = useRef(null);
   const { setCookie } = useCookie();
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = useCallback(async (data: IFormData) => {
+    setLoading(true);
     try {
       const { emailRequired, passwordRequired } = errorMessages;
 
@@ -44,6 +46,7 @@ const AuthForm: React.FC = () => {
     } catch (error) {
       const errorMessage = validateErrors(error);
       setErrorMessage(errorMessage);
+      setLoading(false);
     }
   }, []);
 
@@ -51,6 +54,7 @@ const AuthForm: React.FC = () => {
     <Container>
       <Form onSubmit={handleSubmit} ref={formRef}>
         <h1>Log in to your account</h1>
+
         <FormError message={errorMessage} />
         <Input
           icon={FiMail}
@@ -64,7 +68,7 @@ const AuthForm: React.FC = () => {
           type="password"
           placeholder="Password"
         />
-        <Button type="submit">
+        <Button loading={loading} type="submit">
           Next <FiArrowRight size={22} />
         </Button>
         <Link href="/users/create-account">
