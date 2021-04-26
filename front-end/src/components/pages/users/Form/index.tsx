@@ -26,33 +26,29 @@ interface IFormData {
 const CreateAccountForm: React.FC = () => {
   const router = useRouter();
   const formRef = useRef(null);
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = useCallback(async (data: IFormData) => {
+    setLoading(true);
     try {
-      const { emailRequired, passwordRequired } = errorMessages;
-
       const schema = Yup.object().shape({
-        user_name: Yup.string().required(emailRequired),
-        account_name: Yup.string().required(emailRequired),
-        user_email: Yup.string().email().required(emailRequired),
-        password: Yup.string().required(passwordRequired),
-        confirm_password: Yup.string()
-          .required(passwordRequired)
-          .oneOf([Yup.ref('password'), null], passwordRequired)
+        user_name: Yup.string().required(errorMessages.userNameRequired),
+        account_name: Yup.string().required(errorMessages.accountNameRquired),
+        user_email: Yup.string().email().required(errorMessages.emailRequired),
+        password: Yup.string().required(errorMessages.passwordRequired),
+        confirm_password: Yup.string().oneOf(
+          [Yup.ref('password'), null],
+          errorMessages.passwordDoesNotMatch
+        )
       });
-
-      console.log(data);
-
       await schema.validate(data, { abortEarly: false });
-      const response = await api.post('/accounts', data);
-
-      console.log(response.data);
-
-      // router.push('/auth/login');
+      await api.post('/accounts', data);
+      router.push('/auth/login');
     } catch (error) {
       const errorMessage = validateErrors(error);
       setErrorMessage(errorMessage);
+      setLoading(false);
     }
   }, []);
 
@@ -86,7 +82,7 @@ const CreateAccountForm: React.FC = () => {
           name="confirm_password"
           placeholder="Confirm password"
         />
-        <Button isSquare type="submit">
+        <Button loading={loading} isSquare type="submit">
           Register
         </Button>
         <Link href="/auth/login">

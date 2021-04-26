@@ -22,6 +22,7 @@ describe('Create Project', () => {
       user_name: 'John Doe',
       user_email: 'john@example.com',
       account_name: 'JohnDoeAccount',
+      confirm_password: 'password',
     });
   });
 
