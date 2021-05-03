@@ -1,11 +1,16 @@
-export const defaultError = {
+export const invalidAccount = {
   status: 400,
-  message: 'Error, check your send information, and try again!',
+  message: 'Error, this account does not exists!',
 };
 
-export const templateError = {
-  status: 404,
-  message: 'Error, template name not found!',
+export const projectOwner = {
+  status: 401,
+  message: 'Error, you must be the project owner to do that!',
+};
+
+export const inviteSended = {
+  status: 401,
+  message: 'Error, this invite was already sended!',
 };
 
 export const emailAlreadyInUse = {
@@ -31,16 +36,6 @@ export const jwtIsMissing = {
 export const jwtIsInvalid = {
   status: 401,
   message: 'Error, JWT token is invalid!',
-};
-
-export const businessRoleNotExists = {
-  status: 400,
-  message: 'Error, business role does not exists!',
-};
-
-export const mainThingNotExists = {
-  status: 400,
-  message: 'Error, main thing does not exists!',
 };
 
 export const nameAlreadyInUse = {

@@ -7,15 +7,13 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+import Project from './Project';
 import Account from '@modules/Accounts/infra/typeorm/entities/Account';
 
-@Entity('projects')
-class Project {
+@Entity('invite_member_notifications')
+class Invite {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column({ length: 30 })
-  project_name: string;
 
   @Column()
   account_id: string;
@@ -24,6 +22,13 @@ class Project {
   @JoinColumn({ name: 'account_id' })
   account: Account;
 
+  @Column()
+  project_id: string;
+
+  @ManyToOne(() => Project)
+  @JoinColumn({ name: 'project_id' })
+  project: Project;
+
   @CreateDateColumn()
   inserted_at: Date;
 
@@ -31,4 +36,4 @@ class Project {
   updated_at: Date;
 }
 
-export default Project;
+export default Invite;

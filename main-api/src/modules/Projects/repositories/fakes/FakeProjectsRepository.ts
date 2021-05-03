@@ -1,8 +1,9 @@
 import { uuid } from 'uuidv4';
-import IProjectsRepository from '@modules/Projects/repositories/IProjectsRepository';
-import IFindProjectByNameAndAccountIdDTO from '@modules/Projects/dtos/IFindProjectByNameAndAccountIdDTO';
+
 import ICreateProjectDTO from '@modules/Projects/dtos/ICreateProjectDTO';
+import IFindProjectByNameAndAccountIdDTO from '@modules/Projects/dtos/IFindProjectByNameAndAccountIdDTO';
 import Project from '../../infra/typeorm/entities/Project';
+import IProjectsRepository from '@modules/Projects/repositories/IProjectsRepository';
 
 class FakeProjectsRepository implements IProjectsRepository {
   private projects: Project[] = [];

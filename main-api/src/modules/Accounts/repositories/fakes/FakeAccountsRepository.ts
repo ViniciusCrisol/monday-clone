@@ -1,7 +1,8 @@
 import { uuid } from 'uuidv4';
-import IAccountsRepository from '@modules/Accounts/repositories/IAccountsRepository';
+
 import ICreateAccountDTO from '@modules/Accounts/dtos/ICreateAccountDTO';
 import Account from '../../infra/typeorm/entities/Account';
+import IAccountsRepository from '@modules/Accounts/repositories/IAccountsRepository';
 
 class FakeAccountsRepository implements IAccountsRepository {
   private accounts: Account[] = [];

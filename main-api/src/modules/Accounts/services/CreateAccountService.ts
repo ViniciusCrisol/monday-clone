@@ -1,11 +1,10 @@
 import { injectable, inject } from 'tsyringe';
 
-import AppError from '@shared/errors/AppError';
 import {
   emailAlreadyInUse,
   passwordDoesNotMatch,
 } from '@shared/errors/messages';
-
+import AppError from '@shared/errors/AppError';
 import Account from '../infra/typeorm/entities/Account';
 import IAccountsRepository from '../repositories/IAccountsRepository';
 import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
