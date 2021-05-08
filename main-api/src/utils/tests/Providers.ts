@@ -33,14 +33,23 @@ class Providers {
 
   projectsProvider() {
     const fakeProjectsRepository = new FakeProjectsRepository();
+
+    const fakeHashProvider = new FakeHashProvider();
+    const fakeBackofficeProvider = new FakeBackofficeProvider();
     const fakeAccountsRepository = new FakeAccountsRepository();
+
+    const createAccount = new CreateAccountService(
+      fakeHashProvider,
+      fakeBackofficeProvider,
+      fakeAccountsRepository,
+    );
 
     const createProject = new CreateProjectService(
       fakeProjectsRepository,
       fakeAccountsRepository,
     );
 
-    return { createProject };
+    return { createProject, createAccount };
   }
 }
 

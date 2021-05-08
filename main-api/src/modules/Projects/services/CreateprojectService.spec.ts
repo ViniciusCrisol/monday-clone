@@ -2,8 +2,7 @@ import AppError from '@shared/errors/AppError';
 import Providers, { Account } from '@utils/tests/Providers';
 
 const providers = new Providers();
-const { createAccount } = providers.userProvider();
-const { createProject } = providers.projectsProvider();
+const { createProject , createAccount} = providers.projectsProvider();
 
 let account: Account;
 let createAccountService: typeof createAccount;
@@ -11,8 +10,7 @@ let createProjectService: typeof createProject;
 
 describe('Create Project', () => {
   beforeEach(async () => {
-    const { createAccount } = providers.userProvider();
-    const { createProject } = providers.projectsProvider();
+    const { createAccount, createProject } = providers.projectsProvider();
 
     createAccountService = createAccount;
     createProjectService = createProject;
@@ -28,7 +26,7 @@ describe('Create Project', () => {
 
   it('Should be able to create a new project.', async () => {
     const project = await createProjectService.execute({
-      project_name: 'Project Name',
+      project_name: 'New Project Name',
       account_id: account.id,
     });
 
@@ -45,7 +43,7 @@ describe('Create Project', () => {
   });
 
   it('Should not be able to create a new project with same name from another in a account.', async () => {
-    createProjectService.execute({
+    await createProjectService.execute({
       project_name: 'Project Name',
       account_id: account.id,
     });

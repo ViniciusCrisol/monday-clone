@@ -17,6 +17,7 @@ sessionsRoutes.post(
   accountSessionsController.create,
 );
 
+// Validate Session
 sessionsRoutes.get('/', ensureAuthenticated, accountSessionsController.get);
 
 export default sessionsRoutes;
