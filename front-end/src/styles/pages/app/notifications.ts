@@ -33,6 +33,14 @@ export const HeaderFeed = styled.div`
 export const CardList = styled.ul`
   width: 100%;
   margin-top: 25px;
+
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+
+  @media (max-width: 801px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const Card = styled.li`
@@ -41,10 +49,6 @@ export const Card = styled.li`
   padding: 15px;
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.colors.others['light-gray']};
-
-  & + li {
-    margin-top: 15px;
-  }
 
   pre {
     margin-top: 4px;

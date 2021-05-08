@@ -24,6 +24,6 @@ export default class InvitesController {
     const listInvites = container.resolve(ListInvitesService);
     const invites = await listInvites.execute(account_id);
 
-    return response.send({ invites });
+    return response.json(invites);
   }
 }

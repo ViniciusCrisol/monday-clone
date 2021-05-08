@@ -24,10 +24,6 @@ export const Container = styled.nav`
       margin-bottom: 8px;
     }
 
-    img {
-      max-width: 40px;
-    }
-
     a {
       position: relative;
       width: 44px;

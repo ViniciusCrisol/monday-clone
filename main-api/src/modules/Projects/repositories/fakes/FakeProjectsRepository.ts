@@ -1,7 +1,7 @@
 import { uuid } from 'uuidv4';
 
 import ICreateProjectDTO from '@modules/Projects/dtos/ICreateProjectDTO';
-import IFindProjectByNameAndAccountIdDTO from '@modules/Projects/dtos/IFindProjectByNameAndAccountIdDTO';
+import IFindProjectByNameDTO from '@modules/Projects/dtos/IFindProjectByNameDTO';
 import Project from '../../infra/typeorm/entities/Project';
 import IProjectsRepository from '@modules/Projects/repositories/IProjectsRepository';
 
@@ -21,10 +21,20 @@ class FakeProjectsRepository implements IProjectsRepository {
     return response;
   }
 
-  public async findByNameAndAccountId({
+  public async findAll(id: string): Promise<Project[]> {
+    const response = this.projects.filter(project => project.id === id);
+    return response;
+  }
+
+  public async count(id: string): Promise<Number> {
+    const response = this.projects.filter(project => project.id === id);
+    return response.length;
+  }
+
+  public async findByName({
     account_id,
     project_name,
-  }: IFindProjectByNameAndAccountIdDTO): Promise<Project | undefined> {
+  }: IFindProjectByNameDTO): Promise<Project | undefined> {
     const response = this.projects.find(
       project =>
         project.account_id === account_id &&

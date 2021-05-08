@@ -1,65 +1,52 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: inline-block;
-  position: relative;
-  width: 56px;
-  height: 40px;
-
-  div {
-    position: absolute;
-    top: 15.5px;
+  > div {
     width: 8px;
     height: 8px;
-    border-radius: 50%;
-    background: #fff;
-    animation-timing-function: cubic-bezier(0, 1, 1, 0);
-  }
+    background-color: #fff;
 
-  div:nth-child(1) {
-    left: 6px;
-    animation: lds-ellipsis1 0.6s infinite;
-  }
+    border-radius: 100%;
+    display: inline-block;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 
-  div:nth-child(2) {
-    left: 6px;
-    animation: lds-ellipsis2 0.6s infinite;
-  }
-
-  div:nth-child(3) {
-    left: 24px;
-    animation: lds-ellipsis2 0.6s infinite;
-  }
-
-  div:nth-child(4) {
-    left: 42px;
-    animation: lds-ellipsis3 0.6s infinite;
-  }
-
-  @keyframes lds-ellipsis1 {
-    0% {
-      transform: scale(0);
+    & + div {
+      margin-left: 4px;
     }
+  }
+
+  .bounce1 {
+    animation-delay: -0.32s;
+    -webkit-animation-delay: -0.32s;
+  }
+
+  .bounce2 {
+    animation-delay: -0.16s;
+    -webkit-animation-delay: -0.16s;
+  }
+
+  @-webkit-keyframes sk-bouncedelay {
+    0%,
+    80%,
     100% {
-      transform: scale(1);
+      -webkit-transform: scale(0);
+    }
+    40% {
+      -webkit-transform: scale(1);
     }
   }
 
-  @keyframes lds-ellipsis3 {
-    0% {
-      transform: scale(1);
-    }
+  @keyframes sk-bouncedelay {
+    0%,
+    80%,
     100% {
       transform: scale(0);
+      -webkit-transform: scale(0);
     }
-  }
-
-  @keyframes lds-ellipsis2 {
-    0% {
-      transform: translate(0, 0);
-    }
-    100% {
-      transform: translate(18px, 0);
+    40% {
+      transform: scale(1);
+      -webkit-transform: scale(1);
     }
   }
 `;

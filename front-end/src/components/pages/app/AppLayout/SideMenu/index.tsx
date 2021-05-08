@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { CgMonday } from 'react-icons/cg';
 import { FiUser, FiBell, FiGrid } from 'react-icons/fi';
 
-import { mondayIcon } from '@services/files';
 import { Container } from './styles';
 
 const SideMenu: React.FC = () => {
@@ -12,7 +12,7 @@ const SideMenu: React.FC = () => {
     <Container>
       <div>
         <div className="image-container">
-          <img src={mondayIcon} alt="Monday Icon" />
+          <CgMonday color="#fff" size={32} />
         </div>
         <Link href="/app/home/">
           <a className={router.pathname === '/app/home' ? 'active' : ''}>

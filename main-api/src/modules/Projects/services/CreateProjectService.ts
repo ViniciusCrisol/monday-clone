@@ -1,6 +1,10 @@
 import { inject, injectable } from 'tsyringe';
 
-import { invalidAccount, nameAlreadyInUse } from '@shared/errors/messages';
+import {
+  invalidAccount,
+  nameAlreadyInUse,
+  maxNumberOfProjects,
+} from '@shared/errors/messages';
 import AppError from '@shared/errors/AppError';
 import Project from '../infra/typeorm/entities/Project';
 import IProjectsRepository from '../repositories/IProjectsRepository';
@@ -25,18 +29,22 @@ class CreateProjectService {
     project_name,
     account_id,
   }: IRequest): Promise<Project> {
-    const checkAccountExists = await this.accountsRepository.findById(
-      account_id,
-    );
-    if (!checkAccountExists) {
+    const account = await this.accountsRepository.findById(account_id);
+    if (!account) {
       throw new AppError(invalidAccount.message);
     }
 
-    const checkProjectExits = await this.projectsRepository.findByNameAndAccountId(
-      { account_id, project_name },
-    );
+    const checkProjectExits = await this.projectsRepository.findByName({
+      account_id,
+      project_name,
+    });
     if (checkProjectExits) {
       throw new AppError(nameAlreadyInUse.message);
+    }
+
+    const projectsCount = await this.projectsRepository.count(account_id);
+    if (projectsCount >= 30) {
+      throw new AppError(maxNumberOfProjects.message);
     }
 
     const project = await this.projectsRepository.create({

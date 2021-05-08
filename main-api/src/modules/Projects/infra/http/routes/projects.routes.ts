@@ -17,4 +17,6 @@ projectsRoutes.post(
   projectsController.create,
 );
 
+projectsRoutes.get('/', ensureAuthenticated, projectsController.get);
+
 export default projectsRoutes;

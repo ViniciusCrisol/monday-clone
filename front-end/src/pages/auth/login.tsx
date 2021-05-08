@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 
 import { mondayLogo } from '@services/files';
-import { CookieNames } from '@hooks/useCookies';
+import { CookieNames } from '@services/cookies';
 import { nonAuthenticatedRoutes } from '@libs/authenticateRoutes';
 
 import Form from '@components/pages/auth/Form';

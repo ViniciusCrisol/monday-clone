@@ -12,7 +12,7 @@ import validateErrors from '@libs/validateErrors';
 import Input from '@components/Input';
 import Button from '@components/Button';
 import FormError from '@components/FormError';
-import { useCookie } from '@hooks/useCookies';
+import { setCookie } from '@services/cookies';
 
 import { Container } from './styles';
 
@@ -24,7 +24,6 @@ interface IFormData {
 const AuthForm: React.FC = () => {
   const router = useRouter();
   const formRef = useRef(null);
-  const { setCookie } = useCookie();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 

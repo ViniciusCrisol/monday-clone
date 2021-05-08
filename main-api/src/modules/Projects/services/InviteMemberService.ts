@@ -50,9 +50,10 @@ class InviteMemberService {
       throw new AppError(projectOwner.message);
     }
 
-    const inviteAlreadySended = await this.invitesRepository.findByAccountIdAndProjectId(
-      { account_id: invitedUser.id, project_id },
-    );
+    const inviteAlreadySended = await this.invitesRepository.findByProjectId({
+      account_id: invitedUser.id,
+      project_id,
+    });
     if (inviteAlreadySended) {
       throw new AppError(inviteSended.message);
     }

@@ -5,8 +5,8 @@ export const Container = styled(Form)`
   width: 100%;
   max-width: 540px;
 
-  padding: 32px;
   border-radius: 12px;
+  padding: 32px 32px 58px;
   background: ${({ theme }) => theme.colors.general.background};
 
   div.button-container {

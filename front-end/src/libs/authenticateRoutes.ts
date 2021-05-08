@@ -7,7 +7,7 @@ const redirectRoutes = {
   login: { redirect: { permanent: false, destination: '/auth/login' } }
 };
 
-async function validateToken(token: string): Promise<boolean> {
+export async function validateToken(token: string): Promise<boolean> {
   api.defaults.headers.authorization = `Bearer ${token}`;
   const response = await api.get('/accounts/session');
   return response.status === 204;

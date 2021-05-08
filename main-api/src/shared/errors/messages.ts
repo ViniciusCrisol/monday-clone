@@ -18,6 +18,11 @@ export const emailAlreadyInUse = {
   message: 'Error, email address already in use!',
 };
 
+export const maxNumberOfProjects = {
+  status: 400,
+  message: 'Error, max number of projects!',
+};
+
 export const authenticationFail = {
   status: 401,
   message: 'Error, incorrect email/password combination!',

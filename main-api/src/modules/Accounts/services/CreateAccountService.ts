@@ -38,10 +38,8 @@ class CreateAccountService {
     account_name,
     confirm_password,
   }: IRequest): Promise<Account> {
-    const checkAccountExists = await this.accountsRepository.findByEmail(
-      user_email,
-    );
-    if (checkAccountExists) {
+    const account = await this.accountsRepository.findByEmail(user_email);
+    if (account) {
       throw new AppError(emailAlreadyInUse.message);
     }
 
@@ -50,15 +48,15 @@ class CreateAccountService {
     }
 
     const hashedPassword = await this.hashProvider.generateHash(password);
-    const account = await this.accountsRepository.create({
+    const newAccount = await this.accountsRepository.create({
       user_name,
       user_email,
       account_name,
       password_hash: hashedPassword,
     });
 
-    this.backofficeProvider.sendWelcomeMail(account.id);
-    return account;
+    this.backofficeProvider.sendWelcomeMail(newAccount.id);
+    return newAccount;
   }
 }
 

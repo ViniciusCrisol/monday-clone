@@ -1,7 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 
 import ICreateProjectDTO from '@modules/Projects/dtos/ICreateProjectDTO';
-import IFindProjectByNameAndAccountIdDTO from '@modules/Projects/dtos/ICreateProjectDTO';
+import IFindProjectByNameDTO from '@modules/Projects/dtos/ICreateProjectDTO';
 import Project from '../entities/Project';
 import IProjectsRepository from '@modules/Projects/repositories/IProjectsRepository';
 
@@ -23,10 +23,25 @@ class ProjectsRepository implements IProjectsRepository {
     return response;
   }
 
-  public async findByNameAndAccountId({
+  public async findAll(id: string): Promise<Project[]> {
+    const response = await this.ormRepository.find({
+      where: { account_id: id },
+      order: { inserted_at: 'DESC' },
+    });
+    return response;
+  }
+
+  public async count(id: string): Promise<Number> {
+    const response = await this.ormRepository.count({
+      where: { account_id: id },
+    });
+    return response;
+  }
+
+  public async findByName({
     account_id,
     project_name,
-  }: IFindProjectByNameAndAccountIdDTO): Promise<Project | undefined> {
+  }: IFindProjectByNameDTO): Promise<Project | undefined> {
     const response = await this.ormRepository.findOne({
       where: { project_name, account_id },
     });
