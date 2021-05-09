@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import {
   projectOwner,
   inviteSended,
+  invalidInvite,
   invalidAccount,
   nameAlreadyInUse,
 } from '@shared/errors/messages';
@@ -36,6 +37,15 @@ class InviteMemberService {
     account_id,
     project_id,
   }: IRequest): Promise<Invite> {
+    const account = await this.accountsRepository.findById(account_id);
+    if (!account) {
+      throw new AppError(invalidAccount.message);
+    }
+
+    if (account.user_email === user_email) {
+      throw new AppError(invalidInvite.message);
+    }
+
     const invitedUser = await this.accountsRepository.findByEmail(user_email);
     if (!invitedUser) {
       throw new AppError(invalidAccount.message);

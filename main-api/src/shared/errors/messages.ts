@@ -13,6 +13,11 @@ export const inviteSended = {
   message: 'Error, this invite was already sended!',
 };
 
+export const invalidInvite = {
+  status: 401,
+  message: 'Error, invalid invite!',
+};
+
 export const emailAlreadyInUse = {
   status: 400,
   message: 'Error, email address already in use!',
