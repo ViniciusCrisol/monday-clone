@@ -1,15 +1,13 @@
+import fetch from '@services/fetch';
 import { mondayIcon } from '@services/files';
 import { defaultPattern } from '@libs/formatDate';
 
+import Loading from '@components/Loading';
+import Feed from '@components/pages/app/Feed';
 import Layout from '@components/pages/app/AppLayout';
-import {
-  Feed,
-  Card,
-  CardList,
-  Container,
-  HeaderFeed
-} from '@styles/app/notifications';
-import fetch from '@services/fetch';
+import HeaderFeed from '@components/pages/app/HeaderFeed';
+
+import { Card, CardList, LoadingContainer } from '@styles/app/notifications';
 
 export interface INotificationInterface {
   id: string;
@@ -26,13 +24,19 @@ const Notifications: React.FC = () => {
 
   return (
     <Layout>
-      <Container>
-        <Feed>
-          <HeaderFeed>
-            <h1>Notifications</h1>
-            <div>Open({data.length})/All Updates</div>
-          </HeaderFeed>
+      <Feed>
+        <HeaderFeed
+          title="Notifications"
+          label={`${data.length} unreaded notifications`}
+        />
 
+        {!data ? (
+          <div className="loading-container">
+            <LoadingContainer>
+              <Loading />
+            </LoadingContainer>
+          </div>
+        ) : (
           <CardList>
             {data.map(item => (
               <Card key={item.id}>
@@ -49,8 +53,8 @@ const Notifications: React.FC = () => {
               </Card>
             ))}
           </CardList>
-        </Feed>
-      </Container>
+        )}
+      </Feed>
     </Layout>
   );
 };

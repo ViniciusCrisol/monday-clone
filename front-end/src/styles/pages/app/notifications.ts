@@ -1,35 +1,5 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  width: 100%;
-  padding: 40px 40px 10px;
-
-  @media (max-width: 480px) {
-    padding: 20px 10px;
-  }
-`;
-
-export const Feed = styled.div`
-  max-width: 754px;
-  width: 100%;
-`;
-
-export const HeaderFeed = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  @media (max-width: 480px) {
-    flex-direction: column;
-    justify-content: center;
-
-    > div {
-      margin-top: 8px;
-      margin-left: unset;
-    }
-  }
-`;
-
 export const CardList = styled.ul`
   width: 100%;
   margin-top: 25px;
@@ -83,4 +53,13 @@ export const Card = styled.li`
       }
     }
   }
+`;
+
+export const LoadingContainer = styled.div`
+  width: 100%;
+  margin-top: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

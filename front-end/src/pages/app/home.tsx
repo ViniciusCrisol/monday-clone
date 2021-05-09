@@ -3,8 +3,11 @@ import { useEffect, useState } from 'react';
 import { mondayIcon } from '@services/files';
 import { defaultPattern } from '@libs/formatDate';
 
+import Feed from '@components/pages/app/Feed';
 import Layout from '@components/pages/app/AppLayout';
-import { Feed, Card, CardList, Container, HeaderFeed } from '@styles/app/home';
+import HeaderFeed from '@components/pages/app/HeaderFeed';
+
+import { Card, CardList } from '@styles/app/home';
 
 const mock = [
   {
@@ -106,31 +109,29 @@ const Home: React.FC = () => {
 
   return (
     <Layout>
-      <Container>
-        <Feed>
-          <HeaderFeed>
-            <h1>Inbox</h1>
-            <div>Open({inbox.length})/All Updates</div>
-          </HeaderFeed>
+      <Feed>
+        <HeaderFeed
+          title="Notifications"
+          label={`Open(${inbox.length})/All Updates`}
+        />
 
-          <CardList>
-            {inbox.map(item => (
-              <Card key={item.id}>
-                <div className="header">
-                  <div className="image-container">
-                    <img src={mondayIcon} alt="Monday Icon" />
-                  </div>
-                  <div className="card-info">
-                    <h3>{item.project_name}</h3>
-                    <span>{defaultPattern(item.created_at)}</span>
-                  </div>
+        <CardList>
+          {inbox.map(item => (
+            <Card key={item.id}>
+              <div className="header">
+                <div className="image-container">
+                  <img src={mondayIcon} alt="Monday Icon" />
                 </div>
-                <pre>{item.description}</pre>
-              </Card>
-            ))}
-          </CardList>
-        </Feed>
-      </Container>
+                <div className="card-info">
+                  <h3>{item.project_name}</h3>
+                  <span>{defaultPattern(item.created_at)}</span>
+                </div>
+              </div>
+              <pre>{item.description}</pre>
+            </Card>
+          ))}
+        </CardList>
+      </Feed>
     </Layout>
   );
 };
