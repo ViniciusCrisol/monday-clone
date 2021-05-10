@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import errorMessages from '@utils/errorMessages';
+import errorMessages from '@libs/errorMessages';
 
 interface IYupErrors {
   message: string;

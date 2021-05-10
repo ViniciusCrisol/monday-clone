@@ -110,10 +110,7 @@ const Home: React.FC = () => {
   return (
     <Layout>
       <Feed>
-        <HeaderFeed
-          title="Notifications"
-          label={`Open(${inbox.length})/All Updates`}
-        />
+        <HeaderFeed title="Inbox" />
 
         <CardList>
           {inbox.map(item => (

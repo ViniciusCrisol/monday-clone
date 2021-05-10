@@ -19,7 +19,6 @@
       "@services/*": ["services/*"],
       "@styles/*": ["styles/pages/*"],
       "@hooks/*": ["hooks/*"],
-      "@utils/*": ["utils/*"],
       "@libs/*": ["libs/*"]
     }
   },

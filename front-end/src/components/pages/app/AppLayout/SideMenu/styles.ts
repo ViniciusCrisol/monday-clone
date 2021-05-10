@@ -20,8 +20,14 @@ export const Container = styled.nav`
     align-items: center;
 
     div.image-container {
-      padding: 0 13px;
+      width: 40px;
+      height: 40px;
       margin-bottom: 8px;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
 
     a {

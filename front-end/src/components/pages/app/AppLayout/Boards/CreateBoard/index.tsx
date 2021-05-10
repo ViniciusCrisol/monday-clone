@@ -11,7 +11,7 @@ import Button from '@components/Button';
 import FormError from '@components/FormError';
 
 import { Container } from './styles';
-import errorMessages from '@utils/errorMessages';
+import errorMessages from '@libs/errorMessages';
 import validateErrors from '@libs/validateErrors';
 
 interface ICreateBoard {

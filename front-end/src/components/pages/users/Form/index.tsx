@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { FiPaperclip, FiMail, FiLock, FiUser } from 'react-icons/fi';
 
 import api from '@services/api';
-import errorMessages from '@utils/errorMessages';
+import errorMessages from '@libs/errorMessages';
 import validateErrors from '@libs/validateErrors';
 
 import Input from '@components/Input';

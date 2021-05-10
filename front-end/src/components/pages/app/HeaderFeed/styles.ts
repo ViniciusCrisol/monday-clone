@@ -5,6 +5,18 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
 
+  > div {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+
+    > span {
+      max-width: 75px;
+      width: fit-content;
+      margin-left: 8px;
+    }
+  }
+
   @media (max-width: 480px) {
     flex-direction: column;
     justify-content: center;
