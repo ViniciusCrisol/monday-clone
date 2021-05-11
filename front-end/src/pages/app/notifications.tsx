@@ -42,11 +42,9 @@ const Notifications: React.FC = () => {
         )}
 
         {!data ? (
-          <RefreshButton>
-            <LoadingContainer>
-              <Loading />
-            </LoadingContainer>
-          </RefreshButton>
+          <LoadingContainer>
+            <Loading />
+          </LoadingContainer>
         ) : (
           <CardList>
             {data.map(item => (
@@ -56,11 +54,11 @@ const Notifications: React.FC = () => {
                     <img src={mondayIcon} alt="Monday Icon" />
                   </div>
                   <div className="card-info">
-                    <h3>{item.inserted_at}</h3>
+                    <h3>Project invite</h3>
                     <span>{defaultPattern(item.inserted_at)}</span>
                   </div>
                 </div>
-                <pre>{item.id}</pre>
+                <div className="card-content">{item.project.project_name}</div>
                 <div className="footer">
                   <button>
                     <FiX />

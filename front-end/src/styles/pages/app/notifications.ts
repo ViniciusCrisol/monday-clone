@@ -19,7 +19,7 @@ export const RefreshButton = styled.button`
   height: 28px;
 
   padding: 6px;
-  border-radius: 6px;
+  border-radius: 4px;
   background: ${({ theme }) => theme.colors.base.blue};
   color: ${({ theme }) => theme.colors.general.background};
 
@@ -42,9 +42,13 @@ export const Card = styled.li`
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.colors.others['light-gray']};
 
-  pre {
-    margin-top: 4px;
-    white-space: inherit;
+  > .card-content strong {
+    max-width: 100px;
+
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   > div.header {
@@ -78,11 +82,22 @@ export const Card = styled.li`
 
   .footer {
     margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid ${({ theme }) => theme.colors.others['light-gray']};
 
     display: grid;
-    grid-gap: 16px;
-    align-items: center;
     grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+
+    > button {
+      height: 28px;
+      border-radius: 4px;
+      border: 2px solid ${({ theme }) => theme.colors.others['light-gray']};
+
+      & + button {
+        margin-left: 8px;
+      }
+    }
   }
 `;
 
