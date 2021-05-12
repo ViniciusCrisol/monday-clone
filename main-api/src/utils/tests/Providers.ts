@@ -3,13 +3,17 @@ import FakeHashProvider from '@shared/container/providers/HashProvider/fakes/Fak
 import FakeBackofficeProvider from '@shared/container/providers/BackofficeProvider/fakes/FakeBackofficeProvider';
 import FakeAccountsRepository from '@modules/Accounts/repositories/fakes/FakeAccountsRepository';
 import FakeProjectsRepository from '@modules/Projects/repositories/fakes/FakeProjectsRepository';
+import FakeInvitesRepository from '@modules/Projects/repositories/fakes/FakeInvitesRepository';
+
 // Services
+import InviteMemberService from '@modules/Projects/services/InviteMemberService';
 import CreateProjectService from '@modules/Projects/services/CreateProjectService';
 import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 import AuthenticateAccountService from '@modules/Accounts/services/AuthenticateAccountService';
 // Entities
 import Account from '@modules/Accounts/infra/typeorm/entities/Account';
 import Project from '@modules/Projects/infra/typeorm/entities/Project';
+import Invite from '@modules/Projects/infra/typeorm/entities/Invite';
 
 class Providers {
   userProvider() {
@@ -32,9 +36,9 @@ class Providers {
   }
 
   projectsProvider() {
-    const fakeProjectsRepository = new FakeProjectsRepository();
-
     const fakeHashProvider = new FakeHashProvider();
+    const fakeInvitesRepository = new FakeInvitesRepository();
+    const fakeProjectsRepository = new FakeProjectsRepository();
     const fakeBackofficeProvider = new FakeBackofficeProvider();
     const fakeAccountsRepository = new FakeAccountsRepository();
 
@@ -49,9 +53,15 @@ class Providers {
       fakeAccountsRepository,
     );
 
-    return { createProject, createAccount };
+    const inviteMember = new InviteMemberService(
+      fakeProjectsRepository,
+      fakeAccountsRepository,
+      fakeInvitesRepository,
+    );
+
+    return { createProject, createAccount, inviteMember };
   }
 }
 
 export default Providers;
-export { Account, Project };
+export { Account, Project, Invite };

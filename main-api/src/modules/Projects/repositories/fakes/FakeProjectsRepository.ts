@@ -27,7 +27,7 @@ class FakeProjectsRepository implements IProjectsRepository {
   }
 
   public async count(id: string): Promise<Number> {
-    const response = this.projects.filter(project => project.id === id);
+    const response = this.projects.filter(project => project.account_id === id);
     return response.length;
   }
 

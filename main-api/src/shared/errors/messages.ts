@@ -8,6 +8,11 @@ export const projectOwner = {
   message: 'Error, you must be the project owner to do that!',
 };
 
+export const projectNotFount = {
+  status: 404,
+  message: 'Error, project not found!',
+};
+
 export const inviteSended = {
   status: 401,
   message: 'Error, this invite was already sended!',

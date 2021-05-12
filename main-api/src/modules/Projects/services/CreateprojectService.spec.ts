@@ -2,7 +2,7 @@ import AppError from '@shared/errors/AppError';
 import Providers, { Account } from '@utils/tests/Providers';
 
 const providers = new Providers();
-const { createProject , createAccount} = providers.projectsProvider();
+const { createProject, createAccount } = providers.projectsProvider();
 
 let account: Account;
 let createAccountService: typeof createAccount;
@@ -47,6 +47,22 @@ describe('Create Project', () => {
       project_name: 'Project Name',
       account_id: account.id,
     });
+
+    await expect(
+      createProjectService.execute({
+        project_name: 'Project Name',
+        account_id: account.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('Should not be able to create a new project if the user already has 30 other projects.', async () => {
+    for (let i = 0; i <= 29; i++) {
+      await createProjectService.execute({
+        project_name: `Project Name ${i}`,
+        account_id: account.id,
+      });
+    }
 
     await expect(
       createProjectService.execute({

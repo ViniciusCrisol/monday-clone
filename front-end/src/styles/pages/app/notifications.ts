@@ -90,6 +90,8 @@ export const Card = styled.li`
     align-items: center;
 
     > button {
+      cursor: pointer;
+
       height: 28px;
       border-radius: 4px;
       border: 2px solid ${({ theme }) => theme.colors.others['light-gray']};

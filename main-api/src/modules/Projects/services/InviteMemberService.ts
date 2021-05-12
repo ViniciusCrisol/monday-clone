@@ -5,6 +5,7 @@ import {
   inviteSended,
   invalidInvite,
   invalidAccount,
+  projectNotFount,
   nameAlreadyInUse,
 } from '@shared/errors/messages';
 import AppError from '@shared/errors/AppError';
@@ -53,7 +54,7 @@ class InviteMemberService {
 
     const project = await this.projectsRepository.findById(project_id);
     if (!project) {
-      throw new AppError(nameAlreadyInUse.message);
+      throw new AppError(projectNotFount.message);
     }
 
     if (project.account_id !== account_id) {
