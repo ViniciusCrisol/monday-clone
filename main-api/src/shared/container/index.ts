@@ -7,8 +7,8 @@ import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/Acc
 import IProjectsRepository from '@modules/Projects/repositories/IProjectsRepository';
 import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
 
-import IInvitesRepository from '@modules/Projects/repositories/IInvitesRepository';
-import InvitesRepository from '@modules/Projects/infra/typeorm/repositories/InvitesRepository';
+import IInvitesRepository from '@modules/Invites/repositories/IInvitesRepository';
+import InvitesRepository from '@modules/Invites/infra/typeorm/repositories/InvitesRepository';
 
 container.registerSingleton<IAccountsRepository>(
   'AccountsRepository',

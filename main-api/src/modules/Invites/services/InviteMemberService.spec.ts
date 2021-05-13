@@ -6,7 +6,7 @@ const {
   inviteMember,
   createProject,
   createAccount,
-} = providers.projectsProvider();
+} = providers.invitesProvider();
 
 let project: Project;
 let account: Account;
@@ -21,7 +21,7 @@ describe('Invite Member', () => {
       inviteMember,
       createProject,
       createAccount,
-    } = providers.projectsProvider();
+    } = providers.invitesProvider();
 
     inviteMemberService = inviteMember;
     createAccountService = createAccount;

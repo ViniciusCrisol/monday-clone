@@ -6,13 +6,12 @@ import {
   invalidInvite,
   invalidAccount,
   projectNotFount,
-  nameAlreadyInUse,
 } from '@shared/errors/messages';
 import AppError from '@shared/errors/AppError';
 import Invite from '../infra/typeorm/entities/Invite';
 import IInvitesRepository from '../repositories/IInvitesRepository';
-import IProjectsRepository from '../repositories/IProjectsRepository';
 import IAccountsRepository from '@modules/Accounts/repositories/IAccountsRepository';
+import IProjectsRepository from '@modules/Projects/repositories/IProjectsRepository';
 
 interface IRequest {
   user_email: string;

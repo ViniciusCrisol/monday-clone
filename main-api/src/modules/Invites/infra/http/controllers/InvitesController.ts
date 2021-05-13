@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import InviteMemberService from '@modules/Projects/services/InviteMemberService';
-import ListInvitesService from '@modules/Projects/services/ListInvitesService';
+import InviteMemberService from '@modules/Invites/services/InviteMemberService';
+import ListInvitesService from '@modules/Invites/services/ListInvitesService';
 
 export default class InvitesController {
   public async create(request: Request, response: Response): Promise<Response> {

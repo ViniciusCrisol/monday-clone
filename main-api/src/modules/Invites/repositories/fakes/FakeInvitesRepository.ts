@@ -1,9 +1,9 @@
 import { uuid } from 'uuidv4';
 
-import ICreateInviteDTO from '@modules/Projects/dtos/ICreateInviteDTO';
+import ICreateInviteDTO from '@modules/Invites/dtos/ICreateInviteDTO';
 import Invite from '../../infra/typeorm/entities/Invite';
-import IInvitesRepository from '@modules/Projects/repositories/IInvitesRepository';
-import IFindByProjectIdDTO from '@modules/Projects/dtos/IFindByProjectIdDTO';
+import IInvitesRepository from '@modules/Invites/repositories/IInvitesRepository';
+import IFindInviteByProjectIdDTO from '@modules/Invites/dtos/IFindInviteByProjectIdDTO';
 
 class FakeInvitesRepository implements IInvitesRepository {
   private invites: Invite[] = [];
@@ -31,7 +31,7 @@ class FakeInvitesRepository implements IInvitesRepository {
   public async findByProjectId({
     account_id,
     project_id,
-  }: IFindByProjectIdDTO): Promise<Invite | undefined> {
+  }: IFindInviteByProjectIdDTO): Promise<Invite | undefined> {
     const response = this.invites.find(
       invite =>
         invite.account_id === account_id && invite.project_id === project_id,

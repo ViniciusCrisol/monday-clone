@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
-import ProjectsController from '../controllers/ProjectsController';
 import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
+import ProjectsController from '../controllers/ProjectsController';
 
 const projectsRoutes = Router();
 const projectsController = new ProjectsController();

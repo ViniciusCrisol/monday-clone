@@ -3,17 +3,17 @@ import FakeHashProvider from '@shared/container/providers/HashProvider/fakes/Fak
 import FakeBackofficeProvider from '@shared/container/providers/BackofficeProvider/fakes/FakeBackofficeProvider';
 import FakeAccountsRepository from '@modules/Accounts/repositories/fakes/FakeAccountsRepository';
 import FakeProjectsRepository from '@modules/Projects/repositories/fakes/FakeProjectsRepository';
-import FakeInvitesRepository from '@modules/Projects/repositories/fakes/FakeInvitesRepository';
+import FakeInvitesRepository from '@modules/Invites/repositories/fakes/FakeInvitesRepository';
 
 // Services
-import InviteMemberService from '@modules/Projects/services/InviteMemberService';
+import InviteMemberService from '@modules/Invites/services/InviteMemberService';
 import CreateProjectService from '@modules/Projects/services/CreateProjectService';
 import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 import AuthenticateAccountService from '@modules/Accounts/services/AuthenticateAccountService';
 // Entities
 import Account from '@modules/Accounts/infra/typeorm/entities/Account';
 import Project from '@modules/Projects/infra/typeorm/entities/Project';
-import Invite from '@modules/Projects/infra/typeorm/entities/Invite';
+import Invite from '@modules/Invites/infra/typeorm/entities/Invite';
 
 class Providers {
   userProvider() {
@@ -36,6 +36,27 @@ class Providers {
   }
 
   projectsProvider() {
+    const fakeHashProvider = new FakeHashProvider();
+    const fakeProjectsRepository = new FakeProjectsRepository();
+    const fakeBackofficeProvider = new FakeBackofficeProvider();
+    const fakeAccountsRepository = new FakeAccountsRepository();
+
+    const createAccount = new CreateAccountService(
+      fakeHashProvider,
+      fakeBackofficeProvider,
+      fakeAccountsRepository,
+    );
+
+    const createProject = new CreateProjectService(
+      fakeProjectsRepository,
+      fakeAccountsRepository,
+    );
+
+
+    return { createProject, createAccount };
+  }
+
+  invitesProvider() {
     const fakeHashProvider = new FakeHashProvider();
     const fakeInvitesRepository = new FakeInvitesRepository();
     const fakeProjectsRepository = new FakeProjectsRepository();

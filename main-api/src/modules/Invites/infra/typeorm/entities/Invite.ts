@@ -1,14 +1,14 @@
 import {
   Entity,
   Column,
+  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import Project from './Project';
 import Account from '@modules/Accounts/infra/typeorm/entities/Account';
+import Project from '@modules/Projects/infra/typeorm/entities/Project';
 
 @Entity('invite_member_notifications')
 class Invite {

@@ -1,9 +1,9 @@
 import { getRepository, Repository } from 'typeorm';
 
-import ICreateInviteDTO from '@modules/Projects/dtos/ICreateInviteDTO';
-import IFindByProjectIdDTO from '@modules/Projects/dtos/IFindByProjectIdDTO';
+import ICreateInviteDTO from '@modules/Invites/dtos/ICreateInviteDTO';
+import IFindInviteByProjectIdDTO from '@modules/Invites/dtos/IFindInviteByProjectIdDTO';
 import Invite from '../entities/Invite';
-import IInvitesRepository from '@modules/Projects/repositories/IInvitesRepository';
+import IInvitesRepository from '@modules/Invites/repositories/IInvitesRepository';
 
 class InvitesRepository implements IInvitesRepository {
   private ormRepository: Repository<Invite>;
@@ -37,7 +37,7 @@ class InvitesRepository implements IInvitesRepository {
   public async findByProjectId({
     account_id,
     project_id,
-  }: IFindByProjectIdDTO): Promise<Invite | undefined> {
+  }: IFindInviteByProjectIdDTO): Promise<Invite | undefined> {
     const response = this.ormRepository.findOne({
       where: {
         account_id,

@@ -3,7 +3,7 @@ import { Router } from 'express';
 import accountsRouter from '@modules/Accounts/infra/http/routes/accounts.routes';
 import sessionsRouter from '@modules/Accounts/infra/http/routes/sessions.routes';
 import projectsRouter from '@modules/Projects/infra/http/routes/projects.routes';
-import invitesRouter from '@modules/Projects/infra/http/routes/invites.routes';
+import invitesRouter from '@modules/Invites/infra/http/routes/invites.routes';
 
 import backofficeRouter from './backoffice.routes';
 
