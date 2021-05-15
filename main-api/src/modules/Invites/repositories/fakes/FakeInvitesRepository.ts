@@ -16,6 +16,10 @@ class FakeInvitesRepository implements IInvitesRepository {
     return project;
   }
 
+  public async deleteById(id: string): Promise<void> {
+    this.invites = this.invites.filter(invite => invite.id !== id);
+  }
+
   public async findById(id: string): Promise<Invite | undefined> {
     const response = this.invites.find(project => project.id === id);
     return response;

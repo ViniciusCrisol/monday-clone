@@ -1,12 +1,5 @@
 import { inject, injectable } from 'tsyringe';
 
-import {
-  projectOwner,
-  inviteSended,
-  invalidInvite,
-  invalidAccount,
-  projectNotFount,
-} from '@shared/errors/messages';
 import AppError from '@shared/errors/AppError';
 import Invite from '../infra/typeorm/entities/Invite';
 import IInvitesRepository from '../repositories/IInvitesRepository';
@@ -38,35 +31,22 @@ class InviteMemberService {
     project_id,
   }: IRequest): Promise<Invite> {
     const account = await this.accountsRepository.findById(account_id);
-    if (!account) {
-      throw new AppError(invalidAccount.message);
-    }
-
-    if (account.user_email === user_email) {
-      throw new AppError(invalidInvite.message);
-    }
+    if (!account) throw new AppError('invalidAccount');
+    if (account.user_email === user_email) throw new AppError('invalidInvite');
 
     const invitedUser = await this.accountsRepository.findByEmail(user_email);
-    if (!invitedUser) {
-      throw new AppError(invalidAccount.message);
-    }
+    if (!invitedUser) throw new AppError('invalidAccount');
 
     const project = await this.projectsRepository.findById(project_id);
-    if (!project) {
-      throw new AppError(projectNotFount.message);
-    }
-
-    if (project.account_id !== account_id) {
-      throw new AppError(projectOwner.message);
-    }
+    if (!project) throw new AppError('projectNotFounded');
+    if (project.account_id !== account_id)
+      throw new AppError('mustBeProjectOwner');
 
     const inviteAlreadySended = await this.invitesRepository.findByProjectId({
       account_id: invitedUser.id,
       project_id,
     });
-    if (inviteAlreadySended) {
-      throw new AppError(inviteSended.message);
-    }
+    if (inviteAlreadySended) throw new AppError('inviteAlreadySended');
 
     const invite = await this.invitesRepository.create({
       account_id: invitedUser.id,

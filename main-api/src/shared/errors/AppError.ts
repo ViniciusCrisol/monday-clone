@@ -1,10 +1,16 @@
+import errors from './errors';
+
+type Keys = keyof typeof errors;
+
 class AppError {
   public readonly message: string;
   public readonly statusCode: number;
 
-  constructor(message: string, statusCode = 400) {
+  constructor(error: Keys) {
+    const { message, status } = errors[error];
+
     this.message = message;
-    this.statusCode = statusCode;
+    this.statusCode = status;
   }
 }
 

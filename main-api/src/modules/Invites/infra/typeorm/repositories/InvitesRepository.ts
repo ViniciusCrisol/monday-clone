@@ -18,6 +18,10 @@ class InvitesRepository implements IInvitesRepository {
     return invite;
   }
 
+  public async deleteById(id: string): Promise<void> {
+    this.ormRepository.delete(id);
+  }
+
   public async findById(id: string): Promise<Invite | undefined> {
     const response = await this.ormRepository.findOne(id);
     return response;

@@ -25,7 +25,9 @@ export interface INotificationInterface {
 }
 
 const Notifications: React.FC = () => {
-  const { data, mutate } = fetch<INotificationInterface[]>('invites');
+  const { data, mutate } = fetch<INotificationInterface[]>('invites', {
+    refreshInterval: 5000
+  });
 
   return (
     <Layout>
@@ -58,13 +60,18 @@ const Notifications: React.FC = () => {
                     <span>{defaultPattern(item.inserted_at)}</span>
                   </div>
                 </div>
-                <div className="card-content">{item.project.project_name}</div>
+                <div className="card-content">
+                  You received an invite to join this board:
+                  <strong>{item.project.project_name}'s</strong>
+                </div>
                 <div className="footer">
                   <button>
                     <FiX />
+                    Decline
                   </button>
                   <button>
                     <FiCheck />
+                    Accept
                   </button>
                 </div>
               </Card>

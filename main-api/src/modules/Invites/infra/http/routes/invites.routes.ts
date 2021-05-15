@@ -2,9 +2,11 @@ import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
 import InvitesController from '../controllers/InvitesController';
+import DeclineInvitesController from '../controllers/DeclineInvitesController';
 
 const invitesRoutes = Router();
 const invitesController = new InvitesController();
+const declineInvitesController = new DeclineInvitesController();
 
 invitesRoutes.post(
   '/',
@@ -19,5 +21,16 @@ invitesRoutes.post(
 );
 
 invitesRoutes.get('/', ensureAuthenticated, invitesController.get);
+
+invitesRoutes.patch(
+  '/decline/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  ensureAuthenticated,
+  declineInvitesController.decline,
+);
 
 export default invitesRoutes;

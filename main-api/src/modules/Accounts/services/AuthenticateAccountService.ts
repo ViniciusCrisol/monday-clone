@@ -2,7 +2,6 @@ import { injectable, inject } from 'tsyringe';
 import { sign } from 'jsonwebtoken';
 
 import authConfig from '@config/auth';
-import { authenticationFail } from '@shared/errors/messages';
 import AppError from '@shared/errors/AppError';
 import Account from '../infra/typeorm/entities/Account';
 import IAccountsRepository from '../repositories/IAccountsRepository';
@@ -30,18 +29,13 @@ class AuthenticateAccountService {
 
   public async execute({ user_email, password }: IRequest): Promise<IResponse> {
     const account = await this.accountsRepository.findByEmail(user_email);
-    if (!account) {
-      throw new AppError(authenticationFail.message, authenticationFail.status);
-    }
+    if (!account) throw new AppError('authenticationFail');
 
     const passwordMatched = await this.hashProvider.compareHash(
       password,
       account.password_hash,
     );
-
-    if (!passwordMatched) {
-      throw new AppError(authenticationFail.message, authenticationFail.status);
-    }
+    if (!passwordMatched) throw new AppError('authenticationFail');
 
     const { secret, expiresIn } = authConfig.jwt;
     const token = sign({}, secret, { subject: account.id, expiresIn });

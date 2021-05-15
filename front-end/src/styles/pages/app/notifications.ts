@@ -96,6 +96,14 @@ export const Card = styled.li`
       border-radius: 4px;
       border: 2px solid ${({ theme }) => theme.colors.others['light-gray']};
 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        margin-right: 5px;
+      }
+
       & + button {
         margin-left: 8px;
       }

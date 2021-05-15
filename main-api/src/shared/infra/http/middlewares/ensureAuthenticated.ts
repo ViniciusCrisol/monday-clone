@@ -3,7 +3,6 @@ import { verify } from 'jsonwebtoken';
 
 import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
-import { jwtIsMissing, jwtIsInvalid } from '@shared/errors/messages';
 
 interface ITokenPayload {
   iat: number;
@@ -17,9 +16,7 @@ export default function ensureAuthenticated(
   next: NextFunction,
 ): void {
   const authHeader = request.headers.authorization;
-  if (!authHeader) {
-    throw new AppError(jwtIsMissing.message, jwtIsMissing.status);
-  }
+  if (!authHeader) throw new AppError('missingJWT');
 
   const token = authHeader.split(' ')[1];
   try {
@@ -29,6 +26,6 @@ export default function ensureAuthenticated(
 
     return next();
   } catch {
-    throw new AppError(jwtIsInvalid.message, jwtIsInvalid.status);
+    throw new AppError('invalidJWT');
   }
 }
