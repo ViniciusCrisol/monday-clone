@@ -35,6 +35,10 @@ const errors = {
     status: 401,
     message: 'Error, name already in use!',
   },
+  permissionDenied: {
+    status: 401,
+    message: 'Error, permission denied!',
+  },
   missingJWT: {
     status: 401,
     message: 'Error, JWT token is missing!',

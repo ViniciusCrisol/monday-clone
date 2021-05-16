@@ -26,7 +26,7 @@ class DeclineInviteService {
     const account = await this.accountsRepository.findById(account_id);
     if (!account) throw new AppError('invalidAccount');
     if (invite.account_id !== account_id)
-      throw new AppError('mustBeProjectOwner');
+      throw new AppError('permissionDenied');
 
     await this.invitesRepository.deleteById(invite_id);
   }

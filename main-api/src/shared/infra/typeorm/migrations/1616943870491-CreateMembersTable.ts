@@ -14,8 +14,8 @@ export class CreateMembersTable1616943870491 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'role_id',
-            type: 'uuid',
+            name: 'role',
+            type: 'smallint',
           },
           {
             name: 'project_id',
@@ -50,14 +50,6 @@ export class CreateMembersTable1616943870491 implements MigrationInterface {
             referencedTableName: 'accounts',
             referencedColumnNames: ['id'],
             columnNames: ['account_id'],
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-          },
-          {
-            name: 'fk_roles_members',
-            referencedTableName: 'roles',
-            referencedColumnNames: ['id'],
-            columnNames: ['role_id'],
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },

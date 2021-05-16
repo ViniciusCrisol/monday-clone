@@ -10,6 +10,9 @@ import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/Pro
 import IInvitesRepository from '@modules/Invites/repositories/IInvitesRepository';
 import InvitesRepository from '@modules/Invites/infra/typeorm/repositories/InvitesRepository';
 
+import IMembersRepository from '@modules/Members/repositories/IMembersRepository';
+import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
+
 container.registerSingleton<IAccountsRepository>(
   'AccountsRepository',
   AccountsRepository,
@@ -23,4 +26,9 @@ container.registerSingleton<IProjectsRepository>(
 container.registerSingleton<IInvitesRepository>(
   'InvitesRepository',
   InvitesRepository,
+);
+
+container.registerSingleton<IMembersRepository>(
+  'MembersRepository',
+  MembersRepository,
 );
