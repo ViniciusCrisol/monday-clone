@@ -1,5 +1,5 @@
 import AppError from '@shared/errors/AppError';
-import Providers from '@utils/tests/Providers';
+import Providers from '@utils/tests/TestContext';
 
 const providers = new Providers();
 const { createAccount } = providers.userProvider();

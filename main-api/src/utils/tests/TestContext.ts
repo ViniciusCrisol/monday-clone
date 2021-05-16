@@ -15,7 +15,7 @@ import Account from '@modules/Accounts/infra/typeorm/entities/Account';
 import Project from '@modules/Projects/infra/typeorm/entities/Project';
 import Invite from '@modules/Invites/infra/typeorm/entities/Invite';
 
-class Providers {
+class TestContext {
   userProvider() {
     const fakeHashProvider = new FakeHashProvider();
     const fakeBackofficeProvider = new FakeBackofficeProvider();
@@ -52,7 +52,6 @@ class Providers {
       fakeAccountsRepository,
     );
 
-
     return { createProject, createAccount };
   }
 
@@ -84,5 +83,5 @@ class Providers {
   }
 }
 
-export default Providers;
+export default TestContext;
 export { Account, Project, Invite };

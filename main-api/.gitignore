@@ -1,9 +1,11 @@
 node_modules/
-
 /ormconfig.json
 
 .env
+.idea
 .vscode
+yarn.lock
+package-lock.json
 
 /coverage.data
 /coverage/
