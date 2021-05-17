@@ -1,12 +1,8 @@
 import AppError from '@shared/errors/AppError';
-import Providers, { Account, Project } from '@utils/tests/TestContext';
+import Context, { Account, Project } from '@utils/tests/Context';
 
-const providers = new Providers();
-const {
-  inviteMember,
-  createProject,
-  createAccount,
-} = providers.invitesProvider();
+const providers = new Context();
+const { inviteMember, createProject, createAccount } = providers.invite();
 
 let project: Project;
 let account: Account;
@@ -17,11 +13,7 @@ let createProjectService: typeof createProject;
 
 describe('Invite Member', () => {
   beforeEach(async () => {
-    const {
-      inviteMember,
-      createProject,
-      createAccount,
-    } = providers.invitesProvider();
+    const { inviteMember, createProject, createAccount } = providers.invite();
 
     inviteMemberService = inviteMember;
     createAccountService = createAccount;

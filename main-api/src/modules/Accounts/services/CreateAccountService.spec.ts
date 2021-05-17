@@ -1,14 +1,14 @@
 import AppError from '@shared/errors/AppError';
-import Providers from '@utils/tests/TestContext';
+import Context from '@utils/tests/Context';
 
-const providers = new Providers();
-const { createAccount } = providers.userProvider();
+const providers = new Context();
+const { createAccount } = providers.user();
 
 let createAccountService: typeof createAccount;
 
 describe('Create Account', () => {
   beforeEach(async () => {
-    const { createAccount } = providers.userProvider();
+    const { createAccount } = providers.user();
     createAccountService = createAccount;
   });
 

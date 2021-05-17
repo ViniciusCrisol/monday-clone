@@ -49,6 +49,8 @@ class AcceptInviteService {
       project_id: project.id,
       role: memberRoles.STANDARD_MEMBER,
     });
+
+    await this.invitesRepository.deleteById(invite_id);
   }
 }
 

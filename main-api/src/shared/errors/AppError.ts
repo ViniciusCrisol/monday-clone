@@ -8,7 +8,6 @@ class AppError {
 
   constructor(error: IErrors) {
     const { message, status } = errors[error];
-
     this.message = message;
     this.statusCode = status;
   }

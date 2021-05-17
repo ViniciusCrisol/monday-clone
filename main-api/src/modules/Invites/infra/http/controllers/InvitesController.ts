@@ -24,6 +24,15 @@ export default class InvitesController {
     const listInvites = container.resolve(ListInvitesService);
     const invites = await listInvites.execute(account_id);
 
-    return response.json(invites);
+    const serializedInvites = invites.map(invite => {
+      const { id, project_name } = invite.project;
+
+      return {
+        ...invite,
+        project: { id, project_name },
+      };
+    });
+
+    return response.json(serializedInvites);
   }
 }

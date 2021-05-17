@@ -23,6 +23,15 @@ export default class AccountsController {
     const listProjects = container.resolve(ListProjectsService);
     const projects = await listProjects.execute(account_id);
 
-    return response.json(projects);
+    const serializedProjects = projects.map(
+      ({ id, project_name, inserted_at, updated_at }) => ({
+        id,
+        project_name,
+        inserted_at,
+        updated_at,
+      }),
+    );
+
+    return response.json(serializedProjects);
   }
 }

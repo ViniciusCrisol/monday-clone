@@ -1,8 +1,8 @@
 import AppError from '@shared/errors/AppError';
-import Providers, { Account } from '@utils/tests/TestContext';
+import Context, { Account } from '@utils/tests/Context';
 
-const providers = new Providers();
-const { createProject, createAccount } = providers.projectsProvider();
+const providers = new Context();
+const { createProject, createAccount } = providers.project();
 
 let account: Account;
 let createAccountService: typeof createAccount;
@@ -10,7 +10,7 @@ let createProjectService: typeof createProject;
 
 describe('Create Project', () => {
   beforeEach(async () => {
-    const { createAccount, createProject } = providers.projectsProvider();
+    const { createAccount, createProject } = providers.project();
 
     createAccountService = createAccount;
     createProjectService = createProject;

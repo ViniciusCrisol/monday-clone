@@ -29,9 +29,9 @@ class InvitesRepository implements IInvitesRepository {
 
   public async findAll(account_id: string): Promise<Invite[]> {
     const response = await this.ormRepository.find({
-      select: ['id', 'inserted_at', 'updated_at'],
       take: 30,
       where: { account_id },
+      select: ['id', 'inserted_at', 'updated_at'],
       relations: ['project'],
       order: { inserted_at: 'DESC' },
     });
