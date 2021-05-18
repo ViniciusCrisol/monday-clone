@@ -2,7 +2,7 @@ import AppError from '@shared/errors/AppError';
 import Context, { Account, Invite, Project } from '@utils/tests/Context';
 
 const providers = new Context();
-const { inviteMember, createProject, createAccount, declineInvite } =
+const { inviteMember, createProject, createAccount, acceptInvite } =
   providers.invite();
 
 let invite: Invite;
@@ -12,17 +12,17 @@ let anotherAccount: Account;
 let inviteMemberService: typeof inviteMember;
 let createAccountService: typeof createAccount;
 let createProjectService: typeof createProject;
-let declineInviteService: typeof declineInvite;
+let acceptInviteService: typeof acceptInvite;
 
-describe('Decline Invite', () => {
+describe('Accept Invite', () => {
   beforeEach(async () => {
-    const { inviteMember, createProject, createAccount, declineInvite } =
+    const { inviteMember, createProject, createAccount, acceptInvite } =
       providers.invite();
 
     inviteMemberService = inviteMember;
     createAccountService = createAccount;
     createProjectService = createProject;
-    declineInviteService = declineInvite;
+    acceptInviteService = acceptInvite;
 
     account = await createAccountService.execute({
       password: 'password',
@@ -52,36 +52,36 @@ describe('Decline Invite', () => {
     });
   });
 
-  it('Should be able to decline an invite.', async () => {
+  it('Should not be able to accept an invite.', async () => {
     expect(
-      declineInviteService.execute({
+      acceptInviteService.execute({
         account_id: anotherAccount.id,
         invite_id: invite.id,
       }),
     );
   });
 
-  it('Should not be able to decline an non existing invite.', async () => {
+  it('Should not be able to accept an non existing invite.', async () => {
     await expect(
-      declineInviteService.execute({
+      acceptInviteService.execute({
         account_id: anotherAccount.id,
         invite_id: 'non existing invite id',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to decline a invite from an non existing account.', async () => {
+  it('Should not be able to accept an invite from a non existing account.', async () => {
     await expect(
-      declineInviteService.execute({
+      acceptInviteService.execute({
         account_id: 'non existing account id',
         invite_id: invite.id,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to decline a invite send to another account.', async () => {
+  it('Should not be able to accept an invite send to another account.', async () => {
     await expect(
-      declineInviteService.execute({
+      acceptInviteService.execute({
         account_id: account.id,
         invite_id: invite.id,
       }),

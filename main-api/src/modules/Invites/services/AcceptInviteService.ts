@@ -41,9 +41,6 @@ class AcceptInviteService {
     const project = await this.projectsRepository.findById(invite.project_id);
     if (!project) throw new AppError('projectNotFounded');
 
-    if (invite.account_id !== account_id)
-      throw new AppError('mustBeProjectOwner');
-
     await this.membersRepository.create({
       account_id: account_id,
       project_id: project.id,
