@@ -45,6 +45,7 @@ class context {
     const fakeProjectsRepository = new FakeProjectsRepository();
     const fakeBackofficeProvider = new FakeBackofficeProvider();
     const fakeAccountsRepository = new FakeAccountsRepository();
+    const fakeMembersRepository = new FakeMembersRepository();
 
     const createAccount = new CreateAccountService(
       fakeHashProvider,
@@ -55,6 +56,7 @@ class context {
     const createProject = new CreateProjectService(
       fakeProjectsRepository,
       fakeAccountsRepository,
+      fakeMembersRepository,
     );
 
     return { createProject, createAccount };
@@ -77,12 +79,14 @@ class context {
     const createProject = new CreateProjectService(
       fakeProjectsRepository,
       fakeAccountsRepository,
+      fakeMembersRepository,
     );
 
     const inviteMember = new InviteMemberService(
       fakeProjectsRepository,
       fakeAccountsRepository,
       fakeInvitesRepository,
+      fakeMembersRepository,
     );
 
     const declineInvite = new DeclineInviteService(

@@ -4,6 +4,7 @@ import AppError from '@shared/errors/AppError';
 import Project from '../infra/typeorm/entities/Project';
 import IProjectsRepository from '../repositories/IProjectsRepository';
 import IAccountsRepository from '@modules/Accounts/repositories/IAccountsRepository';
+import IMembersRepository from '@modules/Members/repositories/IMembersRepository';
 
 interface IRequest {
   project_name: string;
@@ -18,6 +19,9 @@ class CreateProjectService {
 
     @inject('AccountsRepository')
     private accountsRepository: IAccountsRepository,
+
+    @inject('MembersRepository')
+    private membersRepository: IMembersRepository,
   ) {}
 
   public async execute({
@@ -33,7 +37,10 @@ class CreateProjectService {
     });
     if (checkProjectExits) throw new AppError('nameAlreadyInUse');
 
-    const projectsCount = await this.projectsRepository.count(account_id);
+    const ownProjectsCount = await this.projectsRepository.count(account_id);
+    const memberProjectsCount = await this.membersRepository.count(account_id);
+
+    const projectsCount = ownProjectsCount + memberProjectsCount;
     if (projectsCount >= 30) throw new AppError('maxNumberOfProjects');
 
     const project = await this.projectsRepository.create({

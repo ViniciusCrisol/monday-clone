@@ -5,6 +5,7 @@ import Invite from '../infra/typeorm/entities/Invite';
 import IInvitesRepository from '../repositories/IInvitesRepository';
 import IAccountsRepository from '@modules/Accounts/repositories/IAccountsRepository';
 import IProjectsRepository from '@modules/Projects/repositories/IProjectsRepository';
+import IMembersRepository from '@modules/Members/repositories/IMembersRepository';
 
 interface IRequest {
   user_email: string;
@@ -23,6 +24,9 @@ class InviteMemberService {
 
     @inject('InvitesRepository')
     private invitesRepository: IInvitesRepository,
+
+    @inject('MembersRepository')
+    private membersRepository: IMembersRepository,
   ) {}
 
   public async execute({
@@ -47,6 +51,14 @@ class InviteMemberService {
       project_id,
     });
     if (inviteAlreadySended) throw new AppError('inviteAlreadySended');
+
+    const memberAlreadyInProject = await this.membersRepository.findByProjectId(
+      {
+        account_id,
+        project_id,
+      },
+    );
+    if (memberAlreadyInProject) throw new AppError('invalidInvite');
 
     const invite = await this.invitesRepository.create({
       account_id: invitedUser.id,

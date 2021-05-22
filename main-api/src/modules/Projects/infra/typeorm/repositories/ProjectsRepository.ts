@@ -31,7 +31,7 @@ class ProjectsRepository implements IProjectsRepository {
     return response;
   }
 
-  public async count(id: string): Promise<Number> {
+  public async count(id: string): Promise<number> {
     const response = await this.ormRepository.count({
       where: { account_id: id },
     });

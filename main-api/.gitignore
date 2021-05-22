@@ -1,17 +1,41 @@
-node_modules/
-/ormconfig.json
+/coverage
 
-.env
-.idea
-.vscode
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
+
+# Optional npm/yarn cache directory
+.npm
 yarn.lock
 package-lock.json
 
-/coverage.data
-/coverage/
-/dist/
+# API keys and secrets
+.env
 
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Dependency directory
+node_modules
+bower_components
+
+# Editors
+.idea
+.vscode
+*.iml
+modules.xml
+*.ipr
+
+# OS metadata
+.DS_Store
+Thumbs.db
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
