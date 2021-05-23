@@ -1,21 +1,20 @@
 import { useCallback } from 'react';
 import { toast } from 'react-toastify';
+import { FiRefreshCw } from 'react-icons/fi';
 import { mutate as mutateGlobal } from 'swr';
-import { FiRefreshCw, FiX, FiCheck } from 'react-icons/fi';
 
 import api from '@services/api';
 import fetch from '@services/fetch';
-import { mondayIcon } from '@services/files';
 import errorMessages from '@libs/errorMessages';
-import { defaultPattern } from '@libs/formatDate';
 
 import Loading from '@components/Loading';
 import Feed from '@components/pages/app/Feed';
 import Layout from '@components/pages/app/AppLayout';
 import HeaderFeed from '@components/pages/app/HeaderFeed';
+import ContentMessage from '@components/pages/app/ContentMessage';
+import NotificationCard from '@components/pages/app/notifications/NotificationCard';
 
 import {
-  Card,
   CardList,
   RefreshButton,
   LoadingContainer
@@ -89,35 +88,22 @@ const Notifications: React.FC = () => {
             <Loading />
           </LoadingContainer>
         ) : (
-          <CardList>
-            {data.map(item => (
-              <Card key={item.id}>
-                <div className="header">
-                  <div className="image-container">
-                    <img src={mondayIcon} alt="Monday Icon" />
-                  </div>
-                  <div className="card-info">
-                    <h3>Project invite</h3>
-                    <span>{defaultPattern(item.inserted_at)}</span>
-                  </div>
-                </div>
-                <div className="card-content">
-                  You received an invite to join this board:
-                  <strong>{item.project.project_name}'s</strong>
-                </div>
-                <div className="footer">
-                  <button onClick={() => handleDeclineInvite(item.id)}>
-                    <FiX />
-                    Decline
-                  </button>
-                  <button onClick={() => handleAcceptInvite(item.id)}>
-                    <FiCheck />
-                    Accept
-                  </button>
-                </div>
-              </Card>
-            ))}
-          </CardList>
+          <>
+            {data.length === 0 && <ContentMessage />}
+
+            {data.length > 0 && (
+              <CardList>
+                {data.map(item => (
+                  <NotificationCard
+                    key={item.id}
+                    data={item}
+                    handleDeclineInvite={handleDeclineInvite}
+                    handleAcceptInvite={handleAcceptInvite}
+                  />
+                ))}
+              </CardList>
+            )}
+          </>
         )}
       </Feed>
     </Layout>
