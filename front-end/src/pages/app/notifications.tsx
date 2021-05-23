@@ -1,9 +1,12 @@
 import { useCallback } from 'react';
+import { toast } from 'react-toastify';
+import { mutate as mutateGlobal } from 'swr';
 import { FiRefreshCw, FiX, FiCheck } from 'react-icons/fi';
 
 import api from '@services/api';
 import fetch from '@services/fetch';
 import { mondayIcon } from '@services/files';
+import errorMessages from '@libs/errorMessages';
 import { defaultPattern } from '@libs/formatDate';
 
 import Loading from '@components/Loading';
@@ -28,21 +31,44 @@ export interface INotificationInterface {
 
 const Notifications: React.FC = () => {
   const { data, mutate } = fetch<INotificationInterface[]>('invites', {
-    refreshInterval: 5000
+    refreshInterval: 15000
   });
 
-  const handleDeclineInvite = useCallback(async (inviteId: string) => {
-    api.post(`/invites/decline/${inviteId}`);
+  const handleDeclineInvite = useCallback(
+    async (inviteId: string) => {
+      try {
+        await api.patch(`/invites/decline/${inviteId}`);
+        const updatedInvites = data.filter(data => data.id !== inviteId);
 
-    const updatedInvites = data.filter(data => data.id !== inviteId);
-    mutate(updatedInvites, true);
-  }, []);
+        mutate(updatedInvites, true);
+      } catch (error) {
+        toast.error(
+          error.response.data.message || errorMessages.defaultMessage,
+          { autoClose: 5000 }
+        );
+      }
+    },
+    [data]
+  );
 
-  const handleAcceptInvite = useCallback(async (inviteId: string) => {
-    // await api.post(`/invites/accept/${inviteId}`);
-    // const updatedInvites = data.filter(data => data.id !== inviteId);
-    // mutate(updatedInvites, true);
-  }, []);
+  const handleAcceptInvite = useCallback(
+    async (inviteId: string) => {
+      try {
+        await api.patch(`/invites/accept/${inviteId}`);
+        const updatedProjects = await api.get('/projects');
+        const updatedInvites = data.filter(data => data.id !== inviteId);
+
+        mutate(updatedInvites, true);
+        mutateGlobal('projects', updatedProjects.data);
+      } catch (error) {
+        toast.error(
+          error.response.data.message || errorMessages.defaultMessage,
+          { autoClose: 5000 }
+        );
+      }
+    },
+    [data]
+  );
 
   return (
     <Layout>

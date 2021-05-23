@@ -32,7 +32,7 @@ const Boards: React.FC = () => {
     const updatedProjects = [project, ...data];
 
     mutate(updatedProjects, false);
-    mutateGlobal('users', updatedProjects);
+    mutateGlobal('projects', updatedProjects);
   }, []);
 
   return (
