@@ -4,9 +4,9 @@
   "name": "main-api",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "dev": "ts-node-dev --transpile-only -r tsconfig-paths/register --ignore-watch node_modules src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "test": "NODE_ENV=test jest",
+    "dev": "NODE_ENV=development ts-node-dev --transpile-only -r tsconfig-paths/register --ignore-watch node_modules src/shared/infra/http/server.ts",
     "start": "node dist/shared/infra/http/server.js",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored"
   },
