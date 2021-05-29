@@ -6,7 +6,7 @@ import Project from '@modules/Projects/infra/typeorm/entities/Project';
 import Member from '../../infra/typeorm/entities/Member';
 import IMembersRepository from '@modules/Members/repositories/IMembersRepository';
 
-class FakeMembersRepository implements IMembersRepository {
+class MembersRepository implements IMembersRepository {
   private members: Member[] = [];
 
   public async create(data: ICreateMemberDTO): Promise<Member> {
@@ -44,4 +44,4 @@ class FakeMembersRepository implements IMembersRepository {
   }
 }
 
-export default FakeMembersRepository;
+export default MembersRepository;

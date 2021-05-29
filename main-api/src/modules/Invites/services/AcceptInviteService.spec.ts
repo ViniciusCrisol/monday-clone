@@ -1,71 +1,107 @@
+import { uuid } from 'uuidv4';
+import connection from '@shared/infra/typeorm';
+
+import {
+  BackofficeProvider,
+  HashProvider,
+  MembersRepository,
+  InvitesRepository,
+  ProjectsRepository,
+  AccountsRepository,
+} from '@utils/tests/context';
 import AppError from '@shared/errors/AppError';
-import Context, { Account, Invite, Project } from '@utils/tests/Context';
+import InviteMemberService from '@modules/Invites/services/InviteMemberService';
+import AcceptInviteService from '@modules/Invites/services/AcceptInviteService';
+import CreateProjectService from '@modules/Projects/services/CreateProjectService';
+import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 
-const providers = new Context();
-const { inviteMember, createProject, createAccount, acceptInvite } =
-  providers.invite();
-
-let invite: Invite;
-let project: Project;
-let account: Account;
-let anotherAccount: Account;
-let inviteMemberService: typeof inviteMember;
-let createAccountService: typeof createAccount;
-let createProjectService: typeof createProject;
-let acceptInviteService: typeof acceptInvite;
+let randonId: string;
+let inviteId: string;
+let accountId: string;
+let anotherAccountId: string;
+let acceptInviteService: AcceptInviteService;
 
 describe('Accept Invite', () => {
-  beforeEach(async () => {
-    const { inviteMember, createProject, createAccount, acceptInvite } =
-      providers.invite();
+  beforeAll(async () => {
+    await connection.create();
+    await connection.clear();
 
-    inviteMemberService = inviteMember;
-    createAccountService = createAccount;
-    createProjectService = createProject;
-    acceptInviteService = acceptInvite;
+    const backofficeProvider = new BackofficeProvider();
+    const hashProvider = new HashProvider();
+    const membersRepository = new MembersRepository();
+    const invitesRepository = new InvitesRepository();
+    const projectsRepository = new ProjectsRepository();
+    const accounstRepository = new AccountsRepository();
 
-    account = await createAccountService.execute({
-      password: 'password',
+    const inviteMemberService = new InviteMemberService(
+      projectsRepository,
+      accounstRepository,
+      invitesRepository,
+      membersRepository,
+    );
+
+    acceptInviteService = new AcceptInviteService(
+      projectsRepository,
+      accounstRepository,
+      invitesRepository,
+      membersRepository,
+    );
+
+    const createProjectService = new CreateProjectService(
+      projectsRepository,
+      accounstRepository,
+      membersRepository,
+    );
+
+    const createAccountService = new CreateAccountService(
+      hashProvider,
+      backofficeProvider,
+      accounstRepository,
+    );
+
+    const account = await createAccountService.execute({
       user_name: 'John Doe',
       user_email: 'john@example.com',
       account_name: 'JohnDoeAccount',
-      confirm_password: 'password',
-    });
-
-    anotherAccount = await createAccountService.execute({
-      user_name: 'Another John Doe',
-      user_email: 'anotherJohn@example.com',
-      account_name: 'AnotherJohnDoeAccount',
-      confirm_password: 'password',
       password: 'password',
+      confirm_password: 'password',
     });
 
-    project = await createProjectService.execute({
-      project_name: 'New Project Name',
+    const anotherAccount = await createAccountService.execute({
+      user_name: 'John Doe',
+      user_email: 'anotherJohn@example.com',
+      account_name: 'JohnDoeAccount',
+      password: 'password',
+      confirm_password: 'password',
+    });
+
+    const project = await createProjectService.execute({
       account_id: account.id,
+      project_name: 'New Project',
     });
 
-    invite = await inviteMemberService.execute({
+    const invite = await inviteMemberService.execute({
       account_id: account.id,
       project_id: project.id,
       user_email: anotherAccount.user_email,
     });
+
+    randonId = uuid();
+    inviteId = invite.id;
+    accountId = account.id;
+    anotherAccountId = anotherAccount.id;
   });
 
-  it('Should not be able to accept an invite.', async () => {
-    expect(
-      acceptInviteService.execute({
-        account_id: anotherAccount.id,
-        invite_id: invite.id,
-      }),
-    );
+  afterAll(async () => {
+    await connection.clear();
+    await connection.close();
   });
 
   it('Should not be able to accept an non existing invite.', async () => {
     await expect(
       acceptInviteService.execute({
-        account_id: anotherAccount.id,
-        invite_id: 'non existing invite id',
+        account_id: anotherAccountId,
+        invite_id: randonId,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -73,8 +109,8 @@ describe('Accept Invite', () => {
   it('Should not be able to accept an invite from a non existing account.', async () => {
     await expect(
       acceptInviteService.execute({
-        account_id: 'non existing account id',
-        invite_id: invite.id,
+        account_id: randonId,
+        invite_id: inviteId,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -82,9 +118,18 @@ describe('Accept Invite', () => {
   it('Should not be able to accept an invite send to another account.', async () => {
     await expect(
       acceptInviteService.execute({
-        account_id: account.id,
-        invite_id: invite.id,
+        account_id: accountId,
+        invite_id: inviteId,
       }),
     ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('Should not be able to accept an invite.', async () => {
+    expect(
+      await acceptInviteService.execute({
+        account_id: anotherAccountId,
+        invite_id: inviteId,
+      }),
+    );
   });
 });

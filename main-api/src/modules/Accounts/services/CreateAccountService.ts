@@ -34,10 +34,11 @@ class CreateAccountService {
     account_name,
     confirm_password,
   }: IRequest): Promise<Account> {
-    const account = await this.accountsRepository.findByEmail(user_email);
-    if (account) throw new AppError('emailAlreadyInUse');
     if (password !== confirm_password)
       throw new AppError('passwordDoesNotMatch');
+
+    const account = await this.accountsRepository.findByEmail(user_email);
+    if (account) throw new AppError('emailAlreadyInUse');
 
     const hashedPassword = await this.hashProvider.generateHash(password);
     const newAccount = await this.accountsRepository.create({

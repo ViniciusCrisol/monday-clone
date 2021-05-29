@@ -1,33 +1,70 @@
+import { uuid } from 'uuidv4';
+import connection from '@shared/infra/typeorm';
+
+import {
+  BackofficeProvider,
+  HashProvider,
+  MembersRepository,
+  ProjectsRepository,
+  AccountsRepository,
+} from '@utils/tests/context';
 import AppError from '@shared/errors/AppError';
-import Context, { Account } from '@utils/tests/Context';
+import CreateProjectService from '@modules/Projects/services/CreateProjectService';
+import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 
-const providers = new Context();
-const { createProject, createAccount } = providers.project();
-
-let account: Account;
-let createAccountService: typeof createAccount;
-let createProjectService: typeof createProject;
+let randonId: string;
+let accountId: string;
+let createProjectService: CreateProjectService;
 
 describe('Create Project', () => {
-  beforeEach(async () => {
-    const { createAccount, createProject } = providers.project();
+  beforeAll(async () => {
+    await connection.create();
+    await connection.clear();
 
-    createAccountService = createAccount;
-    createProjectService = createProject;
+    const backofficeProvider = new BackofficeProvider();
+    const hashProvider = new HashProvider();
+    const membersRepository = new MembersRepository();
+    const projectsRepository = new ProjectsRepository();
+    const accounstRepository = new AccountsRepository();
 
-    account = await createAccountService.execute({
-      password: 'password',
+    createProjectService = new CreateProjectService(
+      projectsRepository,
+      accounstRepository,
+      membersRepository,
+    );
+
+    const createAccountService = new CreateAccountService(
+      hashProvider,
+      backofficeProvider,
+      accounstRepository,
+    );
+
+    const account = await createAccountService.execute({
       user_name: 'John Doe',
       user_email: 'john@example.com',
       account_name: 'JohnDoeAccount',
+      password: 'password',
       confirm_password: 'password',
     });
+
+    await createProjectService.execute({
+      project_name: 'Project Name',
+      account_id: account.id,
+    });
+
+    randonId = uuid();
+    accountId = account.id;
+  });
+
+  afterAll(async () => {
+    await connection.clear();
+    await connection.close();
   });
 
   it('Should be able to create a new project.', async () => {
     const project = await createProjectService.execute({
-      project_name: 'New Project Name',
-      account_id: account.id,
+      project_name: 'New Project',
+      account_id: accountId,
     });
 
     expect(project).toHaveProperty('id');
@@ -37,37 +74,32 @@ describe('Create Project', () => {
     await expect(
       createProjectService.execute({
         project_name: 'Project Name',
-        account_id: 'non existing account id',
+        account_id: randonId,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to create a new project with same name from another in a account.', async () => {
-    await createProjectService.execute({
-      project_name: 'Project Name',
-      account_id: account.id,
-    });
-
+  it('Should not be able to create a new project with same name from another in the same account.', async () => {
     await expect(
       createProjectService.execute({
         project_name: 'Project Name',
-        account_id: account.id,
+        account_id: accountId,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
 
   it('Should not be able to create a new project if the user already has 30 other projects.', async () => {
-    for (let i = 0; i <= 29; i++) {
+    for (let i = 0; i <= 27; i++) {
       await createProjectService.execute({
-        project_name: `Project Name ${i}`,
-        account_id: account.id,
+        project_name: `Project ${i}`,
+        account_id: accountId,
       });
     }
 
     await expect(
       createProjectService.execute({
-        project_name: 'Project Name',
-        account_id: account.id,
+        project_name: 'Project 31',
+        account_id: accountId,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

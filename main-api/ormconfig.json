@@ -6,7 +6,11 @@
     "port": 5432,
     "username": "postgres",
     "password": "docker",
-    "database": "monday-clone",
+    "synchronize": true,
+    "logging": false,
+    "dropSchema": true,
+
+    "database": "monday-clone-tests",
     "entities": ["./src/modules/**/infra/typeorm/entities/*.ts"],
     "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
     "cli": {

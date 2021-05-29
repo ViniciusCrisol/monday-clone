@@ -1,58 +1,76 @@
+import connection from '@shared/infra/typeorm';
+
+import {
+  HashProvider,
+  BackofficeProvider,
+  AccountsRepository,
+} from '@utils/tests/context';
 import AppError from '@shared/errors/AppError';
-import Context from '@utils/tests/Context';
+import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 
-const providers = new Context();
-const { createAccount } = providers.user();
-
-let createAccountService: typeof createAccount;
+let createAccountService: CreateAccountService;
 
 describe('Create Account', () => {
-  beforeEach(async () => {
-    const { createAccount } = providers.user();
-    createAccountService = createAccount;
-  });
+  beforeAll(async () => {
+    await connection.create();
+    await connection.clear();
 
-  it('Should be able to create a new account.', async () => {
-    const account = await createAccountService.execute({
-      user_name: 'John Doe',
-      user_email: 'john@example.com',
-      account_name: 'JohnDoeAccount',
-      password: 'password',
-      confirm_password: 'password',
-    });
+    const hashProvider = new HashProvider();
+    const backofficeProvider = new BackofficeProvider();
+    const accounstRepository = new AccountsRepository();
 
-    expect(account).toHaveProperty('id');
-  });
+    createAccountService = new CreateAccountService(
+      hashProvider,
+      backofficeProvider,
+      accounstRepository,
+    );
 
-  it('Should not be able to create a new account with same e-mail from another.', async () => {
     await createAccountService.execute({
-      password: 'password',
       user_name: 'John Doe',
       user_email: 'john@example.com',
       account_name: 'JohnDoeAccount',
+      password: 'password',
       confirm_password: 'password',
     });
+  });
 
-    await expect(
-      createAccountService.execute({
-        password: 'password',
-        user_name: 'John Doe',
-        user_email: 'john@example.com',
-        account_name: 'JohnDoeAccount',
-        confirm_password: 'password',
-      }),
-    ).rejects.toBeInstanceOf(AppError);
+  afterAll(async () => {
+    await connection.clear();
+    await connection.close();
   });
 
   it('Should not be able to create a new account with a wrong password confitmation.', async () => {
     await expect(
       createAccountService.execute({
-        password: 'password',
         user_name: 'John Doe',
-        user_email: 'john@example.com',
+        user_email: 'anotherJohn@example.com',
         account_name: 'JohnDoeAccount',
+        password: 'password',
         confirm_password: 'wrong-password',
       }),
     ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('Should not be able to create a new account with same e-mail from another.', async () => {
+    await expect(
+      createAccountService.execute({
+        user_name: 'John Doe',
+        user_email: 'john@example.com',
+        account_name: 'JohnDoeAccount',
+        password: 'password',
+        confirm_password: 'password',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('Should be able to create a new account.', async () => {
+    const anotherAccount = await createAccountService.execute({
+      user_name: 'John Doe',
+      user_email: 'anotherJohn@example.com',
+      account_name: 'JohnDoeAccount',
+      password: 'password',
+      confirm_password: 'password',
+    });
+    expect(anotherAccount).toHaveProperty('id');
   });
 });

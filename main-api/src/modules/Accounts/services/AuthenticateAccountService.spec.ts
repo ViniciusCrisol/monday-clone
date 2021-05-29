@@ -1,37 +1,49 @@
+import connection from '@shared/infra/typeorm';
+
+import {
+  HashProvider,
+  BackofficeProvider,
+  AccountsRepository,
+} from '@utils/tests/context';
 import AppError from '@shared/errors/AppError';
-import Context, { Account } from '@utils/tests/Context';
+import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
+import AuthenticateAccountService from '@modules/Accounts/services/AuthenticateAccountService';
 
-const providers = new Context();
-const { createAccount, autheticateAccount } = providers.user();
-
-let account: Account;
-let createAccountService: typeof createAccount;
-let authenticateAccountService: typeof autheticateAccount;
+let createAccountService: CreateAccountService;
+let authenticateAccountService: AuthenticateAccountService;
 
 describe('Authenticate Account', () => {
-  beforeEach(async () => {
-    const { createAccount, autheticateAccount } = providers.user();
+  beforeAll(async () => {
+    await connection.create();
+    await connection.clear();
 
-    createAccountService = createAccount;
-    authenticateAccountService = autheticateAccount;
+    const hashProvider = new HashProvider();
+    const backofficeProvider = new BackofficeProvider();
+    const accounstRepository = new AccountsRepository();
 
-    account = await createAccountService.execute({
-      password: 'password',
+    createAccountService = new CreateAccountService(
+      hashProvider,
+      backofficeProvider,
+      accounstRepository,
+    );
+
+    authenticateAccountService = new AuthenticateAccountService(
+      accounstRepository,
+      hashProvider,
+    );
+
+    await createAccountService.execute({
       user_name: 'John Doe',
       user_email: 'john@example.com',
       account_name: 'JohnDoeAccount',
+      password: 'password',
       confirm_password: 'password',
     });
   });
 
-  it('Should be able to authenticate.', async () => {
-    const response = await authenticateAccountService.execute({
-      user_email: 'john@example.com',
-      password: 'password',
-    });
-
-    expect(response).toHaveProperty('token');
-    expect(response.account).toEqual(account);
+  afterAll(async () => {
+    await connection.clear();
+    await connection.close();
   });
 
   it('Should not be able to authenticate with a wrong email.', async () => {
@@ -50,5 +62,13 @@ describe('Authenticate Account', () => {
         password: 'wrongPassword',
       }),
     ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('Should be able to authenticate.', async () => {
+    const response = await authenticateAccountService.execute({
+      user_email: 'john@example.com',
+      password: 'password',
+    });
+    expect(response).toHaveProperty('token');
   });
 });
