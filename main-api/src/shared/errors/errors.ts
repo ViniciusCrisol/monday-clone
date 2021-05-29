@@ -19,6 +19,10 @@ const errors = {
     status: 401,
     message: 'Error, this invite was already sended!',
   },
+  invalidProject: {
+    status: 401,
+    message: 'Error, invalid project!',
+  },
   emailAlreadyInUse: {
     status: 401,
     message: 'Error, email address already in use!',
