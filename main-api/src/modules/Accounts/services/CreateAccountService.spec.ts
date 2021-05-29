@@ -1,15 +1,32 @@
 import AppError from '@shared/errors/AppError';
-import Context from '@utils/tests/Context';
+import {
+  FakeHashProvider,
+  FakeBackofficeProvider,
+  FakeAccountsRepository,
+} from '@utils/tests/context';
+import connection from '@shared/infra/typeorm';
 
-const providers = new Context();
-const { createAccount } = providers.user();
+import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 
-let createAccountService: typeof createAccount;
+let createAccountService: any;
 
 describe('Create Account', () => {
+  beforeAll(async () => {
+    await connection.create();
+  });
+
+  afterAll(async () => {
+    await connection.close();
+  });
+
   beforeEach(async () => {
-    const { createAccount } = providers.user();
-    createAccountService = createAccount;
+    await connection.clear();
+
+    const f = new FakeHashProvider();
+    const a = new FakeBackofficeProvider();
+    const e = new FakeAccountsRepository();
+
+    createAccountService = new CreateAccountService(f, a, e);
   });
 
   it('Should be able to create a new account.', async () => {
@@ -25,14 +42,6 @@ describe('Create Account', () => {
   });
 
   it('Should not be able to create a new account with same e-mail from another.', async () => {
-    await createAccountService.execute({
-      password: 'password',
-      user_name: 'John Doe',
-      user_email: 'john@example.com',
-      account_name: 'JohnDoeAccount',
-      confirm_password: 'password',
-    });
-
     await expect(
       createAccountService.execute({
         password: 'password',

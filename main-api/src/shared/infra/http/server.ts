@@ -7,10 +7,12 @@ import cors from 'cors';
 
 import '@shared/container';
 import 'express-async-errors';
-import '@shared/infra/typeorm';
+import connection from '@shared/infra/typeorm';
 
 import routes from './routes';
 import AppError from '@shared/errors/AppError';
+
+connection.create();
 
 const app = express();
 
