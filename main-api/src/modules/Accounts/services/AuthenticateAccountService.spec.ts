@@ -4,7 +4,7 @@ import {
   HashProvider,
   BackofficeProvider,
   AccountsRepository,
-} from '@utils/tests/context';
+} from '@utils/tests/aliases';
 import AppError from '@shared/errors/AppError';
 import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 import AuthenticateAccountService from '@modules/Accounts/services/AuthenticateAccountService';
@@ -46,7 +46,7 @@ describe('Authenticate Account', () => {
     await connection.close();
   });
 
-  it('Should not be able to authenticate with a wrong email.', async () => {
+  it('should not be able to authenticate with a wrong email', async () => {
     await expect(
       authenticateAccountService.execute({
         user_email: 'wrongJohn@example.com',
@@ -55,7 +55,7 @@ describe('Authenticate Account', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to authenticate with a wrong password.', async () => {
+  it('should not be able to authenticate with a wrong password', async () => {
     await expect(
       authenticateAccountService.execute({
         user_email: 'john@example.com',
@@ -64,7 +64,7 @@ describe('Authenticate Account', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should be able to authenticate.', async () => {
+  it('should be able to authenticate', async () => {
     const response = await authenticateAccountService.execute({
       user_email: 'john@example.com',
       password: 'password',

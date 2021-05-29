@@ -8,7 +8,7 @@ import {
   InvitesRepository,
   ProjectsRepository,
   AccountsRepository,
-} from '@utils/tests/context';
+} from '@utils/tests/aliases';
 import AppError from '@shared/errors/AppError';
 import InviteMemberService from '@modules/Invites/services/InviteMemberService';
 import CreateProjectService from '@modules/Projects/services/CreateProjectService';
@@ -87,7 +87,7 @@ describe('Invite Member', () => {
     await connection.close();
   });
 
-  it('Should be able to send a new invite.', async () => {
+  it('should be able to send a new invite', async () => {
     const invite = await inviteMemberService.execute({
       account_id: accountId,
       project_id: projectId,
@@ -97,7 +97,7 @@ describe('Invite Member', () => {
     expect(invite).toHaveProperty('id');
   });
 
-  it('Should not be able to send a new invite from an invalid account.', async () => {
+  it('should not be able to send a new invite from an invalid account', async () => {
     await expect(
       inviteMemberService.execute({
         account_id: randonId,
@@ -107,7 +107,7 @@ describe('Invite Member', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to send a new invite to own account.', async () => {
+  it('should not be able to send a new invite to own account', async () => {
     await expect(
       inviteMemberService.execute({
         account_id: accountId,
@@ -117,7 +117,7 @@ describe('Invite Member', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to send a new invite to an invalid account.', async () => {
+  it('should not be able to send a new invite to an invalid account', async () => {
     await expect(
       inviteMemberService.execute({
         account_id: accountId,
@@ -127,7 +127,7 @@ describe('Invite Member', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to send a new invite with an invalid project.', async () => {
+  it('should not be able to send a new invite with an invalid project', async () => {
     await expect(
       inviteMemberService.execute({
         account_id: accountId,
@@ -137,17 +137,7 @@ describe('Invite Member', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to send a new invite with an invalid project.', async () => {
-    await expect(
-      inviteMemberService.execute({
-        account_id: anotherAccountId,
-        project_id: projectId,
-        user_email: accountEmail,
-      }),
-    ).rejects.toBeInstanceOf(AppError);
-  });
-
-  it('Should be able to send a new invite a couple of times.', async () => {
+  it('should be able to send a new invite a couple of times', async () => {
     await expect(
       inviteMemberService.execute({
         account_id: accountId,

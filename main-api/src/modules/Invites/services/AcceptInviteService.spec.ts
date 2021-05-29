@@ -8,7 +8,7 @@ import {
   InvitesRepository,
   ProjectsRepository,
   AccountsRepository,
-} from '@utils/tests/context';
+} from '@utils/tests/aliases';
 import AppError from '@shared/errors/AppError';
 import InviteMemberService from '@modules/Invites/services/InviteMemberService';
 import AcceptInviteService from '@modules/Invites/services/AcceptInviteService';
@@ -97,7 +97,7 @@ describe('Accept Invite', () => {
     await connection.close();
   });
 
-  it('Should not be able to accept an non existing invite.', async () => {
+  it('should not be able to accept a non-existing invite', async () => {
     await expect(
       acceptInviteService.execute({
         account_id: anotherAccountId,
@@ -106,7 +106,7 @@ describe('Accept Invite', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to accept an invite from a non existing account.', async () => {
+  it('should not be able to accept an invite from a non-existing account', async () => {
     await expect(
       acceptInviteService.execute({
         account_id: randonId,
@@ -115,7 +115,7 @@ describe('Accept Invite', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to accept an invite send to another account.', async () => {
+  it('should not be able to accept an invite send to another account', async () => {
     await expect(
       acceptInviteService.execute({
         account_id: accountId,
@@ -124,7 +124,7 @@ describe('Accept Invite', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to accept an invite.', async () => {
+  it('should be able to accept an invite', async () => {
     expect(
       await acceptInviteService.execute({
         account_id: anotherAccountId,

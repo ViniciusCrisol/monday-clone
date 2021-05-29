@@ -1,10 +1,7 @@
 import IBackofficeProvider from '../models/IBackofficeProvider';
 
 class BackofficeProvider implements IBackofficeProvider {
-  public async sendWelcomeMail(userId: string): Promise<void> {
-    const emailMessage = `Welcome ${userId}!`;
-    return emailMessage ? undefined : undefined;
-  }
+  public async sendWelcomeMail(): Promise<void> {}
 }
 
 export default BackofficeProvider;

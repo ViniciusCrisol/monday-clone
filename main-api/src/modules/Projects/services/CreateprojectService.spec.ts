@@ -7,7 +7,7 @@ import {
   MembersRepository,
   ProjectsRepository,
   AccountsRepository,
-} from '@utils/tests/context';
+} from '@utils/tests/aliases';
 import AppError from '@shared/errors/AppError';
 import CreateProjectService from '@modules/Projects/services/CreateProjectService';
 import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
@@ -61,7 +61,7 @@ describe('Create Project', () => {
     await connection.close();
   });
 
-  it('Should be able to create a new project.', async () => {
+  it('should be able to create a new project', async () => {
     const project = await createProjectService.execute({
       project_name: 'New Project',
       account_id: accountId,
@@ -70,7 +70,7 @@ describe('Create Project', () => {
     expect(project).toHaveProperty('id');
   });
 
-  it('Should not be able to create a new project with a non existing account.', async () => {
+  it('should not be able to create a new project with a non-existing account', async () => {
     await expect(
       createProjectService.execute({
         project_name: 'Project Name',
@@ -79,7 +79,7 @@ describe('Create Project', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to create a new project with same name from another in the same account.', async () => {
+  it('should not be able to create a new project with the same name from another in the same account', async () => {
     await expect(
       createProjectService.execute({
         project_name: 'Project Name',
@@ -88,7 +88,7 @@ describe('Create Project', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to create a new project if the user already has 30 other projects.', async () => {
+  it('should not be able to create a new project if the user already has 30 other projects', async () => {
     for (let i = 0; i <= 27; i++) {
       await createProjectService.execute({
         project_name: `Project ${i}`,

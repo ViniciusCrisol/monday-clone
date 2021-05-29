@@ -1,4 +1,8 @@
 const errors = {
+  'default-message': {
+    status: 500,
+    message: 'Internal server error',
+  },
   projectNotFounded: {
     status: 404,
     message: 'Error, project not found!',

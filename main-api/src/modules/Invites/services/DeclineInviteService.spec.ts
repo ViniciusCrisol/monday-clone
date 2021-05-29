@@ -8,7 +8,7 @@ import {
   InvitesRepository,
   ProjectsRepository,
   AccountsRepository,
-} from '@utils/tests/context';
+} from '@utils/tests/aliases';
 import AppError from '@shared/errors/AppError';
 import InviteMemberService from '@modules/Invites/services/InviteMemberService';
 import DeclineInviteService from '@modules/Invites/services/DeclineInviteService';
@@ -95,7 +95,7 @@ describe('Decline Invite', () => {
     await connection.close();
   });
 
-  it('Should not be able to decline an non existing invite.', async () => {
+  it('should not be able to decline a non-existing invite', async () => {
     await expect(
       declineInviteService.execute({
         account_id: anotherAccountId,
@@ -104,7 +104,7 @@ describe('Decline Invite', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to decline a invite from an non existing account.', async () => {
+  it('should not be able to decline an invite from a non-existing account', async () => {
     await expect(
       declineInviteService.execute({
         account_id: randonId,
@@ -113,7 +113,7 @@ describe('Decline Invite', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to decline a invite sended to another account.', async () => {
+  it('should not be able to decline a send invite to another account', async () => {
     await expect(
       declineInviteService.execute({
         account_id: accountId,
@@ -122,7 +122,7 @@ describe('Decline Invite', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should be able to decline an invite.', async () => {
+  it('should be able to decline an invite', async () => {
     expect(
       await declineInviteService.execute({
         account_id: anotherAccountId,

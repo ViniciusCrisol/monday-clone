@@ -4,7 +4,7 @@ import {
   HashProvider,
   BackofficeProvider,
   AccountsRepository,
-} from '@utils/tests/context';
+} from '@utils/tests/aliases';
 import AppError from '@shared/errors/AppError';
 import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 
@@ -39,7 +39,7 @@ describe('Create Account', () => {
     await connection.close();
   });
 
-  it('Should not be able to create a new account with a wrong password confitmation.', async () => {
+  it('should not be able to create a new account with a wrong password confirmation', async () => {
     await expect(
       createAccountService.execute({
         user_name: 'John Doe',
@@ -51,7 +51,7 @@ describe('Create Account', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not be able to create a new account with same e-mail from another.', async () => {
+  it('should not be able to create a new account with the same email from another', async () => {
     await expect(
       createAccountService.execute({
         user_name: 'John Doe',
@@ -63,7 +63,7 @@ describe('Create Account', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should be able to create a new account.', async () => {
+  it('should be able to create a new account', async () => {
     const anotherAccount = await createAccountService.execute({
       user_name: 'John Doe',
       user_email: 'anotherJohn@example.com',
