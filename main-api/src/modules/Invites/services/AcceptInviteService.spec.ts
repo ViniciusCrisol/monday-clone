@@ -34,29 +34,29 @@ describe('Accept Invite', () => {
     const accounstRepository = new AccountsRepository();
 
     const inviteMemberService = new InviteMemberService(
-      projectsRepository,
-      accounstRepository,
       invitesRepository,
       membersRepository,
+      projectsRepository,
+      accounstRepository,
     );
 
     acceptInviteService = new AcceptInviteService(
-      projectsRepository,
-      accounstRepository,
       invitesRepository,
       membersRepository,
+      projectsRepository,
+      accounstRepository,
     );
 
     const createProjectService = new CreateProjectService(
-      projectsRepository,
       accounstRepository,
+      projectsRepository,
       membersRepository,
     );
 
     const createAccountService = new CreateAccountService(
+      accounstRepository,
       hashProvider,
       backofficeProvider,
-      accounstRepository,
     );
 
     const account = await createAccountService.execute({

@@ -1,34 +1,27 @@
 import { container } from 'tsyringe';
 import './providers';
 
-import IAccountsRepository from '@modules/Accounts/repositories/IAccountsRepository';
 import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
-
-import IProjectsRepository from '@modules/Projects/repositories/IProjectsRepository';
 import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
-
-import IInvitesRepository from '@modules/Invites/repositories/IInvitesRepository';
 import InvitesRepository from '@modules/Invites/infra/typeorm/repositories/InvitesRepository';
-
-import IMembersRepository from '@modules/Members/repositories/IMembersRepository';
 import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
 
-container.registerSingleton<IAccountsRepository>(
+container.registerSingleton<AccountsRepository>(
   'AccountsRepository',
   AccountsRepository,
 );
 
-container.registerSingleton<IProjectsRepository>(
+container.registerSingleton<ProjectsRepository>(
   'ProjectsRepository',
   ProjectsRepository,
 );
 
-container.registerSingleton<IInvitesRepository>(
+container.registerSingleton<InvitesRepository>(
   'InvitesRepository',
   InvitesRepository,
 );
 
-container.registerSingleton<IMembersRepository>(
+container.registerSingleton<MembersRepository>(
   'MembersRepository',
   MembersRepository,
 );

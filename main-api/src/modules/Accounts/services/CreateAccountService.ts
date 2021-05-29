@@ -1,30 +1,30 @@
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import Account from '../infra/typeorm/entities/Account';
-import IAccountsRepository from '../repositories/IAccountsRepository';
-import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
+import Account from '@modules/Accounts/infra/typeorm/entities/Account';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
+import HashProvider from '@shared/container/providers/HashProvider/implementations/HashProvider';
 import IBackofficeProvider from '@shared/container/providers/BackofficeProvider/models/IBackofficeProvider';
 
 interface IRequest {
   user_name: string;
   user_email: string;
-  password: string;
   account_name: string;
+  password: string;
   confirm_password: string;
 }
 
 @injectable()
 class CreateAccountService {
   constructor(
+    @inject('AccountsRepository')
+    private accountsRepository: AccountsRepository,
+
     @inject('HashProvider')
-    private hashProvider: IHashProvider,
+    private hashProvider: HashProvider,
 
     @inject('BackofficeProvider')
     private backofficeProvider: IBackofficeProvider,
-
-    @inject('AccountsRepository')
-    private accountsRepository: IAccountsRepository,
   ) {}
 
   public async execute({

@@ -1,22 +1,22 @@
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import Project from '../infra/typeorm/entities/Project';
-import IProjectsRepository from '../repositories/IProjectsRepository';
-import IAccountsRepository from '@modules/Accounts/repositories/IAccountsRepository';
-import IMembersRepository from '@modules/Members/repositories/IMembersRepository';
+import Project from '@modules/Projects/infra/typeorm/entities/Project';
+import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
+import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 
 @injectable()
 class ListProjects {
   constructor(
-    @inject('AccountsRepository')
-    private accountsRepository: IAccountsRepository,
+    @inject('MembersRepository')
+    private membersRepository: MembersRepository,
 
     @inject('ProjectsRepository')
-    private projectsRepository: IProjectsRepository,
+    private projectsRepository: ProjectsRepository,
 
-    @inject('MembersRepository')
-    private membersRepository: IMembersRepository,
+    @inject('AccountsRepository')
+    private accountsRepository: AccountsRepository,
   ) {}
 
   public async execute(account_id: string): Promise<Project[]> {

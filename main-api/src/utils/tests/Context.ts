@@ -1,5 +1,5 @@
 // Fake repositories
-import HashProvider from '@shared/container/providers/HashProvider/implementations/BCryptHashProvider';
+import HashProvider from '@shared/container/providers/HashProvider/implementations/HashProvider';
 import BackofficeProvider from '@shared/container/providers/BackofficeProvider/fakes/FakeBackofficeProvider';
 import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';

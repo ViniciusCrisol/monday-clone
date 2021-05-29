@@ -2,10 +2,9 @@ import { getRepository, Repository } from 'typeorm';
 
 import ICreateProjectDTO from '@modules/Projects/dtos/ICreateProjectDTO';
 import IFindProjectByNameDTO from '@modules/Projects/dtos/ICreateProjectDTO';
-import Project from '../entities/Project';
-import IProjectsRepository from '@modules/Projects/repositories/IProjectsRepository';
+import Project from '@modules/Projects/infra/typeorm/entities/Project';
 
-class ProjectsRepository implements IProjectsRepository {
+class ProjectsRepository {
   private ormRepository: Repository<Project>;
 
   constructor() {

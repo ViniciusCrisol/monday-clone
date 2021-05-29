@@ -28,15 +28,15 @@ describe('Create Project', () => {
     const accounstRepository = new AccountsRepository();
 
     createProjectService = new CreateProjectService(
-      projectsRepository,
       accounstRepository,
+      projectsRepository,
       membersRepository,
     );
 
     const createAccountService = new CreateAccountService(
+      accounstRepository,
       hashProvider,
       backofficeProvider,
-      accounstRepository,
     );
 
     const account = await createAccountService.execute({

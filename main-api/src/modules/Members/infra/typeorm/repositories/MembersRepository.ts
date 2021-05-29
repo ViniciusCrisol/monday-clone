@@ -1,12 +1,11 @@
 import { getRepository, Repository } from 'typeorm';
 
-import ICreateMemberDTO from '@modules/Members/dtos/ICreateMemberDTO';
 import IFindMemberByProjectIdDTO from '@modules/Members/dtos/IFindMemberByProjectIdDTO';
-import Member from '../entities/Member';
+import ICreateMemberDTO from '@modules/Members/dtos/ICreateMemberDTO';
+import Member from '@modules/Members/infra/typeorm/entities/Member';
 import Project from '@modules/Projects/infra/typeorm/entities/Project';
-import IMembersRepository from '@modules/Members/repositories/IMembersRepository';
 
-class MembersRepository implements IMembersRepository {
+class MembersRepository implements MembersRepository {
   private ormRepository: Repository<Member>;
 
   constructor() {

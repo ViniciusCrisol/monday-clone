@@ -1,10 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import Project from '../infra/typeorm/entities/Project';
-import IProjectsRepository from '../repositories/IProjectsRepository';
-import IAccountsRepository from '@modules/Accounts/repositories/IAccountsRepository';
-import IMembersRepository from '@modules/Members/repositories/IMembersRepository';
+import Project from '@modules/Projects/infra/typeorm/entities/Project';
+import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 
 interface IRequest {
   project_id: string;
@@ -14,14 +13,11 @@ interface IRequest {
 @injectable()
 class ListProjects {
   constructor(
-    @inject('AccountsRepository')
-    private accountsRepository: IAccountsRepository,
-
     @inject('ProjectsRepository')
-    private projectsRepository: IProjectsRepository,
+    private projectsRepository: ProjectsRepository,
 
-    @inject('MembersRepository')
-    private membersRepository: IMembersRepository,
+    @inject('AccountsRepository')
+    private accountsRepository: AccountsRepository,
   ) {}
 
   public async execute({ project_id, account_id }: IRequest): Promise<Project> {

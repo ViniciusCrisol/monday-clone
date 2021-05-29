@@ -34,27 +34,27 @@ describe('Decline Invite', () => {
     const accounstRepository = new AccountsRepository();
 
     const inviteMemberService = new InviteMemberService(
-      projectsRepository,
-      accounstRepository,
       invitesRepository,
       membersRepository,
+      projectsRepository,
+      accounstRepository,
     );
 
     declineInviteService = new DeclineInviteService(
-      accounstRepository,
       invitesRepository,
+      accounstRepository,
     );
 
     const createProjectService = new CreateProjectService(
-      projectsRepository,
       accounstRepository,
+      projectsRepository,
       membersRepository,
     );
 
     const createAccountService = new CreateAccountService(
+      accounstRepository,
       hashProvider,
       backofficeProvider,
-      accounstRepository,
     );
 
     const account = await createAccountService.execute({

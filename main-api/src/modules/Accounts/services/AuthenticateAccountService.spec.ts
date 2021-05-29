@@ -22,9 +22,9 @@ describe('Authenticate Account', () => {
     const accounstRepository = new AccountsRepository();
 
     createAccountService = new CreateAccountService(
+      accounstRepository,
       hashProvider,
       backofficeProvider,
-      accounstRepository,
     );
 
     authenticateAccountService = new AuthenticateAccountService(

@@ -1,10 +1,9 @@
 import { getRepository, Repository } from 'typeorm';
 
 import ICreateAccountDTO from '@modules/Accounts/dtos/ICreateAccountDTO';
-import Account from '../entities/Account';
-import IAccountsRepository from '@modules/Accounts/repositories/IAccountsRepository';
+import Account from '@modules/Accounts/infra/typeorm/entities/Account';
 
-class AccountsRepository implements IAccountsRepository {
+class AccountsRepository {
   private ormRepository: Repository<Account>;
 
   constructor() {

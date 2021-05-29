@@ -3,9 +3,9 @@ import { sign } from 'jsonwebtoken';
 
 import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
-import Account from '../infra/typeorm/entities/Account';
-import IAccountsRepository from '../repositories/IAccountsRepository';
-import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
+import Account from '@modules/Accounts/infra/typeorm/entities/Account';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
+import HashProvider from '@shared/container/providers/HashProvider/implementations/HashProvider';
 
 interface IRequest {
   user_email: string;
@@ -21,10 +21,10 @@ interface IResponse {
 class AuthenticateAccountService {
   constructor(
     @inject('AccountsRepository')
-    private accountsRepository: IAccountsRepository,
+    private accountsRepository: AccountsRepository,
 
     @inject('HashProvider')
-    private hashProvider: IHashProvider,
+    private hashProvider: HashProvider,
   ) {}
 
   public async execute({ user_email, password }: IRequest): Promise<IResponse> {

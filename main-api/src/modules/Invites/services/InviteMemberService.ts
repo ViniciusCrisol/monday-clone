@@ -1,11 +1,11 @@
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import Invite from '../infra/typeorm/entities/Invite';
-import IInvitesRepository from '../repositories/IInvitesRepository';
-import IAccountsRepository from '@modules/Accounts/repositories/IAccountsRepository';
-import IProjectsRepository from '@modules/Projects/repositories/IProjectsRepository';
-import IMembersRepository from '@modules/Members/repositories/IMembersRepository';
+import Invite from '@modules/Invites/infra/typeorm/entities/Invite';
+import InvitesRepository from '@modules/Invites/infra/typeorm/repositories/InvitesRepository';
+import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
+import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
 
 interface IRequest {
   user_email: string;
@@ -16,17 +16,17 @@ interface IRequest {
 @injectable()
 class InviteMemberService {
   constructor(
-    @inject('ProjectsRepository')
-    private projectsRepository: IProjectsRepository,
-
-    @inject('AccountsRepository')
-    private accountsRepository: IAccountsRepository,
-
     @inject('InvitesRepository')
-    private invitesRepository: IInvitesRepository,
+    private invitesRepository: InvitesRepository,
 
     @inject('MembersRepository')
-    private membersRepository: IMembersRepository,
+    private membersRepository: MembersRepository,
+
+    @inject('ProjectsRepository')
+    private projectsRepository: ProjectsRepository,
+
+    @inject('AccountsRepository')
+    private accountsRepository: AccountsRepository,
   ) {}
 
   public async execute({

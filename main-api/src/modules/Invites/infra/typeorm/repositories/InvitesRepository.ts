@@ -1,11 +1,10 @@
 import { getRepository, Repository } from 'typeorm';
 
-import ICreateInviteDTO from '@modules/Invites/dtos/ICreateInviteDTO';
 import IFindInviteByProjectIdDTO from '@modules/Invites/dtos/IFindInviteByProjectIdDTO';
-import Invite from '../entities/Invite';
-import IInvitesRepository from '@modules/Invites/repositories/IInvitesRepository';
+import ICreateInviteDTO from '@modules/Invites/dtos/ICreateInviteDTO';
+import Invite from '@modules/Invites/infra/typeorm/entities/Invite';
 
-class InvitesRepository implements IInvitesRepository {
+class InvitesRepository {
   private ormRepository: Repository<Invite>;
 
   constructor() {

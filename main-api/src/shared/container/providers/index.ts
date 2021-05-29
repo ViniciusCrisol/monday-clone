@@ -3,10 +3,9 @@ import { container } from 'tsyringe';
 import IBackofficeProvider from './BackofficeProvider/models/IBackofficeProvider';
 import BackofficeProvider from './BackofficeProvider/implementations/BackofficeProvider';
 
-import IHashProvider from './HashProvider/models/IHashProvider';
-import BCryptHashProvider from './HashProvider/implementations/BCryptHashProvider';
+import HashProvider from './HashProvider/implementations/HashProvider';
 
-container.registerSingleton<IHashProvider>('HashProvider', BCryptHashProvider);
+container.registerSingleton<HashProvider>('HashProvider', HashProvider);
 
 container.registerSingleton<IBackofficeProvider>(
   'BackofficeProvider',

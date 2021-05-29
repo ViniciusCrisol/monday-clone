@@ -1,18 +1,18 @@
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import Invite from '../infra/typeorm/entities/Invite';
-import IInvitesRepository from '../repositories/IInvitesRepository';
-import IAccountsRepository from '@modules/Accounts/repositories/IAccountsRepository';
+import Invite from '@modules/Invites/infra/typeorm/entities/Invite';
+import InvitesRepository from '@modules/Invites/infra/typeorm/repositories/InvitesRepository';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 
 @injectable()
 class ListInvites {
   constructor(
-    @inject('AccountsRepository')
-    private accountsRepository: IAccountsRepository,
-
     @inject('InvitesRepository')
-    private invitesRepository: IInvitesRepository,
+    private invitesRepository: InvitesRepository,
+
+    @inject('AccountsRepository')
+    private accountsRepository: AccountsRepository,
   ) {}
 
   public async execute(account_id: string): Promise<Invite[]> {

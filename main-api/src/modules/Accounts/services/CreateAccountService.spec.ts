@@ -20,9 +20,9 @@ describe('Create Account', () => {
     const accounstRepository = new AccountsRepository();
 
     createAccountService = new CreateAccountService(
+      accounstRepository,
       hashProvider,
       backofficeProvider,
-      accounstRepository,
     );
 
     await createAccountService.execute({
