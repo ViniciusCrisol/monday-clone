@@ -4,7 +4,7 @@ import CreateProjectService from '@modules/Projects/services/CreateProjectServic
 import ListProjectsService from '@modules/Projects/services/ListProjectsService';
 import GetProjectService from '@modules/Projects/services/GetProjectService';
 
-export default class AccountsController {
+export default class ProjectController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { id: account_id } = request.user;
     const { project_name } = request.body;
