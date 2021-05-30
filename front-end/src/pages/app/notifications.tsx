@@ -1,11 +1,14 @@
 import { useCallback } from 'react';
 import { toast } from 'react-toastify';
-import { FiRefreshCw } from 'react-icons/fi';
+import { GetServerSideProps } from 'next';
 import { mutate as mutateGlobal } from 'swr';
+import { FiRefreshCw } from 'react-icons/fi';
 
 import api from '@services/api';
 import fetch from '@services/fetch';
 import errorMessages from '@libs/errorMessages';
+import { CookieNames } from '@services/cookies';
+import { authenticatedRoutes } from '@libs/authenticateRoutes';
 
 import Loading from '@components/Loading';
 import Feed from '@components/pages/app/Feed';
@@ -108,6 +111,15 @@ const Notifications: React.FC = () => {
       </Feed>
     </Layout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const tokenName: CookieNames = 'monday_user_token';
+
+  const { [tokenName]: token } = req.cookies;
+  const response = await authenticatedRoutes(token);
+
+  return response;
 };
 
 export default Notifications;

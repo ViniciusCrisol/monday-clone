@@ -15,13 +15,13 @@ const SideMenu: React.FC = () => {
         <div className="image-container">
           <img src={mondayIcon} alt="123" />
         </div>
-        <Link href="/app/home/">
-          <a className={router.pathname === '/app/home' ? 'active' : ''}>
+        <Link href="/app">
+          <a className={router.pathname === '/app' ? 'active' : ''}>
             <FiGrid size={23} />
             <span>Home</span>
           </a>
         </Link>
-        <Link href="/app/notifications/">
+        <Link href="/app/notifications">
           <a
             className={router.pathname === '/app/notifications' ? 'active' : ''}
           >

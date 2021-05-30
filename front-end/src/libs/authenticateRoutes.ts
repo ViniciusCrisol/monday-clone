@@ -2,7 +2,7 @@ import api from '@services/api';
 
 const redirectRoutes = {
   stay: { props: {} },
-  app: { redirect: { permanent: false, destination: '/app/home' } },
+  app: { redirect: { permanent: false, destination: '/app' } },
   home: { redirect: { permanent: false, destination: '/' } },
   login: { redirect: { permanent: false, destination: '/auth/login' } }
 };
@@ -38,5 +38,26 @@ export async function authenticatedRoutes(token: string) {
   } catch (error) {
     if (!(error instanceof Error)) return redirectRoutes.login;
     else return redirectRoutes.home;
+  }
+}
+
+export async function getUserPermission(
+  token: string,
+  projectId: string | string[]
+) {
+  try {
+    if (!token) throw new Error();
+    if (Array.isArray(projectId)) throw new Error();
+
+    const tokenIsValid = await validateToken(token);
+    if (!tokenIsValid) throw new Error();
+
+    api.defaults.headers.authorization = `Bearer ${token}`;
+    const response = await api.get(`/projects/permission/${projectId}`);
+
+    return response.data.role;
+  } catch (error) {
+    if (!(error instanceof Error)) return redirectRoutes.login;
+    else return redirectRoutes.app;
   }
 }
