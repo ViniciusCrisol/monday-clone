@@ -16,8 +16,8 @@ class AccountsRepository {
     return account;
   }
 
-  public async findById(id: string): Promise<Account | undefined> {
-    const response = await this.ormRepository.findOne(id);
+  public async findById(account_id: string): Promise<Account | undefined> {
+    const response = await this.ormRepository.findOne(account_id);
     return response;
   }
 

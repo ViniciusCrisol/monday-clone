@@ -17,6 +17,8 @@ projectsRoutes.post(
   projectsController.create,
 );
 
-projectsRoutes.get('/', ensureAuthenticated, projectsController.get);
+projectsRoutes.get('/', ensureAuthenticated, projectsController.list);
+
+projectsRoutes.get('/:id', ensureAuthenticated, projectsController.get);
 
 export default projectsRoutes;

@@ -18,25 +18,25 @@ class MembersRepository implements MembersRepository {
     return member;
   }
 
-  public async count(id: string): Promise<number> {
+  public async count(account_id: string): Promise<number> {
     const response = await this.ormRepository.count({
-      where: { account_id: id },
+      where: { account_id },
     });
     return response;
   }
 
-  public async findProjects(id: string): Promise<Project[]> {
+  public async findProjects(account_id: string): Promise<Project[]> {
     const members = await this.ormRepository.find({
       select: ['id'],
       relations: ['project'],
-      where: { account_id: id },
+      where: { account_id },
     });
     const response = members.map(member => member.project);
     return response;
   }
 
-  public async findById(id: string): Promise<Member | undefined> {
-    const response = await this.ormRepository.findOne(id);
+  public async findById(project_id: string): Promise<Member | undefined> {
+    const response = await this.ormRepository.findOne(project_id);
     return response;
   }
 
@@ -49,6 +49,13 @@ class MembersRepository implements MembersRepository {
         account_id,
         project_id,
       },
+    });
+    return response;
+  }
+
+  public async listByProjectId(project_id: string): Promise<Member[]> {
+    const response = await this.ormRepository.find({
+      where: { project_id },
     });
     return response;
   }

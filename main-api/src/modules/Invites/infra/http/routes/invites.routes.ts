@@ -22,7 +22,7 @@ invitesRoutes.post(
   invitesController.create,
 );
 
-invitesRoutes.get('/', ensureAuthenticated, invitesController.get);
+invitesRoutes.get('/', ensureAuthenticated, invitesController.list);
 
 invitesRoutes.patch(
   '/decline/:id',

@@ -17,22 +17,22 @@ class ProjectsRepository {
     return project;
   }
 
-  public async findById(id: string): Promise<Project | undefined> {
-    const response = await this.ormRepository.findOne(id);
+  public async findById(project_id: string): Promise<Project | undefined> {
+    const response = await this.ormRepository.findOne(project_id);
     return response;
   }
 
-  public async findAll(id: string): Promise<Project[]> {
+  public async findAll(account_id: string): Promise<Project[]> {
     const response = await this.ormRepository.find({
-      where: { account_id: id },
+      where: { account_id },
       order: { inserted_at: 'DESC' },
     });
     return response;
   }
 
-  public async count(id: string): Promise<number> {
+  public async count(account_id: string): Promise<number> {
     const response = await this.ormRepository.count({
-      where: { account_id: id },
+      where: { account_id },
     });
     return response;
   }

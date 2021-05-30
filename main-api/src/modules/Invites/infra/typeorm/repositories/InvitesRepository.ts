@@ -17,12 +17,12 @@ class InvitesRepository {
     return invite;
   }
 
-  public async deleteById(id: string): Promise<void> {
-    this.ormRepository.delete(id);
+  public async deleteById(invite_id: string): Promise<void> {
+    this.ormRepository.delete(invite_id);
   }
 
-  public async findById(id: string): Promise<Invite | undefined> {
-    const response = await this.ormRepository.findOne(id);
+  public async findById(invite_id: string): Promise<Invite | undefined> {
+    const response = await this.ormRepository.findOne(invite_id);
     return response;
   }
 

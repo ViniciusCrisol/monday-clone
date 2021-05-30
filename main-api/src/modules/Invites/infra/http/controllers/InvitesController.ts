@@ -18,7 +18,7 @@ export default class InvitesController {
     return response.status(204).send();
   }
 
-  public async get(request: Request, response: Response): Promise<Response> {
+  public async list(request: Request, response: Response): Promise<Response> {
     const { id: account_id } = request.user;
 
     const listInvites = container.resolve(ListInvitesService);
