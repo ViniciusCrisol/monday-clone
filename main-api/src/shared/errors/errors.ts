@@ -7,7 +7,7 @@ export default {
     status: 404,
     message: 'Error, project not found!',
   },
-  mustBeProjectOwner: {
+  mustBeOwner: {
     status: 401,
     message: 'Error, you must be the project owner to do that!',
   },
@@ -43,7 +43,7 @@ export default {
     status: 401,
     message: 'Error, name already in use!',
   },
-  permissionDenied: {
+  notAllowed: {
     status: 401,
     message: 'Error, permission denied!',
   },

@@ -20,13 +20,14 @@ export default class DeclineInviteService {
   ) {}
 
   public async execute({ account_id, invite_id }: IRequest): Promise<void> {
-    const invite = await this.invitesRepository.findById(invite_id);
-    if (!invite) throw new AppError('invalidInvite');
+    const [invite, account] = await Promise.all([
+      this.invitesRepository.findById(invite_id),
+      this.accountsRepository.findById(account_id),
+    ]);
 
-    const account = await this.accountsRepository.findById(account_id);
+    if (!invite) throw new AppError('invalidInvite');
     if (!account) throw new AppError('invalidAccount');
-    if (invite.account_id !== account_id)
-      throw new AppError('permissionDenied');
+    if (invite.account_id !== account_id) throw new AppError('notAllowed');
 
     this.invitesRepository.deleteById(invite_id);
   }

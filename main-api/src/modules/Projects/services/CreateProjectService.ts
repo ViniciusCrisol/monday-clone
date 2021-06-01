@@ -28,13 +28,12 @@ export default class CreateProjectService {
     project_name,
     account_id,
   }: IRequest): Promise<Project> {
-    const account = await this.accountsRepository.findById(account_id);
-    if (!account) throw new AppError('invalidAccount');
+    const [account, checkProjectExits] = await Promise.all([
+      this.accountsRepository.findById(account_id),
+      this.projectsRepository.findByName({ account_id, project_name }),
+    ]);
 
-    const checkProjectExits = await this.projectsRepository.findByName({
-      account_id,
-      project_name,
-    });
+    if (!account) throw new AppError('invalidAccount');
     if (checkProjectExits) throw new AppError('nameAlreadyInUse');
 
     const [ownProjectsCount, memberProjectsCount] = await Promise.all([
