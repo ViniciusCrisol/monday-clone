@@ -7,7 +7,7 @@ import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/Pro
 import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 
 @injectable()
-class ListProjects {
+export default class ListProjects {
   constructor(
     @inject('MembersRepository')
     private membersRepository: MembersRepository,
@@ -23,12 +23,11 @@ class ListProjects {
     const account = await this.accountsRepository.findById(account_id);
     if (!account) throw new AppError('invalidAccount');
 
-    const ownProjects = await this.projectsRepository.findAll(account_id);
-    const meberProjects = await this.membersRepository.findProjects(account_id);
+    const [ownProjects, meberProjects] = await Promise.all([
+      this.projectsRepository.findAll(account_id),
+      this.membersRepository.findProjects(account_id),
+    ]);
 
-    const projects = [...ownProjects, ...meberProjects];
-    return projects;
+    return [...ownProjects, ...meberProjects];
   }
 }
-
-export default ListProjects;

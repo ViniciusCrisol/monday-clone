@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "lib": ["es2020"],
+    "target": "es2019",
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": "./src",

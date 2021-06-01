@@ -4,7 +4,7 @@ import IFindInviteByProjectIdDTO from '@modules/Invites/dtos/IFindInviteByProjec
 import ICreateInviteDTO from '@modules/Invites/dtos/ICreateInviteDTO';
 import Invite from '@modules/Invites/infra/typeorm/entities/Invite';
 
-class InvitesRepository {
+export default class InvitesRepository {
   private ormRepository: Repository<Invite>;
 
   constructor() {
@@ -50,5 +50,3 @@ class InvitesRepository {
     return response;
   }
 }
-
-export default InvitesRepository;

@@ -10,11 +10,11 @@ interface ITokenPayload {
   sub: string;
 }
 
-export default function ensureAuthenticated(
+export default (
   request: Request,
   _response: Response,
   next: NextFunction,
-): void {
+): void => {
   const authHeader = request.headers.authorization;
   if (!authHeader) throw new AppError('missingJWT');
 
@@ -28,4 +28,4 @@ export default function ensureAuthenticated(
   } catch {
     throw new AppError('invalidJWT');
   }
-}
+};

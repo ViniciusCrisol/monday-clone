@@ -1,14 +1,16 @@
 import { uuid } from 'uuidv4';
-import connection from '@shared/infra/typeorm';
-
 import {
-  BackofficeProvider,
-  HashProvider,
-  MembersRepository,
-  ProjectsRepository,
-  AccountsRepository,
-} from '@utils/tests/aliases';
+  clearDb,
+  closeDbConnection,
+  createDbConnection,
+} from '@shared/infra/typeorm';
+
 import AppError from '@shared/errors/AppError';
+import BackofficeProvider from '@shared/container/providers/BackofficeProvider/fakes/FakeBackofficeProvider';
+import HashProvider from '@shared/container/providers/HashProvider/implementations/HashProvider';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
+import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
+import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
 import CreateProjectService from '@modules/Projects/services/CreateProjectService';
 import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 
@@ -18,8 +20,8 @@ let createProjectService: CreateProjectService;
 
 describe('Create Project', () => {
   beforeAll(async () => {
-    await connection.create();
-    await connection.clear();
+    await createDbConnection();
+    await clearDb();
 
     const backofficeProvider = new BackofficeProvider();
     const hashProvider = new HashProvider();
@@ -57,8 +59,8 @@ describe('Create Project', () => {
   });
 
   afterAll(async () => {
-    await connection.clear();
-    await connection.close();
+    await clearDb();
+    await closeDbConnection();
   });
 
   it('should be able to create a new project', async () => {

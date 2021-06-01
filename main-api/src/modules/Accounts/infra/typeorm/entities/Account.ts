@@ -2,14 +2,14 @@ import Project from '@modules/Projects/infra/typeorm/entities/Project';
 import {
   Entity,
   Column,
+  OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
-  OneToMany,
 } from 'typeorm';
 
 @Entity('accounts')
-class Account {
+export default class Account {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -34,5 +34,3 @@ class Account {
   @UpdateDateColumn()
   updated_at: Date;
 }
-
-export default Account;

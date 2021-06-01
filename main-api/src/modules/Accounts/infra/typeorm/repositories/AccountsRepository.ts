@@ -3,7 +3,7 @@ import { getRepository, Repository } from 'typeorm';
 import ICreateAccountDTO from '@modules/Accounts/dtos/ICreateAccountDTO';
 import Account from '@modules/Accounts/infra/typeorm/entities/Account';
 
-class AccountsRepository {
+export default class AccountsRepository {
   private ormRepository: Repository<Account>;
 
   constructor() {
@@ -28,5 +28,3 @@ class AccountsRepository {
     return response;
   }
 }
-
-export default AccountsRepository;

@@ -1,18 +1,18 @@
 import {
   Entity,
   Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
   JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import Account from '@modules/Accounts/infra/typeorm/entities/Account';
 import Member from '@modules/Members/infra/typeorm/entities/Member';
 
 @Entity('projects')
-class Project {
+export default class Project {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -35,5 +35,3 @@ class Project {
   @UpdateDateColumn()
   updated_at: Date;
 }
-
-export default Project;

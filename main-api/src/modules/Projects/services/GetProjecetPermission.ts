@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import memberRoles from '@utils/app/enums/memberRoles';
+import memberRoles from '@utils/enums/memberRoles';
 import AppError from '@shared/errors/AppError';
 import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
 import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
@@ -12,7 +12,7 @@ interface IRequest {
 }
 
 @injectable()
-class ListProjects {
+export default class ListProjects {
   constructor(
     @inject('MembersRepository')
     private membersRepository: MembersRepository,
@@ -40,5 +40,3 @@ class ListProjects {
     return memberRoles.PROJECT_LEADER;
   }
 }
-
-export default ListProjects;

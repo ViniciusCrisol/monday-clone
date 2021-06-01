@@ -14,7 +14,7 @@ interface IRequest {
 }
 
 @injectable()
-class InviteMemberService {
+export default class InviteMemberService {
   constructor(
     @inject('InvitesRepository')
     private invitesRepository: InvitesRepository,
@@ -53,10 +53,7 @@ class InviteMemberService {
     if (inviteAlreadySended) throw new AppError('inviteAlreadySended');
 
     const memberAlreadyInProject = await this.membersRepository.findByProjectId(
-      {
-        account_id,
-        project_id,
-      },
+      { account_id, project_id },
     );
     if (memberAlreadyInProject) throw new AppError('invalidInvite');
 
@@ -67,5 +64,3 @@ class InviteMemberService {
     return invite;
   }
 }
-
-export default InviteMemberService;

@@ -1,17 +1,17 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import Account from '@modules/Accounts/infra/typeorm/entities/Account';
 import Project from '@modules/Projects/infra/typeorm/entities/Project';
 
 @Entity('invite_member_notifications')
-class Invite {
+export default class Invite {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -35,5 +35,3 @@ class Invite {
   @UpdateDateColumn()
   updated_at: Date;
 }
-
-export default Invite;

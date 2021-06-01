@@ -1,15 +1,17 @@
 import { uuid } from 'uuidv4';
-import connection from '@shared/infra/typeorm';
-
 import {
-  BackofficeProvider,
-  HashProvider,
-  MembersRepository,
-  InvitesRepository,
-  ProjectsRepository,
-  AccountsRepository,
-} from '@utils/tests/aliases';
+  clearDb,
+  closeDbConnection,
+  createDbConnection,
+} from '@shared/infra/typeorm';
+
 import AppError from '@shared/errors/AppError';
+import BackofficeProvider from '@shared/container/providers/BackofficeProvider/fakes/FakeBackofficeProvider';
+import HashProvider from '@shared/container/providers/HashProvider/implementations/HashProvider';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
+import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
+import InvitesRepository from '@modules/Invites/infra/typeorm/repositories/InvitesRepository';
+import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
 import InviteMemberService from '@modules/Invites/services/InviteMemberService';
 import DeclineInviteService from '@modules/Invites/services/DeclineInviteService';
 import CreateProjectService from '@modules/Projects/services/CreateProjectService';
@@ -23,8 +25,8 @@ let declineInviteService: DeclineInviteService;
 
 describe('Decline Invite', () => {
   beforeAll(async () => {
-    await connection.create();
-    await connection.clear();
+    await createDbConnection();
+    await clearDb();
 
     const backofficeProvider = new BackofficeProvider();
     const hashProvider = new HashProvider();
@@ -91,8 +93,8 @@ describe('Decline Invite', () => {
   });
 
   afterAll(async () => {
-    await connection.clear();
-    await connection.close();
+    await clearDb();
+    await closeDbConnection();
   });
 
   it('should not be able to decline a non-existing invite', async () => {

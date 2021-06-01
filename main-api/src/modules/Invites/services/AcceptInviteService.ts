@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import memberRoles from '@utils/app/enums/memberRoles';
+import memberRoles from '@utils/enums/memberRoles';
 import AppError from '@shared/errors/AppError';
 import InvitesRepository from '@modules/Invites/infra/typeorm/repositories/InvitesRepository';
 import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
@@ -13,7 +13,7 @@ interface IRequest {
 }
 
 @injectable()
-class AcceptInviteService {
+export default class AcceptInviteService {
   constructor(
     @inject('InvitesRepository')
     private invitesRepository: InvitesRepository,
@@ -42,10 +42,7 @@ class AcceptInviteService {
     if (!project) throw new AppError('projectNotFounded');
 
     const memberAlreadyInProject = await this.membersRepository.findByProjectId(
-      {
-        account_id,
-        project_id: invite.project_id,
-      },
+      { account_id, project_id: invite.project_id },
     );
     if (memberAlreadyInProject) throw new AppError('invalidInvite');
 
@@ -55,8 +52,6 @@ class AcceptInviteService {
       role: memberRoles.STANDARD_MEMBER,
     });
 
-    await this.invitesRepository.deleteById(invite_id);
+    this.invitesRepository.deleteById(invite_id);
   }
 }
-
-export default AcceptInviteService;

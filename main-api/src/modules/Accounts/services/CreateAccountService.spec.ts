@@ -1,19 +1,21 @@
-import connection from '@shared/infra/typeorm';
-
 import {
-  HashProvider,
-  BackofficeProvider,
-  AccountsRepository,
-} from '@utils/tests/aliases';
+  clearDb,
+  closeDbConnection,
+  createDbConnection,
+} from '@shared/infra/typeorm';
+
 import AppError from '@shared/errors/AppError';
+import BackofficeProvider from '@shared/container/providers/BackofficeProvider/fakes/FakeBackofficeProvider';
+import HashProvider from '@shared/container/providers/HashProvider/implementations/HashProvider';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 
 let createAccountService: CreateAccountService;
 
 describe('Create Account', () => {
   beforeAll(async () => {
-    await connection.create();
-    await connection.clear();
+    await createDbConnection();
+    await clearDb();
 
     const hashProvider = new HashProvider();
     const backofficeProvider = new BackofficeProvider();
@@ -35,8 +37,8 @@ describe('Create Account', () => {
   });
 
   afterAll(async () => {
-    await connection.clear();
-    await connection.close();
+    await clearDb();
+    await closeDbConnection();
   });
 
   it('should not be able to create a new account with a wrong password confirmation', async () => {

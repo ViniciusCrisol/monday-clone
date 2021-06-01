@@ -5,7 +5,7 @@ import ICreateMemberDTO from '@modules/Members/dtos/ICreateMemberDTO';
 import Member from '@modules/Members/infra/typeorm/entities/Member';
 import Project from '@modules/Projects/infra/typeorm/entities/Project';
 
-class MembersRepository implements MembersRepository {
+export default class MembersRepository implements MembersRepository {
   private ormRepository: Repository<Member>;
 
   constructor() {
@@ -60,5 +60,3 @@ class MembersRepository implements MembersRepository {
     return response;
   }
 }
-
-export default MembersRepository;

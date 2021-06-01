@@ -12,7 +12,7 @@ interface IRequest {
 }
 
 @injectable()
-class ListProjects {
+export default class ListProjects {
   constructor(
     @inject('MembersRepository')
     private membersRepository: MembersRepository,
@@ -37,9 +37,6 @@ class ListProjects {
       throw new AppError('permissionDenied');
 
     project.members = members;
-
     return project;
   }
 }
-
-export default ListProjects;

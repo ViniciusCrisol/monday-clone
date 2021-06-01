@@ -12,7 +12,7 @@ interface IRequest {
 }
 
 @injectable()
-class CreateProjectService {
+export default class CreateProjectService {
   constructor(
     @inject('AccountsRepository')
     private accountsRepository: AccountsRepository,
@@ -37,8 +37,10 @@ class CreateProjectService {
     });
     if (checkProjectExits) throw new AppError('nameAlreadyInUse');
 
-    const ownProjectsCount = await this.projectsRepository.count(account_id);
-    const memberProjectsCount = await this.membersRepository.count(account_id);
+    const [ownProjectsCount, memberProjectsCount] = await Promise.all([
+      this.projectsRepository.count(account_id),
+      this.membersRepository.count(account_id),
+    ]);
 
     const projectsCount = ownProjectsCount + memberProjectsCount;
     if (projectsCount >= 30) throw new AppError('maxNumberOfProjects');
@@ -51,5 +53,3 @@ class CreateProjectService {
     return project;
   }
 }
-
-export default CreateProjectService;

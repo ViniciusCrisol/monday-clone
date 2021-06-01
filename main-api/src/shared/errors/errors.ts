@@ -1,4 +1,4 @@
-const errors = {
+export default {
   'default-message': {
     status: 500,
     message: 'Internal server error',
@@ -60,5 +60,3 @@ const errors = {
     message: 'Error, incorrect email/password combination!',
   },
 };
-
-export default errors;

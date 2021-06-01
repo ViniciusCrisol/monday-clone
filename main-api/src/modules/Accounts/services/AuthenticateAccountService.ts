@@ -18,7 +18,7 @@ interface IResponse {
 }
 
 @injectable()
-class AuthenticateAccountService {
+export default class AuthenticateAccountService {
   constructor(
     @inject('AccountsRepository')
     private accountsRepository: AccountsRepository,
@@ -38,9 +38,9 @@ class AuthenticateAccountService {
     if (!passwordMatched) throw new AppError('authenticationFail');
 
     const { secret, expiresIn } = authConfig.jwt;
-    const token = sign({}, secret, { subject: account.id, expiresIn });
-    return { account, token };
+    return {
+      account,
+      token: sign({}, secret, { subject: account.id, expiresIn }),
+    };
   }
 }
-
-export default AuthenticateAccountService;

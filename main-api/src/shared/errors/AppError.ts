@@ -1,8 +1,7 @@
 import errors from './errors';
-
 type IErrors = keyof typeof errors;
 
-class AppError {
+export default class AppError {
   public readonly message: string;
   public readonly statusCode: number;
 
@@ -12,5 +11,3 @@ class AppError {
     this.statusCode = status;
   }
 }
-
-export default AppError;

@@ -10,7 +10,7 @@ interface IRequest {
 }
 
 @injectable()
-class DeclineInviteService {
+export default class DeclineInviteService {
   constructor(
     @inject('InvitesRepository')
     private invitesRepository: InvitesRepository,
@@ -28,8 +28,6 @@ class DeclineInviteService {
     if (invite.account_id !== account_id)
       throw new AppError('permissionDenied');
 
-    await this.invitesRepository.deleteById(invite_id);
+    this.invitesRepository.deleteById(invite_id);
   }
 }
-
-export default DeclineInviteService;

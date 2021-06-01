@@ -4,7 +4,7 @@ import ICreateProjectDTO from '@modules/Projects/dtos/ICreateProjectDTO';
 import IFindProjectByNameDTO from '@modules/Projects/dtos/ICreateProjectDTO';
 import Project from '@modules/Projects/infra/typeorm/entities/Project';
 
-class ProjectsRepository {
+export default class ProjectsRepository {
   private ormRepository: Repository<Project>;
 
   constructor() {
@@ -47,5 +47,3 @@ class ProjectsRepository {
     return response;
   }
 }
-
-export default ProjectsRepository;

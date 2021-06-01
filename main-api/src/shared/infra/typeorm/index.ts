@@ -1,24 +1,20 @@
 import { getConnectionOptions, createConnection, getConnection } from 'typeorm';
 
-const connection = {
-  async create() {
-    const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
-    await createConnection({ ...connectionOptions, name: 'default' });
-  },
-
-  async close() {
-    await getConnection().close();
-  },
-
-  async clear() {
-    const connection = getConnection();
-    const entities = connection.entityMetadatas;
-
-    entities.forEach(async entity => {
-      const repository = connection.getRepository(entity.name);
-      await repository.delete({});
-    });
-  },
+export const createDbConnection = async () => {
+  const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
+  await createConnection({ ...connectionOptions, name: 'default' });
 };
 
-export default connection;
+export const closeDbConnection = async () => {
+  await getConnection().close();
+};
+
+export const clearDb = async () => {
+  const connection = getConnection();
+  const entities = connection.entityMetadatas;
+
+  entities.forEach(async entity => {
+    const repository = connection.getRepository(entity.name);
+    await repository.delete({});
+  });
+};
