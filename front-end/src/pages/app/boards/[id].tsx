@@ -4,9 +4,8 @@ import { GetServerSideProps } from 'next';
 import {
   getUserPermission,
   authenticatedRoutes
-} from '@libs/authenticateRoutes';
-import { CookieNames } from '@services/cookies';
-
+} from '@libs/services/auth/authenticateRoutes';
+import { CookieNames } from '@libs/services/auth/cookies';
 import Layout from '@components/pages/app/AppLayout';
 
 interface IBoard {

@@ -4,11 +4,11 @@ import { GetServerSideProps } from 'next';
 import { mutate as mutateGlobal } from 'swr';
 import { FiRefreshCw } from 'react-icons/fi';
 
-import api from '@services/api';
-import fetch from '@services/fetch';
-import errorMessages from '@libs/errorMessages';
-import { CookieNames } from '@services/cookies';
-import { authenticatedRoutes } from '@libs/authenticateRoutes';
+import api from '@libs/services/api';
+import fetch from '@libs/services/fetch';
+import errorMessages from '@libs/helpers/errorMessages';
+import { CookieNames } from '@libs/services/auth/cookies';
+import { authenticatedRoutes } from '@libs/services/auth/authenticateRoutes';
 
 import Loading from '@components/Loading';
 import Feed from '@components/pages/app/Feed';

@@ -4,15 +4,15 @@ import accountsRouter from '@modules/Accounts/infra/http/routes/accounts.routes'
 import sessionsRouter from '@modules/Accounts/infra/http/routes/sessions.routes';
 import projectsRouter from '@modules/Projects/infra/http/routes/projects.routes';
 import invitesRouter from '@modules/Invites/infra/http/routes/invites.routes';
-
 import backofficeRouter from './backoffice.routes';
 
 const routes = Router();
 
 routes.use('/', backofficeRouter);
+
+routes.use('/invites', invitesRouter);
+routes.use('/projects', projectsRouter);
 routes.use('/accounts', accountsRouter);
 routes.use('/accounts/session', sessionsRouter);
-routes.use('/projects', projectsRouter);
-routes.use('/invites', invitesRouter);
 
 export default routes;

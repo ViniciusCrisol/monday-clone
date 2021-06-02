@@ -1,4 +1,4 @@
-import api from '@services/api';
+import api from '@libs/services/api';
 
 const redirectRoutes = {
   stay: { props: {} },
@@ -7,13 +7,13 @@ const redirectRoutes = {
   login: { redirect: { permanent: false, destination: '/auth/login' } }
 };
 
-export async function validateToken(token: string): Promise<boolean> {
+export const validateToken = async (token: string): Promise<boolean> => {
   api.defaults.headers.authorization = `Bearer ${token}`;
   const response = await api.get('/accounts/session');
   return response.status === 204;
-}
+};
 
-export async function nonAuthenticatedRoutes(token: string) {
+export const nonAuthenticatedRoutes = async (token: string) => {
   try {
     if (!token) throw new Error();
 
@@ -25,9 +25,9 @@ export async function nonAuthenticatedRoutes(token: string) {
     if (!(error instanceof Error)) return redirectRoutes.home;
     else return redirectRoutes.stay;
   }
-}
+};
 
-export async function authenticatedRoutes(token: string) {
+export const authenticatedRoutes = async (token: string) => {
   try {
     if (!token) throw new Error();
 
@@ -39,12 +39,12 @@ export async function authenticatedRoutes(token: string) {
     if (!(error instanceof Error)) return redirectRoutes.login;
     else return redirectRoutes.home;
   }
-}
+};
 
-export async function getUserPermission(
+export const getUserPermission = async (
   token: string,
   projectId: string | string[]
-) {
+) => {
   try {
     if (!token) throw new Error();
     if (Array.isArray(projectId)) throw new Error();
@@ -60,4 +60,4 @@ export async function getUserPermission(
     if (!(error instanceof Error)) return redirectRoutes.login;
     else return redirectRoutes.app;
   }
-}
+};

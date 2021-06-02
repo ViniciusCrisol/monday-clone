@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { FiChevronRight } from 'react-icons/fi';
 
-import { mondayLogo } from '@services/files';
+import { mondayLogo } from '@libs/helpers/images';
 import { Container, UserContainer } from './styles';
 
 const Header: React.FC = () => {

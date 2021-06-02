@@ -1,13 +1,13 @@
 import useSWR from 'swr';
 
-import api from '@services/api';
-import { getCookie } from '@services/cookies';
+import api from './api';
+import { getCookie } from './auth/cookies';
 
 interface IFatchProps {
   refreshInterval?: number;
 }
 
-function fetch<Data = any, Error = any>(url: string, props?: IFatchProps) {
+export default <Data = any, Error = any>(url: string, props?: IFatchProps) => {
   const { data, error, mutate } = useSWR<Data, Error>(
     url,
     async url => {
@@ -21,6 +21,4 @@ function fetch<Data = any, Error = any>(url: string, props?: IFatchProps) {
   );
 
   return { data, error, mutate };
-}
-
-export default fetch;
+};

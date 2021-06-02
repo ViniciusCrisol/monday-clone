@@ -13,8 +13,10 @@ export const clearDb = async () => {
   const connection = getConnection();
   const entities = connection.entityMetadatas;
 
-  entities.forEach(async entity => {
-    const repository = connection.getRepository(entity.name);
-    await repository.delete({});
-  });
+  await Promise.all(
+    entities.map(async entity => {
+      const repository = connection.getRepository(entity.name);
+      return repository.delete({});
+    }),
+  );
 };

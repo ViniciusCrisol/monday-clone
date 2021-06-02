@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import * as Yup from 'yup';
 
-import api from '@services/api';
+import api from '@libs/services/api';
 import { IProjectInterface } from '../index';
 
 import Input from '@components/Input';
@@ -11,8 +11,8 @@ import Button from '@components/Button';
 import FormError from '@components/FormError';
 
 import { Container } from './styles';
-import errorMessages from '@libs/errorMessages';
-import validateErrors from '@libs/validateErrors';
+import errorMessages from '@libs/helpers/errorMessages';
+import validateErrors from '@libs/services/validateErrors';
 
 interface ICreateBoard {
   closeModal(): void;

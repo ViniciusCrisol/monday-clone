@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 
-import { CookieNames } from '@services/cookies';
-import { nonAuthenticatedRoutes } from '@libs/authenticateRoutes';
+import { CookieNames } from '@libs/services/auth/cookies';
+import { nonAuthenticatedRoutes } from '@libs/services/auth/authenticateRoutes';
 
 import Modal from '@components/Modal';
 import Form from '@components/pages/users/Form';

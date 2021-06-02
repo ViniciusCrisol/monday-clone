@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import errorMessages from '@libs/errorMessages';
+import errorMessages from '@libs/helpers/errorMessages';
 
 interface IYupErrors {
   message: string;
@@ -7,7 +7,6 @@ interface IYupErrors {
 
 function validateYupErrors(error: Yup.ValidationError): IYupErrors[] {
   const validationErrors = [];
-
   error.inner.forEach(error => {
     validationErrors.push({ message: error.message });
   });
@@ -15,7 +14,7 @@ function validateYupErrors(error: Yup.ValidationError): IYupErrors[] {
   return validationErrors;
 }
 
-function validateErrors(error): string {
+export default (error): string => {
   const { defaultMessage, fillAllFields } = errorMessages;
 
   if (error instanceof Yup.ValidationError) {
@@ -24,6 +23,4 @@ function validateErrors(error): string {
   }
 
   return error.response.data.message || defaultMessage;
-}
-
-export default validateErrors;
+};

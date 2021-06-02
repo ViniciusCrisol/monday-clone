@@ -5,14 +5,14 @@ import { Form } from '@unform/web';
 import { useRouter } from 'next/router';
 import { FiMail, FiLock, FiArrowRight } from 'react-icons/fi';
 
-import api from '@services/api';
-import errorMessages from '@libs/errorMessages';
-import validateErrors from '@libs/validateErrors';
+import api from '@libs/services/api';
+import errorMessages from '@libs/helpers/errorMessages';
+import validateErrors from '@libs/services/validateErrors';
 
 import Input from '@components/Input';
 import Button from '@components/Button';
 import FormError from '@components/FormError';
-import { setCookie } from '@services/cookies';
+import { setCookie } from '@libs/services/auth/cookies';
 
 import { Container } from './styles';
 

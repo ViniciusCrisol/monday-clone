@@ -1,7 +1,7 @@
 import { FiX, FiCheck } from 'react-icons/fi';
 
-import { mondayIcon } from '@services/files';
-import { defaultPattern } from '@libs/formatDate';
+import { mondayIcon } from '@libs/helpers/images';
+import { defaultPattern } from '@libs/services/formatDate';
 import { INotificationInterface } from '@pages/app/notifications';
 
 import { Container } from './styles';

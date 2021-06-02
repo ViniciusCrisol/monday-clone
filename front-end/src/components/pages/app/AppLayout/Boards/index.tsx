@@ -2,11 +2,10 @@ import { useState, useCallback } from 'react';
 import { mutate as mutateGlobal } from 'swr';
 import { FiPlusCircle, FiChevronRight } from 'react-icons/fi';
 
-import fetch from '@services/fetch';
-
-import Board from './Board';
+import fetch from '@libs/services/fetch';
 import Loading from '@components/Loading';
 
+import Board from './Board';
 import CreateBoard from './CreateBoard';
 import { Container, BoardList, Header } from './styles';
 

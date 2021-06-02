@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 
-import { mondayLogo } from '@services/files';
-import { CookieNames } from '@services/cookies';
-import { nonAuthenticatedRoutes } from '@libs/authenticateRoutes';
+import { mondayLogo } from '@libs/helpers/images';
+import { CookieNames } from '@libs/services/auth/cookies';
+import { nonAuthenticatedRoutes } from '@libs/services/auth/authenticateRoutes';
 
 import Form from '@components/pages/auth/Form';
 import { Header, Container } from '@styles/auth/login';

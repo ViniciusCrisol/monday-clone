@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 
-import { defaultPattern } from '@libs/formatDate';
-import { mondayIcon } from '@services/files';
-import { CookieNames } from '@services/cookies';
-import { authenticatedRoutes } from '@libs/authenticateRoutes';
+import { mondayIcon } from '@libs/helpers/images';
+import { CookieNames } from '@libs/services/auth/cookies';
+import { defaultPattern } from '@libs/services/formatDate';
+import { authenticatedRoutes } from '@libs/services/auth/authenticateRoutes';
 
 import Feed from '@components/pages/app/Feed';
 import Layout from '@components/pages/app/AppLayout';
