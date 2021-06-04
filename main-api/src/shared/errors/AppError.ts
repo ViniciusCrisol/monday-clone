@@ -6,8 +6,7 @@ export default class AppError {
   public readonly statusCode: number;
 
   constructor(error: IErrors) {
-    const { message, status } = errors[error];
-    this.message = message;
-    this.statusCode = status;
+    this.message = errors[error].message;
+    this.statusCode = errors[error].status;
   }
 }

@@ -91,12 +91,17 @@ describe('Create Project', () => {
   });
 
   it('should not be able to create a new project if the user already has 30 other projects', async () => {
+    const projectsToInsert = [];
     for (let i = 0; i <= 27; i++) {
-      await createProjectService.execute({
-        project_name: `Project ${i}`,
-        account_id: accountId,
-      });
+      projectsToInsert.push(
+        createProjectService.execute({
+          project_name: `Project ${i}`,
+          account_id: accountId,
+        }),
+      );
     }
+
+    await Promise.all(projectsToInsert);
 
     await expect(
       createProjectService.execute({

@@ -27,6 +27,10 @@ export default {
     status: 401,
     message: 'Error, invalid project!',
   },
+  invalidMember: {
+    status: 401,
+    message: 'Error, invalid member!',
+  },
   emailAlreadyInUse: {
     status: 401,
     message: 'Error, email address already in use!',

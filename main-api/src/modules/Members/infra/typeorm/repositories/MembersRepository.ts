@@ -31,8 +31,7 @@ export default class MembersRepository implements MembersRepository {
       relations: ['project'],
       where: { account_id },
     });
-    const response = members.map(member => member.project);
-    return response;
+    return members.map(member => member.project);
   }
 
   public async findById(project_id: string): Promise<Member | undefined> {
@@ -58,5 +57,9 @@ export default class MembersRepository implements MembersRepository {
       where: { project_id },
     });
     return response;
+  }
+
+  public async save(member: Member): Promise<Member> {
+    return this.ormRepository.save(member);
   }
 }

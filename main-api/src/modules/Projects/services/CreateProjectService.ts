@@ -41,8 +41,8 @@ export default class CreateProjectService {
       this.membersRepository.count(account_id),
     ]);
 
-    const projectsCount = ownProjectsCount + memberProjectsCount;
-    if (projectsCount >= 30) throw new AppError('maxNumberOfProjects');
+    if ((ownProjectsCount + memberProjectsCount) >= 30)
+      throw new AppError('maxNumberOfProjects');
 
     const project = await this.projectsRepository.create({
       project_name,

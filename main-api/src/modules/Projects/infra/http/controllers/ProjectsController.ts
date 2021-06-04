@@ -26,9 +26,9 @@ export default class ProjectController {
     const serializedProjects = projects.map(
       ({ id, project_name, inserted_at, updated_at }) => ({
         id,
-        project_name,
-        inserted_at,
         updated_at,
+        inserted_at,
+        project_name,
       }),
     );
     return response.json(serializedProjects);

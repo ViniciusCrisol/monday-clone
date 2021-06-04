@@ -9,10 +9,10 @@ import cors from 'cors';
 
 import '@shared/container';
 import 'express-async-errors';
-import { createDbConnection } from '@shared/infra/typeorm';
-import errorHandler from '@shared/infra/http/middlewares/errorHandler';
 
 import routes from './routes';
+import { createDbConnection } from '@shared/infra/typeorm';
+import errorHandler from '@shared/infra/http/middlewares/errorHandler';
 
 createDbConnection();
 const app = express();
@@ -24,7 +24,8 @@ app.use(express.json());
 app.use(routes);
 app.use(errors());
 app.use(errorHandler);
-app.use(serverMonitor());
+
+app.use('/server/server-health', serverMonitor());
 
 app.listen(8080, () => {
   console.log('🚀 server started!');

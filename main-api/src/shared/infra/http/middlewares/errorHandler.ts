@@ -9,12 +9,14 @@ export default (
   _next: NextFunction,
 ) => {
   if (error instanceof AppError) {
-    const { statusCode, message } = error;
-    return response.status(statusCode).json({ status: 'error', message });
+    return response
+      .status(error.statusCode)
+      .json({ status: 'error', message: error.message });
   }
 
   if (process.env.NODE_ENV === 'development') console.log(error);
 
-  const { status, message } = errors['default-message'];
-  return response.status(status).json({ status: 'error', message });
+  return response
+    .status(errors['default-message'].status)
+    .json({ status: 'error', message: errors['default-message'].message });
 };
