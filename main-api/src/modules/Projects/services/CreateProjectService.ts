@@ -37,11 +37,11 @@ export default class CreateProjectService {
     if (checkProjectExits) throw new AppError('nameAlreadyInUse');
 
     const [ownProjectsCount, memberProjectsCount] = await Promise.all([
-      this.projectsRepository.count(account_id),
-      this.membersRepository.count(account_id),
+      this.projectsRepository.countByAccountId(account_id),
+      this.membersRepository.countProjectsByAccountId(account_id),
     ]);
 
-    if ((ownProjectsCount + memberProjectsCount) >= 30)
+    if (ownProjectsCount + memberProjectsCount >= 30)
       throw new AppError('maxNumberOfProjects');
 
     const project = await this.projectsRepository.create({

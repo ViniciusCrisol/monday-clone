@@ -11,10 +11,11 @@ const routes = Router();
 
 routes.use('/', backofficeRouter);
 
-routes.use('/members', membersRouter);
 routes.use('/invites', invitesRouter);
-routes.use('/projects', projectsRouter);
 routes.use('/accounts', accountsRouter);
 routes.use('/accounts/session', sessionsRouter);
+
+routes.use('/projects', projectsRouter);
+routes.use('/projects/members', membersRouter);
 
 export default routes;

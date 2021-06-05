@@ -1,5 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 
+import IListMembersByRoleAndProjectIdDTO from '@modules/Members/dtos/IListMembersByRoleAndProjectIdDTO';
 import IFindMemberByProjectIdDTO from '@modules/Members/dtos/IFindMemberByProjectIdDTO';
 import ICreateMemberDTO from '@modules/Members/dtos/ICreateMemberDTO';
 import Member from '@modules/Members/infra/typeorm/entities/Member';
@@ -18,20 +19,8 @@ export default class MembersRepository {
     return member;
   }
 
-  public async count(account_id: string): Promise<number> {
-    const response = await this.ormRepository.count({
-      where: { account_id },
-    });
-    return response;
-  }
-
-  public async findProjects(account_id: string): Promise<Project[]> {
-    const members = await this.ormRepository.find({
-      select: ['id'],
-      relations: ['project'],
-      where: { account_id },
-    });
-    return members.map(member => member.project);
+  public async save(member: Member): Promise<Member> {
+    return this.ormRepository.save(member);
   }
 
   public async findById(project_id: string): Promise<Member | undefined> {
@@ -39,7 +28,14 @@ export default class MembersRepository {
     return response;
   }
 
-  public async findByProjectId({
+  public async listByProjectId(project_id: string): Promise<Member[]> {
+    const response = await this.ormRepository.find({
+      where: { project_id },
+    });
+    return response;
+  }
+
+  public async findByAccountAndProjectId({
     account_id,
     project_id,
   }: IFindMemberByProjectIdDTO): Promise<Member | undefined> {
@@ -52,14 +48,29 @@ export default class MembersRepository {
     return response;
   }
 
-  public async listByProjectId(project_id: string): Promise<Member[]> {
+  public async listProjectsByAccountId(account_id: string): Promise<Project[]> {
+    const members = await this.ormRepository.find({
+      select: ['id'],
+      relations: ['project'],
+      where: { account_id },
+    });
+    return members.map(member => member.project);
+  }
+
+  public async listByRoleAndProjectId({
+    role,
+    project_id,
+  }: IListMembersByRoleAndProjectIdDTO): Promise<Member[]> {
     const response = await this.ormRepository.find({
-      where: { project_id },
+      where: { project_id, role },
     });
     return response;
   }
 
-  public async save(member: Member): Promise<Member> {
-    return this.ormRepository.save(member);
+  public async countProjectsByAccountId(account_id: string): Promise<number> {
+    const response = await this.ormRepository.count({
+      where: { account_id },
+    });
+    return response;
   }
 }

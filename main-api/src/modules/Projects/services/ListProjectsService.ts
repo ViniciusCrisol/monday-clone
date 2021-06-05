@@ -9,14 +9,14 @@ import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/Acc
 @injectable()
 export default class ListProjectsService {
   constructor(
-    @inject('MembersRepository')
-    private membersRepository: MembersRepository,
+    @inject('AccountsRepository')
+    private accountsRepository: AccountsRepository,
 
     @inject('ProjectsRepository')
     private projectsRepository: ProjectsRepository,
 
-    @inject('AccountsRepository')
-    private accountsRepository: AccountsRepository,
+    @inject('MembersRepository')
+    private membersRepository: MembersRepository,
   ) {}
 
   public async execute(account_id: string): Promise<Project[]> {
@@ -24,8 +24,8 @@ export default class ListProjectsService {
     if (!account) throw new AppError('invalidAccount');
 
     const [ownProjects, meberProjects] = await Promise.all([
-      this.projectsRepository.findAll(account_id),
-      this.membersRepository.findProjects(account_id),
+      this.projectsRepository.list(account_id),
+      this.membersRepository.listProjectsByAccountId(account_id),
     ]);
 
     return [...ownProjects, ...meberProjects];

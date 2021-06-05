@@ -34,26 +34,29 @@ export default class InviteMemberService {
     account_id,
     project_id,
   }: IRequest): Promise<Invite> {
-    const [account, invitedUser, project] = await Promise.all([
+    const [account, project, invitedUser] = await Promise.all([
       this.accountsRepository.findById(account_id),
-      this.accountsRepository.findByEmail(user_email),
       this.projectsRepository.findById(project_id),
+      this.accountsRepository.findByEmail(user_email),
     ]);
 
     if (!account) throw new AppError('invalidAccount');
     if (account.user_email === user_email) throw new AppError('invalidInvite');
 
-    if (!invitedUser) throw new AppError('invalidAccount');
-
     if (!project) throw new AppError('projectNotFounded');
     if (project.account_id !== account_id) throw new AppError('mustBeOwner');
 
+    if (!invitedUser) throw new AppError('invalidAccount');
+
     const [inviteAlreadySended, memberAlreadyInProject] = await Promise.all([
-      this.invitesRepository.findByProjectId({
+      this.invitesRepository.findByAccountAndProjectId({
         account_id: invitedUser.id,
         project_id,
       }),
-      this.membersRepository.findByProjectId({ account_id, project_id }),
+      this.membersRepository.findByAccountAndProjectId({
+        account_id,
+        project_id,
+      }),
     ]);
 
     if (inviteAlreadySended) throw new AppError('inviteAlreadySended');

@@ -15,14 +15,14 @@ interface IRequest {
 @injectable()
 export default class UpdateMemberRoleService {
   constructor(
-    @inject('MembersRepository')
-    private membersRepository: MembersRepository,
-
-    @inject('MembersRepository')
+    @inject('AccountsRepository')
     private accountsRepository: AccountsRepository,
 
     @inject('ProjectsRepository')
     private projectsRepository: ProjectsRepository,
+
+    @inject('MembersRepository')
+    private membersRepository: MembersRepository,
   ) {}
 
   public async execute({
@@ -42,12 +42,11 @@ export default class UpdateMemberRoleService {
     if (!project) throw new AppError('projectNotFounded');
 
     if (project.account_id !== account.id) {
-      const accountMemberProject = await this.membersRepository.findByProjectId(
-        {
+      const accountMemberProject =
+        await this.membersRepository.findByAccountAndProjectId({
           account_id,
           project_id: member.project_id,
-        },
-      );
+        });
 
       if (
         !accountMemberProject ||
@@ -56,6 +55,7 @@ export default class UpdateMemberRoleService {
         throw new AppError('notAllowed');
     }
 
+    if (member.role === memberRoles[role]) return;
     await this.membersRepository.save({
       ...member,
       role: memberRoles[role],

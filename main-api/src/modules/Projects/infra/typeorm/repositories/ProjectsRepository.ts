@@ -22,7 +22,17 @@ export default class ProjectsRepository {
     return response;
   }
 
-  public async findAll(account_id: string): Promise<Project[]> {
+  public async findByName({
+    account_id,
+    project_name,
+  }: IFindProjectByNameDTO): Promise<Project | undefined> {
+    const response = await this.ormRepository.findOne({
+      where: { project_name, account_id },
+    });
+    return response;
+  }
+
+  public async list(account_id: string): Promise<Project[]> {
     const response = await this.ormRepository.find({
       where: { account_id },
       order: { inserted_at: 'DESC' },
@@ -30,19 +40,9 @@ export default class ProjectsRepository {
     return response;
   }
 
-  public async count(account_id: string): Promise<number> {
+  public async countByAccountId(account_id: string): Promise<number> {
     const response = await this.ormRepository.count({
       where: { account_id },
-    });
-    return response;
-  }
-
-  public async findByName({
-    account_id,
-    project_name,
-  }: IFindProjectByNameDTO): Promise<Project | undefined> {
-    const response = await this.ormRepository.findOne({
-      where: { project_name, account_id },
     });
     return response;
   }

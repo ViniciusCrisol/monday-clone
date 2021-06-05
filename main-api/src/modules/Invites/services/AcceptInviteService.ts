@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import memberRoles from '@utils/enums/memberRoles';
 import AppError from '@shared/errors/AppError';
+import Member from '@modules/Members/infra/typeorm/entities/Member';
 import InvitesRepository from '@modules/Invites/infra/typeorm/repositories/InvitesRepository';
 import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
 import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
@@ -28,7 +29,7 @@ export default class AcceptInviteService {
     private accountsRepository: AccountsRepository,
   ) {}
 
-  public async execute({ account_id, invite_id }: IRequest): Promise<void> {
+  public async execute({ account_id, invite_id }: IRequest): Promise<Member> {
     const [invite, account] = await Promise.all([
       this.invitesRepository.findById(invite_id),
       this.accountsRepository.findById(account_id),
@@ -40,7 +41,7 @@ export default class AcceptInviteService {
 
     const [project, memberAlreadyInProject] = await Promise.all([
       this.projectsRepository.findById(invite.project_id),
-      this.membersRepository.findByProjectId({
+      this.membersRepository.findByAccountAndProjectId({
         account_id,
         project_id: invite.project_id,
       }),
@@ -49,12 +50,13 @@ export default class AcceptInviteService {
     if (!project) throw new AppError('projectNotFounded');
     if (memberAlreadyInProject) throw new AppError('invalidInvite');
 
-    await this.membersRepository.create({
+    this.invitesRepository.deleteById(invite_id);
+
+    const member = await this.membersRepository.create({
       account_id: account_id,
       project_id: project.id,
       role: memberRoles.STANDARD_MEMBER,
     });
-
-    this.invitesRepository.deleteById(invite_id);
+    return member;
   }
 }

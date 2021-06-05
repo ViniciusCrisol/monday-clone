@@ -19,7 +19,7 @@ export default class ListInvitesService {
     const account = await this.accountsRepository.findById(account_id);
     if (!account) throw new AppError('invalidAccount');
 
-    const invites = await this.invitesRepository.findAll(account_id);
+    const invites = await this.invitesRepository.list(account_id);
     return invites;
   }
 }

@@ -14,14 +14,14 @@ interface IRequest {
 @injectable()
 export default class GetProjectService {
   constructor(
-    @inject('MembersRepository')
-    private membersRepository: MembersRepository,
+    @inject('AccountsRepository')
+    private accountsRepository: AccountsRepository,
 
     @inject('ProjectsRepository')
     private projectsRepository: ProjectsRepository,
 
-    @inject('AccountsRepository')
-    private accountsRepository: AccountsRepository,
+    @inject('MembersRepository')
+    private membersRepository: MembersRepository,
   ) {}
 
   public async execute({ project_id, account_id }: IRequest): Promise<Project> {
