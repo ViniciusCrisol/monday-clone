@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import UpdateMemberRoleService from '@modules/Members/services/UpdateMemberRoleService';
-import memberRoles from '@utils/enums/memberRoles';
 
 export default class ProjectPermissionsController {
   public async update(request: Request, response: Response): Promise<Response> {

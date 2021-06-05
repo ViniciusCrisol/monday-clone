@@ -6,7 +6,7 @@ import InvitesRepository from '@modules/Invites/infra/typeorm/repositories/Invit
 import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 
 @injectable()
-export default class ListInvites {
+export default class ListInvitesService {
   constructor(
     @inject('InvitesRepository')
     private invitesRepository: InvitesRepository,

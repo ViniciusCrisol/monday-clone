@@ -8,8 +8,8 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import Account from '@modules/Accounts/infra/typeorm/entities/Account';
 import Member from '@modules/Members/infra/typeorm/entities/Member';
+import Account from '@modules/Accounts/infra/typeorm/entities/Account';
 
 @Entity('projects')
 export default class Project {

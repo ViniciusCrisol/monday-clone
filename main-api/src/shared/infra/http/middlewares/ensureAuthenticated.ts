@@ -4,7 +4,7 @@ import { verify } from 'jsonwebtoken';
 import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
 
-interface ITokenPayload {
+interface IPayloadToken {
   iat: number;
   exp: number;
   sub: string;
@@ -20,10 +20,8 @@ export default (
 
   const token = authHeader.split(' ')[1];
   try {
-    const decoded = verify(token, authConfig.jwt.secret);
-    const { sub } = decoded as ITokenPayload;
+    const { sub } = verify(token, authConfig.jwt.secret) as IPayloadToken;
     request.user = { id: sub };
-
     return next();
   } catch {
     throw new AppError('invalidJWT');

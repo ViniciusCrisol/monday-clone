@@ -7,7 +7,7 @@ import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/Pro
 import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 
 @injectable()
-export default class ListProjects {
+export default class ListProjectsService {
   constructor(
     @inject('MembersRepository')
     private membersRepository: MembersRepository,

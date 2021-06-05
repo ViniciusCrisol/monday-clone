@@ -5,7 +5,7 @@ import ICreateMemberDTO from '@modules/Members/dtos/ICreateMemberDTO';
 import Member from '@modules/Members/infra/typeorm/entities/Member';
 import Project from '@modules/Projects/infra/typeorm/entities/Project';
 
-export default class MembersRepository implements MembersRepository {
+export default class MembersRepository {
   private ormRepository: Repository<Member>;
 
   constructor() {

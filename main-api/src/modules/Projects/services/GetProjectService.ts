@@ -12,7 +12,7 @@ interface IRequest {
 }
 
 @injectable()
-export default class ListProjects {
+export default class GetProjectService {
   constructor(
     @inject('MembersRepository')
     private membersRepository: MembersRepository,
