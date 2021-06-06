@@ -60,7 +60,7 @@ export default class CreateGroupService {
     )
       throw new AppError('notAllowed');
 
-    if (!groupNameAlreadyInuse) throw new AppError('nameAlreadyInUse');
+    if (groupNameAlreadyInuse) throw new AppError('nameAlreadyInUse');
 
     const [group, projectLeaders] = await Promise.all([
       this.groupsRepository.create({
@@ -80,12 +80,6 @@ export default class CreateGroupService {
       }),
     );
 
-    defaultGroupMembers.push(
-      this.memberGroupsRepository.create({
-        group_id: group.id,
-        member_id: project.account_id,
-      }),
-    );
     await Promise.all(defaultGroupMembers);
     return group;
   }

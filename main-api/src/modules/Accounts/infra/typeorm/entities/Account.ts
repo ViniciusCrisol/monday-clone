@@ -22,7 +22,7 @@ export default class Account {
   @Column({ length: 60 })
   account_name: string;
 
-  @OneToMany(type => Project, project => project.account)
+  @OneToMany(() => Project, project => project.account)
   projects: Project[];
 
   @Column({ length: 60 })

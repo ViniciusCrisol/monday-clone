@@ -22,4 +22,13 @@ export default class GroupsRepository {
     });
     return response;
   }
+
+  public async list(project_id: string): Promise<Group[]> {
+    const response = await this.ormRepository.find({
+      where: { project_id },
+      order: { inserted_at: 'DESC' },
+      relations: ['members'],
+    });
+    return response;
+  }
 }

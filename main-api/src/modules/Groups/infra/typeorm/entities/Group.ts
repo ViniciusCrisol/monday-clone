@@ -1,6 +1,7 @@
 import {
   Entity,
   Column,
+  OneToMany,
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
@@ -31,6 +32,9 @@ export default class Group {
   @ManyToOne(() => Project)
   @JoinColumn({ name: 'project_id' })
   project: Project;
+
+  @OneToMany(() => MemberGroup, member => member.group)
+  members: MemberGroup[];
 
   @CreateDateColumn()
   inserted_at: Date;
