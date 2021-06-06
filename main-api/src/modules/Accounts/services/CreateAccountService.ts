@@ -37,10 +37,13 @@ export default class CreateAccountService {
     if (password !== confirm_password)
       throw new AppError('passwordDoesNotMatch');
 
-    const account = await this.accountsRepository.findByEmail(user_email);
+    const [account, hashedPassword] = await Promise.all([
+      this.accountsRepository.findByEmail(user_email),
+      this.hashProvider.generateHash(password),
+    ]);
+
     if (account) throw new AppError('emailAlreadyInUse');
 
-    const hashedPassword = await this.hashProvider.generateHash(password);
     const newAccount = await this.accountsRepository.create({
       user_name,
       user_email,

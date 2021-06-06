@@ -39,48 +39,46 @@ export default class CreateGroupService {
     project_id,
     group_name,
   }: IRequest): Promise<Group> {
-    const [account, project, groupNameAlreadyInuse] = await Promise.all([
-      this.accountsRepository.findById(account_id),
-      this.projectsRepository.findById(project_id),
-      this.groupsRepository.findByName(group_name),
-    ]);
+    const [account, project, groupNameAlreadyInuse, accountMemberProject] =
+      await Promise.all([
+        this.accountsRepository.findById(account_id),
+        this.projectsRepository.findById(project_id),
+        this.groupsRepository.findByName(group_name),
+        this.membersRepository.findByAccountAndProjectId({
+          account_id,
+          project_id,
+        }),
+      ]);
 
     if (!account) throw new AppError('invalidAccount');
     if (!project) throw new AppError('projectNotFounded');
 
-    if (project.account_id !== account.id) {
-      const accountMemberProject =
-        await this.membersRepository.findByAccountAndProjectId({
-          account_id,
-          project_id,
-        });
-
-      if (
-        !accountMemberProject ||
-        accountMemberProject.role !== memberRoles.PROJECT_LEADER
-      )
-        throw new AppError('notAllowed');
-    }
+    if (
+      project.account_id !== account.id &&
+      (!accountMemberProject ||
+        accountMemberProject.role !== memberRoles.PROJECT_LEADER)
+    )
+      throw new AppError('notAllowed');
 
     if (!groupNameAlreadyInuse) throw new AppError('nameAlreadyInUse');
 
-    const group = await this.groupsRepository.create({
-      group_name,
-      project_id,
-      leader_id: project.account_id,
-    });
+    const [group, projectLeaders] = await Promise.all([
+      this.groupsRepository.create({
+        group_name,
+        project_id,
+      }),
+      this.membersRepository.listByRoleAndProjectId({
+        project_id,
+        role: memberRoles.PROJECT_LEADER,
+      }),
+    ]);
 
-    const projectLeaders = await this.membersRepository.listByRoleAndProjectId({
-      project_id,
-      role: memberRoles.PROJECT_LEADER,
-    });
-
-    const defaultGroupMembers = projectLeaders.map(projectLeader => {
-      return this.memberGroupsRepository.create({
+    const defaultGroupMembers = projectLeaders.map(projectLeader =>
+      this.memberGroupsRepository.create({
         group_id: group.id,
         member_id: projectLeader.id,
-      });
-    });
+      }),
+    );
 
     defaultGroupMembers.push(
       this.memberGroupsRepository.create({

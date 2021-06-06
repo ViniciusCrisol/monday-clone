@@ -16,6 +16,7 @@ export class CreateGroupsTable1619964889989 implements MigrationInterface {
           {
             name: 'leader_id',
             type: 'uuid',
+            isNullable: true,
           },
           {
             name: 'project_id',
@@ -43,8 +44,8 @@ export class CreateGroupsTable1619964889989 implements MigrationInterface {
             referencedTableName: 'members',
             referencedColumnNames: ['id'],
             columnNames: ['leader_id'],
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL',
+            onUpdate: 'SET NULL',
           },
           {
             name: 'fk_projects_groups',

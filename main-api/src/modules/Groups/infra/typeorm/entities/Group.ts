@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import Project from '@modules/Projects/infra/typeorm/entities/Project';
+import MemberGroup from '@modules/MemberGroups/infra/typeorm/entities/MemberGroup';
 
 @Entity('groups')
 export default class Group {
@@ -17,8 +18,12 @@ export default class Group {
   @Column({ length: 30 })
   group_name: string;
 
-  @Column()
+  @Column({ nullable: true })
   leader_id: string;
+
+  @ManyToOne(() => MemberGroup)
+  @JoinColumn({ name: 'leader_id' })
+  leader: MemberGroup;
 
   @Column()
   project_id: string;

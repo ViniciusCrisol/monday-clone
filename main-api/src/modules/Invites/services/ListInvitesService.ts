@@ -16,10 +16,12 @@ export default class ListInvitesService {
   ) {}
 
   public async execute(account_id: string): Promise<Invite[]> {
-    const account = await this.accountsRepository.findById(account_id);
-    if (!account) throw new AppError('invalidAccount');
+    const [account, invites] = await Promise.all([
+      this.accountsRepository.findById(account_id),
+      this.invitesRepository.list(account_id),
+    ]);
 
-    const invites = await this.invitesRepository.list(account_id);
+    if (!account) throw new AppError('invalidAccount');
     return invites;
   }
 }
