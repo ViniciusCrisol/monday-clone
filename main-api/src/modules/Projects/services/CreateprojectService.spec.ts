@@ -6,16 +6,17 @@ import {
 } from '@shared/infra/typeorm';
 
 import AppError from '@shared/errors/AppError';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
+import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
+import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
 import BackofficeProvider from '@shared/container/providers/BackofficeProvider/fakes/FakeBackofficeProvider';
 import HashProvider from '@shared/container/providers/HashProvider/implementations/HashProvider';
-import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
-import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
-import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
-import CreateProjectService from '@modules/Projects/services/CreateProjectService';
 import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
+import CreateProjectService from '@modules/Projects/services/CreateProjectService';
 
 let randonId: string;
 let accountId: string;
+
 let createProjectService: CreateProjectService;
 
 describe('Create Project', () => {
@@ -23,22 +24,22 @@ describe('Create Project', () => {
     await createDbConnection();
     await clearDb();
 
-    const backofficeProvider = new BackofficeProvider();
-    const hashProvider = new HashProvider();
+    const accounstRepository = new AccountsRepository();
     const membersRepository = new MembersRepository();
     const projectsRepository = new ProjectsRepository();
-    const accounstRepository = new AccountsRepository();
-
-    createProjectService = new CreateProjectService(
-      accounstRepository,
-      projectsRepository,
-      membersRepository,
-    );
+    const backofficeProvider = new BackofficeProvider();
+    const hashProvider = new HashProvider();
 
     const createAccountService = new CreateAccountService(
       accounstRepository,
       hashProvider,
       backofficeProvider,
+    );
+
+    createProjectService = new CreateProjectService(
+      accounstRepository,
+      membersRepository,
+      projectsRepository,
     );
 
     const account = await createAccountService.execute({

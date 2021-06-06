@@ -2,9 +2,9 @@ import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import Invite from '@modules/Invites/infra/typeorm/entities/Invite';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 import InvitesRepository from '@modules/Invites/infra/typeorm/repositories/InvitesRepository';
 import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
-import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
 
 interface IRequest {
@@ -16,6 +16,9 @@ interface IRequest {
 @injectable()
 export default class InviteMemberService {
   constructor(
+    @inject('AccountsRepository')
+    private accountsRepository: AccountsRepository,
+
     @inject('InvitesRepository')
     private invitesRepository: InvitesRepository,
 
@@ -24,9 +27,6 @@ export default class InviteMemberService {
 
     @inject('ProjectsRepository')
     private projectsRepository: ProjectsRepository,
-
-    @inject('AccountsRepository')
-    private accountsRepository: AccountsRepository,
   ) {}
 
   public async execute({

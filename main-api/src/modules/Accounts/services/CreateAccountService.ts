@@ -37,7 +37,7 @@ export default class CreateAccountService {
     if (password !== confirm_password)
       throw new AppError('passwordDoesNotMatch');
 
-    const [account, hashedPassword] = await Promise.all([
+    const [account, passwordHash] = await Promise.all([
       this.accountsRepository.findByEmail(user_email),
       this.hashProvider.generateHash(password),
     ]);
@@ -48,7 +48,7 @@ export default class CreateAccountService {
       user_name,
       user_email,
       account_name,
-      password_hash: hashedPassword,
+      password_hash: passwordHash,
     });
 
     this.backofficeProvider.sendWelcomeMail(newAccount.id);

@@ -2,9 +2,9 @@ import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import Project from '@modules/Projects/infra/typeorm/entities/Project';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
 import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
-import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 
 interface IRequest {
   project_id: string;
@@ -17,11 +17,11 @@ export default class GetProjectService {
     @inject('AccountsRepository')
     private accountsRepository: AccountsRepository,
 
-    @inject('ProjectsRepository')
-    private projectsRepository: ProjectsRepository,
-
     @inject('MembersRepository')
     private membersRepository: MembersRepository,
+
+    @inject('ProjectsRepository')
+    private projectsRepository: ProjectsRepository,
   ) {}
 
   public async execute({ project_id, account_id }: IRequest): Promise<Project> {

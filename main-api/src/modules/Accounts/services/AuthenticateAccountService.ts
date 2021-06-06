@@ -31,11 +31,11 @@ export default class AuthenticateAccountService {
     const account = await this.accountsRepository.findByEmail(user_email);
     if (!account) throw new AppError('authenticationFail');
 
-    const passwordMatched = await this.hashProvider.compareHash(
+    const passwordMatch = await this.hashProvider.compareHash(
       password,
       account.password_hash,
     );
-    if (!passwordMatched) throw new AppError('authenticationFail');
+    if (!passwordMatch) throw new AppError('authenticationFail');
 
     const { secret, expiresIn } = authConfig.jwt;
     return {

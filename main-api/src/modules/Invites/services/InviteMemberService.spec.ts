@@ -6,22 +6,22 @@ import {
 } from '@shared/infra/typeorm';
 
 import AppError from '@shared/errors/AppError';
-import BackofficeProvider from '@shared/container/providers/BackofficeProvider/fakes/FakeBackofficeProvider';
-import HashProvider from '@shared/container/providers/HashProvider/implementations/HashProvider';
 import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
-import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
 import InvitesRepository from '@modules/Invites/infra/typeorm/repositories/InvitesRepository';
 import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
+import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
+import BackofficeProvider from '@shared/container/providers/BackofficeProvider/fakes/FakeBackofficeProvider';
+import HashProvider from '@shared/container/providers/HashProvider/implementations/HashProvider';
+import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 import InviteMemberService from '@modules/Invites/services/InviteMemberService';
 import CreateProjectService from '@modules/Projects/services/CreateProjectService';
-import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 
 let randonId: string;
 let accountId: string;
-let accountEmail: string;
 let projectId: string;
-let anotherAccountId: string;
+let accountEmail: string;
 let anotherAccountEmail: string;
+
 let inviteMemberService: InviteMemberService;
 
 describe('Invite Member', () => {
@@ -29,30 +29,30 @@ describe('Invite Member', () => {
     await createDbConnection();
     await clearDb();
 
+    const accounstRepository = new AccountsRepository();
+    const invitesRepository = new InvitesRepository();
+    const membersRepository = new MembersRepository();
+    const projectsRepository = new ProjectsRepository();
     const backofficeProvider = new BackofficeProvider();
     const hashProvider = new HashProvider();
-    const membersRepository = new MembersRepository();
-    const invitesRepository = new InvitesRepository();
-    const projectsRepository = new ProjectsRepository();
-    const accounstRepository = new AccountsRepository();
-
-    inviteMemberService = new InviteMemberService(
-      invitesRepository,
-      membersRepository,
-      projectsRepository,
-      accounstRepository,
-    );
-
-    const createProjectService = new CreateProjectService(
-      accounstRepository,
-      projectsRepository,
-      membersRepository,
-    );
 
     const createAccountService = new CreateAccountService(
       accounstRepository,
       hashProvider,
       backofficeProvider,
+    );
+
+    inviteMemberService = new InviteMemberService(
+      accounstRepository,
+      invitesRepository,
+      membersRepository,
+      projectsRepository,
+    );
+
+    const createProjectService = new CreateProjectService(
+      accounstRepository,
+      membersRepository,
+      projectsRepository,
     );
 
     const account = await createAccountService.execute({
@@ -78,9 +78,8 @@ describe('Invite Member', () => {
 
     randonId = uuid();
     accountId = account.id;
-    accountEmail = account.user_email;
     projectId = project.id;
-    anotherAccountId = anotherAccount.id;
+    accountEmail = account.user_email;
     anotherAccountEmail = anotherAccount.user_email;
   });
 

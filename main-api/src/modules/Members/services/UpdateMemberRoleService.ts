@@ -18,11 +18,11 @@ export default class UpdateMemberRoleService {
     @inject('AccountsRepository')
     private accountsRepository: AccountsRepository,
 
-    @inject('ProjectsRepository')
-    private projectsRepository: ProjectsRepository,
-
     @inject('MembersRepository')
     private membersRepository: MembersRepository,
+
+    @inject('ProjectsRepository')
+    private projectsRepository: ProjectsRepository,
   ) {}
 
   public async execute({
@@ -37,25 +37,24 @@ export default class UpdateMemberRoleService {
 
     if (!member) throw new AppError('invalidMember');
     if (!account) throw new AppError('invalidAccount');
-
-    const project = await this.projectsRepository.findById(member.project_id);
-    if (!project) throw new AppError('projectNotFounded');
-
-    if (project.account_id !== account.id) {
-      const accountMemberProject =
-        await this.membersRepository.findByAccountAndProjectId({
-          account_id,
-          project_id: member.project_id,
-        });
-
-      if (
-        !accountMemberProject ||
-        accountMemberProject.role !== memberRoles.PROJECT_LEADER
-      )
-        throw new AppError('notAllowed');
-    }
-
     if (member.role === memberRoles[role]) return;
+
+    const [project, accountMemberProject] = await Promise.all([
+      this.projectsRepository.findById(member.project_id),
+      this.membersRepository.findByAccountAndProjectId({
+        account_id,
+        project_id: member.project_id,
+      }),
+    ]);
+
+    if (!project) throw new AppError('projectNotFounded');
+    if (
+      project.account_id !== account.id &&
+      (!accountMemberProject ||
+        accountMemberProject.role !== memberRoles.PROJECT_LEADER)
+    )
+      throw new AppError('notAllowed');
+
     await this.membersRepository.save({
       ...member,
       role: memberRoles[role],

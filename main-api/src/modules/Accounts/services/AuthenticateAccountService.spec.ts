@@ -5,33 +5,33 @@ import {
 } from '@shared/infra/typeorm';
 
 import AppError from '@shared/errors/AppError';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 import BackofficeProvider from '@shared/container/providers/BackofficeProvider/fakes/FakeBackofficeProvider';
 import HashProvider from '@shared/container/providers/HashProvider/implementations/HashProvider';
-import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
-import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 import AuthenticateAccountService from '@modules/Accounts/services/AuthenticateAccountService';
+import CreateAccountService from '@modules/Accounts/services/CreateAccountService';
 
-let createAccountService: CreateAccountService;
 let authenticateAccountService: AuthenticateAccountService;
+let createAccountService: CreateAccountService;
 
 describe('Authenticate Account', () => {
   beforeAll(async () => {
     await createDbConnection();
     await clearDb();
 
-    const hashProvider = new HashProvider();
-    const backofficeProvider = new BackofficeProvider();
     const accounstRepository = new AccountsRepository();
+    const backofficeProvider = new BackofficeProvider();
+    const hashProvider = new HashProvider();
+
+    authenticateAccountService = new AuthenticateAccountService(
+      accounstRepository,
+      hashProvider,
+    );
 
     createAccountService = new CreateAccountService(
       accounstRepository,
       hashProvider,
       backofficeProvider,
-    );
-
-    authenticateAccountService = new AuthenticateAccountService(
-      accounstRepository,
-      hashProvider,
     );
 
     await createAccountService.execute({

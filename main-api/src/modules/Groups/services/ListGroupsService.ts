@@ -2,9 +2,9 @@ import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import Group from '@modules/Groups/infra/typeorm/entities/Group';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 import GroupsRepository from '@modules/Groups/infra/typeorm/repositories/GroupsRepository';
 import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
-import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
 
 interface IRequest {
@@ -15,17 +15,17 @@ interface IRequest {
 @injectable()
 export default class ListGroupsService {
   constructor(
+    @inject('AccountsRepository')
+    private accountsRepository: AccountsRepository,
+
     @inject('GroupsRepository')
     private groupsRepository: GroupsRepository,
-
-    @inject('ProjectsRepository')
-    private projectsRepository: ProjectsRepository,
 
     @inject('MembersRepository')
     private membersRepository: MembersRepository,
 
-    @inject('AccountsRepository')
-    private accountsRepository: AccountsRepository,
+    @inject('ProjectsRepository')
+    private projectsRepository: ProjectsRepository,
   ) {}
 
   public async execute({ account_id, project_id }: IRequest): Promise<Group[]> {

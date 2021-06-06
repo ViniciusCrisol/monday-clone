@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import InvitesRepository from '@modules/Invites/infra/typeorm/repositories/InvitesRepository';
 import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
+import InvitesRepository from '@modules/Invites/infra/typeorm/repositories/InvitesRepository';
 
 interface IRequest {
   account_id: string;
@@ -12,11 +12,11 @@ interface IRequest {
 @injectable()
 export default class DeclineInviteService {
   constructor(
-    @inject('InvitesRepository')
-    private invitesRepository: InvitesRepository,
-
     @inject('AccountsRepository')
     private accountsRepository: AccountsRepository,
+
+    @inject('InvitesRepository')
+    private invitesRepository: InvitesRepository,
   ) {}
 
   public async execute({ account_id, invite_id }: IRequest): Promise<void> {

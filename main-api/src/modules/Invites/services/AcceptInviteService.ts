@@ -3,9 +3,9 @@ import { inject, injectable } from 'tsyringe';
 import memberRoles from '@utils/enums/memberRoles';
 import AppError from '@shared/errors/AppError';
 import Member from '@modules/Members/infra/typeorm/entities/Member';
+import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 import InvitesRepository from '@modules/Invites/infra/typeorm/repositories/InvitesRepository';
 import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
-import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
 
 interface IRequest {
@@ -16,6 +16,9 @@ interface IRequest {
 @injectable()
 export default class AcceptInviteService {
   constructor(
+    @inject('AccountsRepository')
+    private accountsRepository: AccountsRepository,
+
     @inject('InvitesRepository')
     private invitesRepository: InvitesRepository,
 
@@ -24,9 +27,6 @@ export default class AcceptInviteService {
 
     @inject('ProjectsRepository')
     private projectsRepository: ProjectsRepository,
-
-    @inject('AccountsRepository')
-    private accountsRepository: AccountsRepository,
   ) {}
 
   public async execute({ account_id, invite_id }: IRequest): Promise<Member> {
@@ -51,7 +51,6 @@ export default class AcceptInviteService {
     if (memberAlreadyInProject) throw new AppError('invalidInvite');
 
     this.invitesRepository.deleteById(invite_id);
-
     const member = await this.membersRepository.create({
       account_id: account_id,
       project_id: project.id,

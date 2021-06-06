@@ -52,7 +52,6 @@ export default class CreateGroupService {
 
     if (!account) throw new AppError('invalidAccount');
     if (!project) throw new AppError('projectNotFounded');
-
     if (
       project.account_id !== account.id &&
       (!accountMemberProject ||
