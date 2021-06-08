@@ -50,12 +50,14 @@ export default class AcceptInviteService {
     if (!project) throw new AppError('projectNotFounded');
     if (memberAlreadyInProject) throw new AppError('invalidInvite');
 
-    this.invitesRepository.deleteById(invite_id);
-    const member = await this.membersRepository.create({
-      account_id: account_id,
-      project_id: project.id,
-      role: memberRoles.STANDARD_MEMBER,
-    });
+    const [_, member] = await Promise.all([
+      this.invitesRepository.deleteById(invite_id),
+      this.membersRepository.create({
+        account_id: account_id,
+        project_id: project.id,
+        role: memberRoles.STANDARD_MEMBER,
+      }),
+    ]);
     return member;
   }
 }

@@ -33,10 +33,10 @@ export default class GetProjecetPermissionService {
 
     if (!account) throw new AppError('invalidAccount');
     if (!project) throw new AppError('invalidProject');
+    if (project.account_id !== account_id) throw new AppError('notAllowed');
 
     const member = members.find(member => member.account_id === account_id);
     if (member) return member.role;
-    if (project.account_id !== account_id) throw new AppError('notAllowed');
 
     return memberRoles.PROJECT_LEADER;
   }
