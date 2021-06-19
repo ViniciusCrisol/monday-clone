@@ -1,5 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 
+import IFindGroupByNameDTO from '@modules/Groups/dtos/IFindGroupByNameDTO';
 import ICreateGroupDTO from '@modules/Groups/dtos/ICreateGroupDTO';
 import Group from '@modules/Groups/infra/typeorm/entities/Group';
 
@@ -16,9 +17,12 @@ export default class GroupsRepository {
     return group;
   }
 
-  public async findByName(group_name: string): Promise<Group | undefined> {
+  public async findByName({
+    group_name,
+    project_id,
+  }: IFindGroupByNameDTO): Promise<Group | undefined> {
     const response = await this.ormRepository.findOne({
-      where: { group_name },
+      where: { group_name, project_id },
     });
     return response;
   }

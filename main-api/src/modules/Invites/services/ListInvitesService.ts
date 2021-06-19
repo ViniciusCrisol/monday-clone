@@ -20,8 +20,8 @@ export default class ListInvitesService {
       this.accountsRepository.findById(account_id),
       this.invitesRepository.list(account_id),
     ]);
-
     if (!account) throw new AppError('invalidAccount');
+
     return invites;
   }
 }

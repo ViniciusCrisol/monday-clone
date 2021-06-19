@@ -4,7 +4,7 @@ import AppError from '@shared/errors/AppError';
 import Account from '@modules/Accounts/infra/typeorm/entities/Account';
 import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
 import HashProvider from '@shared/container/providers/HashProvider/implementations/HashProvider';
-import IBackofficeProvider from '@shared/container/providers/BackofficeProvider/models/IBackofficeProvider';
+import BackofficeProvider from '@shared/container/providers/BackofficeProvider/implementations/BackofficeProvider';
 
 interface IRequest {
   user_name: string;
@@ -24,7 +24,7 @@ export default class CreateAccountService {
     private hashProvider: HashProvider,
 
     @inject('BackofficeProvider')
-    private backofficeProvider: IBackofficeProvider,
+    private backofficeProvider: BackofficeProvider,
   ) {}
 
   public async execute({
@@ -41,7 +41,6 @@ export default class CreateAccountService {
       this.accountsRepository.findByEmail(user_email),
       this.hashProvider.generateHash(password),
     ]);
-
     if (account) throw new AppError('emailAlreadyInUse');
 
     const newAccount = await this.accountsRepository.create({

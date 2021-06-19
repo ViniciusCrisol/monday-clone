@@ -25,7 +25,6 @@ export default class ListProjectsService {
       this.projectsRepository.list(account_id),
       this.membersRepository.listProjectsByAccountId(account_id),
     ]);
-
     if (!account) throw new AppError('invalidAccount');
 
     return [...ownProjects, ...meberProjects];

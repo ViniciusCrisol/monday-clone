@@ -16,7 +16,7 @@ export default class Project {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ length: 30 })
+  @Column()
   project_name: string;
 
   @Column()

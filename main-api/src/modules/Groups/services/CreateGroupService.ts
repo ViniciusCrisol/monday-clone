@@ -39,11 +39,11 @@ export default class CreateGroupService {
     project_id,
     group_name,
   }: IRequest): Promise<Group> {
-    const [account, project, groupNameAlreadyInuse, accountMemberProject] =
+    const [account, project, groupNameAlreadyInUse, accountMemberProject] =
       await Promise.all([
         this.accountsRepository.findById(account_id),
         this.projectsRepository.findById(project_id),
-        this.groupsRepository.findByName(group_name),
+        this.groupsRepository.findByName({ group_name, project_id }),
         this.membersRepository.findByAccountAndProjectId({
           account_id,
           project_id,
@@ -52,14 +52,13 @@ export default class CreateGroupService {
 
     if (!account) throw new AppError('invalidAccount');
     if (!project) throw new AppError('projectNotFounded');
+    if (groupNameAlreadyInUse) throw new AppError('nameAlreadyInUse');
     if (
       project.account_id !== account.id &&
       (!accountMemberProject ||
         accountMemberProject.role !== memberRoles.PROJECT_LEADER)
     )
       throw new AppError('notAllowed');
-
-    if (groupNameAlreadyInuse) throw new AppError('nameAlreadyInUse');
 
     const [group, projectLeaders] = await Promise.all([
       this.groupsRepository.create({
@@ -72,14 +71,15 @@ export default class CreateGroupService {
       }),
     ]);
 
-    const defaultGroupMembers = projectLeaders.map(projectLeader =>
-      this.memberGroupsRepository.create({
-        group_id: group.id,
-        member_id: projectLeader.id,
-      }),
+    await Promise.all(
+      projectLeaders.map(projectLeader =>
+        this.memberGroupsRepository.create({
+          group_id: group.id,
+          member_id: projectLeader.id,
+        }),
+      ),
     );
 
-    await Promise.all(defaultGroupMembers);
     return group;
   }
 }

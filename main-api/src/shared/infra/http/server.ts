@@ -27,6 +27,6 @@ app.use(errorHandler);
 
 app.use('/server/server-health', serverMonitor());
 
-app.listen(8080, () => {
-  console.log('🚀 server started!');
+app.listen(3000, () => {
+  console.log('🚀 server started at port 3000!');
 });

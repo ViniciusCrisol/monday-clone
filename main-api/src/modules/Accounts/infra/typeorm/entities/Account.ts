@@ -13,19 +13,19 @@ export default class Account {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ length: 60 })
+  @Column()
   user_name: string;
 
-  @Column({ length: 60 })
+  @Column()
   user_email: string;
 
-  @Column({ length: 60 })
+  @Column()
   account_name: string;
 
   @OneToMany(() => Project, project => project.account)
   projects: Project[];
 
-  @Column({ length: 60 })
+  @Column()
   password_hash: string;
 
   @CreateDateColumn()

@@ -9,6 +9,7 @@ export default class ProjectPermissionsController {
 
     const getPermission = container.resolve(GetProjecetPermissionService);
     const permission = await getPermission.execute({ project_id, account_id });
+
     return response.json({ role: permission });
   }
 }

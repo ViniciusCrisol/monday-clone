@@ -29,6 +29,6 @@ export default class DeclineInviteService {
     if (!account) throw new AppError('invalidAccount');
     if (invite.account_id !== account_id) throw new AppError('notAllowed');
 
-    this.invitesRepository.deleteById(invite_id);
+    await this.invitesRepository.deleteById(invite_id);
   }
 }

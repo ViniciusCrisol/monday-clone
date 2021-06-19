@@ -1,31 +1,23 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
+
+import validuateMemberRole from '@utils/validations/validuateMemberRole';
 import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
-import UpdateMemberRoleController from '../controllers/updateMemberRoleController';
-import memberRoles from '@utils/enums/memberRoles';
+import UpdateMemberRolesController from '../controllers/UpdateMemberRolesController';
 
 const membersRoutes = Router();
-const updateMemberRoleController = new UpdateMemberRoleController();
+const updateMemberRolesController = new UpdateMemberRolesController();
 
 membersRoutes.patch(
   '/role/:id',
   celebrate({
+    [Segments.PARAMS]: { id: Joi.string().uuid() },
     [Segments.BODY]: {
-      role: Joi.string()
-        .regex(
-          RegExp(
-            String(
-              '(' +
-                Object.keys(memberRoles).map(memberRole => memberRole) +
-                ')',
-            ).replace(/,/g, '|'),
-          ),
-        )
-        .required(),
+      role: Joi.string().regex(validuateMemberRole).required(),
     },
   }),
   ensureAuthenticated,
-  updateMemberRoleController.update,
+  updateMemberRolesController.update,
 );
 
 export default membersRoutes;

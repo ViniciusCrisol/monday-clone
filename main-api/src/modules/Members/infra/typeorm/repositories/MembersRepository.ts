@@ -28,13 +28,6 @@ export default class MembersRepository {
     return response;
   }
 
-  public async listByProjectId(project_id: string): Promise<Member[]> {
-    const response = await this.ormRepository.find({
-      where: { project_id },
-    });
-    return response;
-  }
-
   public async findByAccountAndProjectId({
     account_id,
     project_id,
@@ -44,6 +37,13 @@ export default class MembersRepository {
         account_id,
         project_id,
       },
+    });
+    return response;
+  }
+
+  public async listByProjectId(project_id: string): Promise<Member[]> {
+    const response = await this.ormRepository.find({
+      where: { project_id },
     });
     return response;
   }

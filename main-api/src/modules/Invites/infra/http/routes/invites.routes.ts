@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
+
 import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
 import InvitesController from '../controllers/InvitesController';
 import AcceptInvitesController from '../controllers/AcceptInvitesController';
@@ -11,39 +12,29 @@ const acceptInvitesController = new AcceptInvitesController();
 const declineInvitesController = new DeclineInvitesController();
 
 invitesRoutes.post(
-  '/',
+  '/:id',
   celebrate({
-    [Segments.BODY]: {
-      project_id: Joi.string().required(),
-      user_email: Joi.string().required(),
-    },
+    [Segments.PARAMS]: { id: Joi.string().uuid() },
+    [Segments.BODY]: { user_email: Joi.string().required() },
   }),
   ensureAuthenticated,
   invitesController.create,
 );
 
-invitesRoutes.get('/', ensureAuthenticated, invitesController.list);
-
 invitesRoutes.patch(
   '/decline/:id',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
-    },
-  }),
+  celebrate({ [Segments.PARAMS]: { id: Joi.string().uuid() } }),
   ensureAuthenticated,
   declineInvitesController.decline,
 );
 
 invitesRoutes.patch(
   '/accept/:id',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
-    },
-  }),
+  celebrate({ [Segments.PARAMS]: { id: Joi.string().uuid() } }),
   ensureAuthenticated,
   acceptInvitesController.accept,
 );
+
+invitesRoutes.get('/', ensureAuthenticated, invitesController.list);
 
 export default invitesRoutes;

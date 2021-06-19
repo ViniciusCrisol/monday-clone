@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+
 import InviteMemberService from '@modules/Invites/services/InviteMemberService';
 import ListInvitesService from '@modules/Invites/services/ListInvitesService';
 
 export default class InvitesController {
   public async create(request: Request, response: Response): Promise<Response> {
+    const { id: project_id } = request.params;
     const { id: account_id } = request.user;
-    const { user_email, project_id } = request.body;
+    const { user_email } = request.body;
 
     const inviteMember = container.resolve(InviteMemberService);
     await inviteMember.execute({

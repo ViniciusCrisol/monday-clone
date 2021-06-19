@@ -16,7 +16,7 @@ export default class Group {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ length: 30 })
+  @Column()
   group_name: string;
 
   @Column({ nullable: true })

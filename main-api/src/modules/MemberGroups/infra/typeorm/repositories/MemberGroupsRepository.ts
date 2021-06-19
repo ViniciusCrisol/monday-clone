@@ -3,7 +3,7 @@ import { getRepository, Repository } from 'typeorm';
 import ICreateMemberGroupDTO from '@modules/MemberGroups/dtos/ICreateMemberGroupDTO';
 import MemberGroup from '@modules/MemberGroups/infra/typeorm/entities/MemberGroup';
 
-export default class MemberMemberGroupsRepository {
+export default class MemberGroupsRepository {
   private ormRepository: Repository<MemberGroup>;
 
   constructor() {

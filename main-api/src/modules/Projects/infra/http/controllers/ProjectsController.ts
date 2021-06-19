@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+
 import CreateProjectService from '@modules/Projects/services/CreateProjectService';
 import ListProjectsService from '@modules/Projects/services/ListProjectsService';
 import GetProjectService from '@modules/Projects/services/GetProjectService';
@@ -14,7 +15,18 @@ export default class ProjectsController {
       account_id,
       project_name,
     });
+
     return response.json({ id, project_name });
+  }
+
+  public async get(request: Request, response: Response): Promise<Response> {
+    const { id: account_id } = request.user;
+    const { id: project_id } = request.params;
+
+    const getProject = container.resolve(GetProjectService);
+    const project = await getProject.execute({ project_id, account_id });
+
+    return response.json(project);
   }
 
   public async list(request: Request, response: Response): Promise<Response> {
@@ -31,15 +43,7 @@ export default class ProjectsController {
         project_name,
       }),
     );
+
     return response.json(serializedProjects);
-  }
-
-  public async get(request: Request, response: Response): Promise<Response> {
-    const { id: account_id } = request.user;
-    const { id: project_id } = request.params;
-
-    const getProject = container.resolve(GetProjectService);
-    const project = await getProject.execute({ project_id, account_id });
-    return response.json(project);
   }
 }

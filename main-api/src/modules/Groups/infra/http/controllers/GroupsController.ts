@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+
 import CreateGroupService from '@modules/Groups/services/CreateGroupService';
 import ListGroupsService from '@modules/Groups/services/ListGroupsService';
 
@@ -15,6 +16,7 @@ export default class GroupsController {
       project_id,
       group_name,
     });
+
     return response.json(group);
   }
 
@@ -27,6 +29,7 @@ export default class GroupsController {
       account_id,
       project_id,
     });
+
     return response.json(groups);
   }
 }
