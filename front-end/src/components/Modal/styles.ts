@@ -15,4 +15,9 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  h1.form-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
 `;

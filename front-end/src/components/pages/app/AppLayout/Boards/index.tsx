@@ -27,12 +27,15 @@ const Boards: React.FC = () => {
     setCreateBoardIsActive(prevState => !prevState);
   }, []);
 
-  const addBoard = useCallback(project => {
-    const updatedProjects = [project, ...data];
+  const addBoard = useCallback(
+    project => {
+      const updatedProjects = [project, ...data];
 
-    mutate(updatedProjects, false);
-    mutateGlobal('projects', updatedProjects);
-  }, []);
+      mutate(updatedProjects, false);
+      mutateGlobal('projects', updatedProjects);
+    },
+    [data]
+  );
 
   return (
     <>

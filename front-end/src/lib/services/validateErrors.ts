@@ -14,7 +14,7 @@ function validateYupErrors(error: Yup.ValidationError): IYupErrors[] {
   return validationErrors;
 }
 
-export default (error): string => {
+const validateErrors = (error): string => {
   const { defaultMessage, fillAllFields } = errorMessages;
 
   if (error instanceof Yup.ValidationError) {
@@ -24,3 +24,5 @@ export default (error): string => {
 
   return error.response.data.message || defaultMessage;
 };
+
+export default validateErrors;
