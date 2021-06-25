@@ -1,7 +1,7 @@
+import groups from './mock';
 import Groups from './Groups';
 import SideMenu from './SideMenu';
 import MainContainer from './MainContainer';
-import groups from './mock';
 import { Container, Row } from './styles';
 
 const FakeDashboard: React.FC = () => {

@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.div``;
+
+export const Header = styled.div`
   width: 100%;
   height: 122px;
 
@@ -13,31 +15,17 @@ export const Container = styled.div`
   h1 {
     display: flex;
     align-items: center;
-
-    svg {
-      margin-left: 10px;
-      fill: ${({ theme }) => theme.colors.others['light-gray']};
-      stroke: ${({ theme }) => theme.colors.others['light-gray']};
-    }
   }
 
   > div {
+    gap: 16px;
     display: flex;
     align-items: center;
 
     padding-top: 6px;
     margin-left: auto;
 
-    > span {
-      font-size: 16px;
-      color: ${({ theme }) => theme.colors.others['dark-gray']};
-
-      & + span {
-        margin: 0 16px;
-      }
-    }
-
-    button {
+    div {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -50,20 +38,32 @@ export const Container = styled.div`
       font-size: 16px;
       color: ${({ theme }) => theme.colors.others['dark-gray']};
 
-      & + button {
-        margin-left: 16px;
-        span {
-          color: ${({ theme }) => theme.colors.base.blue};
-        }
+      span {
+        color: ${({ theme }) => theme.colors.base.blue};
       }
     }
+  }
 
-    @media (max-width: 1025px) {
+  @media (max-width: 1025px) {
+    > div {
       margin-left: 0;
     }
+  }
 
-    @media (max-width: 600px) {
-      display: none;
+  @media (max-width: 600px) {
+    height: auto;
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    > div {
+      gap: 8px;
+      flex-direction: column;
+
+      div {
+        width: 100%;
+      }
     }
   }
 `;

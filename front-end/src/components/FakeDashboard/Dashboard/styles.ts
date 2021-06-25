@@ -4,7 +4,7 @@ export const Container = styled.div`
   width: calc(100vw - 255px - 66px);
 
   > div.cards {
-    height: calc(100vh - 122.5px);
+    height: calc(100vh - 122px);
 
     padding: 30px 0;
     overflow: scroll;

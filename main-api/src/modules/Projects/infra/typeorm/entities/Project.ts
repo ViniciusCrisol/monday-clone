@@ -8,8 +8,9 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import Member from '@modules/Members/infra/typeorm/entities/Member';
 import Account from '@modules/Accounts/infra/typeorm/entities/Account';
+import Group from '@modules/Groups/infra/typeorm/entities/Group';
+import Member from '@modules/Members/infra/typeorm/entities/Member';
 
 @Entity('projects')
 export default class Project {
@@ -25,6 +26,9 @@ export default class Project {
   @ManyToOne(() => Account)
   @JoinColumn({ name: 'account_id' })
   account: Account;
+
+  @OneToMany(() => Group, group => group.project)
+  groups: Group[];
 
   @OneToMany(() => Member, member => member.project)
   members: Member[];

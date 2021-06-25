@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import Project from '@modules/Projects/infra/typeorm/entities/Project';
 import AccountsRepository from '@modules/Accounts/infra/typeorm/repositories/AccountsRepository';
+import GroupsRepository from '@modules/Groups/infra/typeorm/repositories/GroupsRepository';
 import MembersRepository from '@modules/Members/infra/typeorm/repositories/MembersRepository';
 import ProjectsRepository from '@modules/Projects/infra/typeorm/repositories/ProjectsRepository';
 
@@ -17,6 +18,9 @@ export default class GetProjectService {
     @inject('AccountsRepository')
     private accountsRepository: AccountsRepository,
 
+    @inject('GroupsRepository')
+    private groupsRepository: GroupsRepository,
+
     @inject('MembersRepository')
     private membersRepository: MembersRepository,
 
@@ -25,10 +29,11 @@ export default class GetProjectService {
   ) {}
 
   public async execute({ project_id, account_id }: IRequest): Promise<Project> {
-    const [account, project, members] = await Promise.all([
+    const [account, project, members, groups] = await Promise.all([
       this.accountsRepository.findById(account_id),
       this.projectsRepository.findById(project_id),
       this.membersRepository.listByProjectId(project_id),
+      this.groupsRepository.list(project_id),
     ]);
 
     if (!account) throw new AppError('invalidAccount');
@@ -39,6 +44,7 @@ export default class GetProjectService {
       throw new AppError('notAllowed');
 
     project.members = members;
+    project.groups = groups;
     return project;
   }
 }
