@@ -3,7 +3,8 @@ import { FiEdit } from 'react-icons/fi';
 import * as Yup from 'yup';
 
 import api from '@libs/services/api';
-import { IProjectInterface } from '../index';
+import errorMessages from '@libs/helpers/errorMessages';
+import validateErrors from '@libs/services/validateErrors';
 
 import Input from '@components/Input';
 import Modal from '@components/Modal';
@@ -11,8 +12,7 @@ import Button from '@components/Button';
 import FormError from '@components/FormError';
 
 import { Container } from './styles';
-import errorMessages from '@libs/helpers/errorMessages';
-import validateErrors from '@libs/services/validateErrors';
+import { IProjectInterface } from '../index';
 
 interface ICreateBoard {
   closeModal(): void;
@@ -53,21 +53,29 @@ const CreateBoard: React.FC<ICreateBoard> = ({ closeModal, addBoard }) => {
   return (
     <Modal>
       <Container onSubmit={handleSubmit} ref={formRef}>
-        <FormError message={errorMessage} />
-        <Input icon={FiEdit} name="project_name" placeholder="Project name" />
+        <h1 className="form-title">Create board</h1>
+        <label>
+          <span>Project name:</span>
+          <Input
+            icon={FiEdit}
+            name="project_name"
+            placeholder="Insert the project name"
+          />
+        </label>
+        {errorMessage && <FormError message={errorMessage} />}
         <div className="button-container">
           {!loading ? (
             <>
-              <Button isSquare color="red" onClick={closeModal}>
+              <button className="simple-button" onClick={closeModal}>
                 Cancel
-              </Button>
+              </button>
               <Button isSquare type="submit">
-                Create
+                Create Board
               </Button>
             </>
           ) : (
             <Button isSquare loading type="submit">
-              Create
+              Create Board
             </Button>
           )}
         </div>

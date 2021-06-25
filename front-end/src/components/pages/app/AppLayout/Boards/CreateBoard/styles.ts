@@ -16,10 +16,17 @@ export const Container = styled(Form)`
 
     button {
       width: 100%;
-      margin-top: 8px;
+      margin-top: 16px;
 
       & + button {
         margin-left: 16px;
+      }
+
+      &.simple-button {
+        width: 80px;
+        height: 40px;
+        cursor: pointer;
+        background: none;
       }
     }
   }

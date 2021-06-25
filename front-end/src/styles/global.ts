@@ -34,6 +34,14 @@ export default createGlobalStyle`
     list-style: none;
   }
 
+  label {
+    span {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+  }
+
   input:-webkit-autofill,
   select:-webkit-autofill,
   textarea:-webkit-autofill {

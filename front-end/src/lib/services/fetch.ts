@@ -7,7 +7,7 @@ interface IFatchProps {
   refreshInterval?: number;
 }
 
-export default <Data = any, Error = any>(url: string, props?: IFatchProps) => {
+const fetch = <Data = any, Error = any>(url: string, props?: IFatchProps) => {
   const { data, error, mutate } = useSWR<Data, Error>(
     url,
     async url => {
@@ -22,3 +22,5 @@ export default <Data = any, Error = any>(url: string, props?: IFatchProps) => {
 
   return { data, error, mutate };
 };
+
+export default fetch;
