@@ -31,6 +31,10 @@ export const MainContainer = styled.div`
   }
 
   main {
-    width: 100%;
+    width: calc(100vw - 255px - 66px);
+
+    @media (max-width: 1025px) {
+      width: calc(100vw - 66px);
+    }
   }
 `;

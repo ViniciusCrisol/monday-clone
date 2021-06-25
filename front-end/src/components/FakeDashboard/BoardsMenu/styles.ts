@@ -59,7 +59,7 @@ export const Container = styled.div`
 
       svg {
         margin-right: 6px;
-        stroke-width: 1.5px;
+        stroke-width: 1;
       }
     }
 
