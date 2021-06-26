@@ -12,35 +12,46 @@ import Button from '@components/Button';
 import FormError from '@components/FormError';
 
 import { Container } from './styles';
-import { IProject } from '../index';
 
-interface ICreateBoard {
+interface ICreateGroup {
+  project_id: string;
   closeModal(): void;
-  addBoard(project: IProject): void;
+  addGroup(group: ITempGroupData): void;
+}
+
+interface ITempGroupData {
+  id: string;
+  group_name: string;
 }
 
 interface IFormData {
-  project_name: string;
+  group_name: string;
 }
 
-const CreateBoard: React.FC<ICreateBoard> = ({ closeModal, addBoard }) => {
+const CreateGroup: React.FC<ICreateGroup> = ({
+  project_id,
+  closeModal,
+  addGroup
+}) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const formRef = useRef(null);
 
-  const handleSubmit = useCallback(async ({ project_name }: IFormData) => {
+  const handleSubmit = useCallback(async ({ group_name }: IFormData) => {
     setLoading(true);
 
     try {
       const schema = Yup.object().shape({
-        project_name: Yup.string().required(errorMessages.projectNameRequired)
+        group_name: Yup.string().required(errorMessages.groupNameRequired)
       });
-      await schema.validate({ project_name }, { abortEarly: false });
+      await schema.validate({ group_name }, { abortEarly: false });
 
-      const response = await api.post('/projects', { project_name });
+      const response = await api.post(`/projects/groups/${project_id}`, {
+        group_name
+      });
       const { id } = response.data;
 
-      addBoard({ id, project_name });
+      addGroup({ id, group_name });
       setLoading(false);
       closeModal();
     } catch (error) {
@@ -53,11 +64,11 @@ const CreateBoard: React.FC<ICreateBoard> = ({ closeModal, addBoard }) => {
   return (
     <Modal>
       <Container onSubmit={handleSubmit} ref={formRef}>
-        <h1 className="form-title">Create board</h1>
+        <h1 className="form-title">Create group</h1>
         <Input
           icon={FiEdit}
-          name="project_name"
-          placeholder="Insert the project name"
+          name="group_name"
+          placeholder="Insert the group name"
         />
         {errorMessage && <FormError message={errorMessage} />}
         <div className="button-container">
@@ -67,12 +78,12 @@ const CreateBoard: React.FC<ICreateBoard> = ({ closeModal, addBoard }) => {
                 Cancel
               </button>
               <Button isSquare type="submit">
-                Create Board
+                Create Group
               </Button>
             </>
           ) : (
             <Button isSquare loading type="submit">
-              Create Board
+              Create Group
             </Button>
           )}
         </div>
@@ -81,4 +92,4 @@ const CreateBoard: React.FC<ICreateBoard> = ({ closeModal, addBoard }) => {
   );
 };
 
-export default CreateBoard;
+export default CreateGroup;

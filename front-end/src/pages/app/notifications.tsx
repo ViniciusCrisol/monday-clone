@@ -23,7 +23,7 @@ import {
   LoadingContainer
 } from '@styles/app/notifications';
 
-export interface INotificationInterface {
+export interface INotification {
   id: string;
   inserted_at: Date;
   project: {
@@ -32,7 +32,7 @@ export interface INotificationInterface {
 }
 
 const Notifications: React.FC = () => {
-  const { data, mutate } = fetch<INotificationInterface[]>('invites', {
+  const { data, mutate } = fetch<INotification[]>('invites', {
     refreshInterval: 15000
   });
 

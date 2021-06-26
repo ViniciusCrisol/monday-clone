@@ -8,7 +8,7 @@ interface IGroup {
 const Groups: React.FC<IGroup> = ({ title, children }) => {
   return (
     <Container>
-      <div className="header">
+      <div className="header-group">
         <span>
           <h2>
             <span>
@@ -19,13 +19,14 @@ const Groups: React.FC<IGroup> = ({ title, children }) => {
         </span>
 
         <span>Email</span>
-        <span>Phone</span>
         <span>Owner</span>
         <span>Status</span>
-        <span>Company</span>
         <span>Due date</span>
-        <span>Priority</span>
+        <span>Spent time</span>
+        <span>Created at</span>
+        <span>Updated at</span>
       </div>
+
       {children}
     </Container>
   );

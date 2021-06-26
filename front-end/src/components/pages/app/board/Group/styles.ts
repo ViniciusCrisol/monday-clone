@@ -13,7 +13,7 @@ export const Container = styled.div`
     grid-template-columns: 636px repeat(7, minmax(140px, 180px));
   }
 
-  > div.header {
+  > div.header-group {
     height: 40px;
     align-items: center;
 

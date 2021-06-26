@@ -2,12 +2,12 @@ import { FiX, FiCheck } from 'react-icons/fi';
 
 import { mondayIcon } from '@libs/helpers/images';
 import { defaultPattern } from '@libs/services/formatDate';
-import { INotificationInterface } from '@pages/app/notifications';
+import { INotification } from '@pages/app/notifications';
 
 import { Container } from './styles';
 
 interface INotificationCard {
-  data: INotificationInterface;
+  data: INotification;
   handleDeclineInvite(id: string): void;
   handleAcceptInvite(id: string): void;
 }

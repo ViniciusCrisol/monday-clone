@@ -1,4 +1,4 @@
-import { Container, Header } from './styles';
+import { Header, BoardContainer } from './styles';
 
 interface IMainContainer {
   project_name: string;
@@ -15,7 +15,7 @@ const MainContainer: React.FC<IMainContainer> = ({
   activities_indeicator
 }) => {
   return (
-    <Container>
+    <>
       <Header>
         <h1>{project_name}</h1>
         <div>
@@ -36,8 +36,8 @@ const MainContainer: React.FC<IMainContainer> = ({
         </div>
       </Header>
 
-      {children}
-    </Container>
+      <BoardContainer>{children}</BoardContainer>
+    </>
   );
 };
 

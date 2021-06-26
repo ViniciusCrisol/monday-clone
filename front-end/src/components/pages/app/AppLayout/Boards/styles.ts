@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-interface BoardsMenuInterface {
+interface BoardsMenu {
   isOpen?: boolean;
 }
 
-export const Container = styled.div<BoardsMenuInterface>`
+export const Container = styled.div<BoardsMenu>`
   width: ${({ isOpen }) => (isOpen ? '255px' : '30px')};
   height: 100vh;
 
@@ -66,7 +66,7 @@ export const Container = styled.div<BoardsMenuInterface>`
   }
 `;
 
-export const Header = styled.div<BoardsMenuInterface>`
+export const Header = styled.div<BoardsMenu>`
   width: 100%;
   height: 64px;
   position: relative;
@@ -109,7 +109,7 @@ export const Header = styled.div<BoardsMenuInterface>`
   }
 `;
 
-export const BoardList = styled.ul<BoardsMenuInterface>`
+export const BoardList = styled.ul<BoardsMenu>`
   padding: 12px;
   font-size: 14px;
   display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};

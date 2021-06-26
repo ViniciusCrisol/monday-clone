@@ -9,7 +9,7 @@ import Board from './Board';
 import CreateBoard from './CreateBoard';
 import { Container, BoardList, Header } from './styles';
 
-export interface IProjectInterface {
+export interface IProject {
   id: string;
   project_name: string;
 }
@@ -17,22 +17,20 @@ export interface IProjectInterface {
 const Boards: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [createBoardIsActive, setCreateBoardIsActive] = useState(false);
-  const { data, mutate } = fetch<IProjectInterface[]>('projects');
+  const { data, mutate } = fetch<IProject[]>('projects');
 
-  const handleCloseModal = useCallback(() => {
+  const handleCloseCreateBoardModal = useCallback(() => {
     setCreateBoardIsActive(false);
   }, []);
 
-  const handleCreateBoard = useCallback(() => {
-    setCreateBoardIsActive(prevState => !prevState);
+  const handleOpenCreateBoardModal = useCallback(() => {
+    setCreateBoardIsActive(true);
   }, []);
 
   const addBoard = useCallback(
     project => {
-      const updatedProjects = [project, ...data];
-
-      mutate(updatedProjects, false);
-      mutateGlobal('projects', updatedProjects);
+      mutate([project, ...data], false);
+      mutateGlobal('projects', [project, ...data]);
     },
     [data]
   );
@@ -40,7 +38,10 @@ const Boards: React.FC = () => {
   return (
     <>
       {createBoardIsActive && (
-        <CreateBoard closeModal={handleCloseModal} addBoard={addBoard} />
+        <CreateBoard
+          addBoard={addBoard}
+          closeModal={handleCloseCreateBoardModal}
+        />
       )}
 
       <Container isOpen={isOpen}>
@@ -51,7 +52,7 @@ const Boards: React.FC = () => {
           </button>
         </Header>
         <div className="create-project">
-          <button onClick={handleCreateBoard}>
+          <button onClick={handleOpenCreateBoardModal}>
             <div>
               <FiPlusCircle size={18} />
               Add

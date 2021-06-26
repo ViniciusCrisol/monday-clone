@@ -4,12 +4,12 @@ import { FiLayout } from 'react-icons/fi';
 
 import { Container } from './styles';
 
-export interface IBoardInterface {
+export interface IBoard {
   id: string;
   label: string;
 }
 
-const Board: React.FC<IBoardInterface> = ({ label, id }) => {
+const Board: React.FC<IBoard> = ({ label, id }) => {
   const router = useRouter();
 
   return (
